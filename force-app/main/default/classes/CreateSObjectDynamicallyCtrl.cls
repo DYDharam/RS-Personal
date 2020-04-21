@@ -24,7 +24,7 @@ public class CreateSObjectDynamicallyCtrl {
                     wsfpl.value = f.getValue();
                     wrapList.add(wsfpl);
                     system.debug('System debug Check:::: ');
-                    system.debug('System debug Check:::: ');
+                    system.debug('System debug Check:::::::: ');
                 }
                 if(wrapList.size() > 0) {
                     return wrapList;
