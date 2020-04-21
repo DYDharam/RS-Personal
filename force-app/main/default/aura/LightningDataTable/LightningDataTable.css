@@ -1,0 +1,7 @@
+.THIS .input-group .lightningInput {
+    display: inline-block;
+    margin-right: 10px;
+}
+.THIS #lightningDatatable table td lightning-primitive-cell-wrapper {
+	float:left;
+}

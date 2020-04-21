@@ -1,0 +1,66 @@
+<aura:component description="Modal">
+    <aura:attribute name="title" type="String" required="true"/>
+    <aura:attribute name="addQuestionSection" type="Boolean" default="false" />
+    <aura:attribute name="answerOptionList" type="list" />
+    <aura:attribute name="questionName" type="String" />
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:registerEvent name="refreshHome" type="c:refreshHomeComponentEvent"/>
+    
+    <div class="demo-only"  style="height: 100%;">
+        <section  class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-modal__close" title="Close"
+                            onclick="{!c.closeMe}">
+                        <lightning:icon class="white slds-icon_small" iconName="utility:close"/>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                            {#v.title}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" >
+                    <!--{#v.body}-->
+                    <aura:if isTrue="{!v.addQuestionSection == true}">
+                        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                            <div class="slds-size_1-of-1">
+                                <lightning:input label="Question Name" name="" value="{!v.questionName}" required="true" />
+                            </div>
+                            <div class="slds-size_1-of-1 slds-p-top_x-small">
+                                <p> Add Options for this questions with multiple correct answers. </p>
+                            </div>
+                        </div>
+
+                        <aura:iteration items="{!v.answerOptionList}" var="option">
+                            <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_x-small">
+                                <div class="slds-size_1-of-12">
+                                    <lightning:input type="checkbox-button" aura:id="questionName" class="slds-text-align_right slds-p-right_x-small" checked="{!option.isValid}" value="{!option.isValid}" label="" variant="label-hidden" name="input2" />
+                                </div>
+                                <div class="slds-size_10-of-12">
+                                    <lightning:input label="Option1" aura:id="questionName" required="true" name="" value="{!option.optons}" variant="label-hidden" />
+                                </div>
+                                <div class="slds-size_1-of-12 slds-p-left_x-small">
+                                    <aura:if isTrue="{!option.showAddButton == true}">
+                                        <lightning:buttonIcon name="{!option.index}" class="" iconName="utility:add"  alternativeText="Add" onclick="{!c.addOptionRecord}" />
+                                        <aura:set attribute="else">
+                                            <lightning:buttonIcon name="{!option.index}" class="" iconName="utility:delete"  alternativeText="Delete" onclick="{!c.deleteOptionRecord}" />
+                                        </aura:set>
+                                    </aura:if>
+                                </div>
+                            </div>
+                        </aura:iteration>
+                    </aura:if>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" title="Neutral action" onclick="{! c.closeMe }"/>
+                    <aura:if isTrue="{!v.addQuestionSection == true}">
+                    	<lightning:button variant="brand" label="Save Question" title="Save Question" onclick="{!c.saveQuestionDetails}" />
+                    </aura:if>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</aura:component>

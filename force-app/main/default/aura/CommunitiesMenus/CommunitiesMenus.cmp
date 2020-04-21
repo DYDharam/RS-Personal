@@ -1,0 +1,131 @@
+<aura:component description="CommunitiesMenus" controller="LightningVideosController" extends="forceCommunity:navigationMenuBase" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global">
+	
+    <!--<ltng:require styles="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />  -->
+    
+    <!--<ltng:require styles="{!$Resource.Tutorials + '/Tutorials/css/font-awesome.min.css'}" />-->
+    
+    
+    
+	<aura:attribute name="userInfo" type="sObject"/>
+    <aura:attribute name="contactInfo" type="sObject"/>
+    <aura:attribute name="userList" type="List"/>
+    <aura:attribute name="lightningVideosList" type="List"/>
+    <aura:attribute name="lightningTutorialsList" type="List"/>
+    <aura:attribute name="questionsList" type="List"/>
+    
+    <aura:attribute name="domainUrl" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!--<aura:handler name="change" value="{!v.callParentDoinitForRefresh}" action="{!c.doInit}"/>-->
+    <aura:handler name="cmpRefreshLightningMenuEvent" event="c:refreshLightningMenuEvent" action="{!c.doInit}"/>
+
+
+
+
+    <!--  Spinner Start Here -->
+    <div aura:id="setSpinnerTrueFalse" id="setSpinnerTrueFalse"  class="demo-only demo--inverse slds-hide" style="height: 6rem;">
+        <div class="slds-spinner_container slds-is-fixed">
+            <div role="status" class="slds-spinner slds-spinner_medium">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+    <!--  Spinner End Here -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+        <div class="slds-size_8-of-12">
+            <!--<img style="width: 100%; height: 100px;" src="http://nhssf.org/wp-content/uploads/2016/09/home-banner-new-1024x100.png" />-->
+        </div>
+        <div class="slds-size_4-of-12">
+            <!--a saf sdaf as fasd fasdfasdf asf-->
+        </div>
+    </div>
+    
+    
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+        <div class="slds-size_12-of-12">
+            <lightning:tabset>
+                <lightning:tab label="Home" title="Home" id="Home">
+                    <c:Home userInfo="{!v.userInfo}" questionsList="{!v.questionsList}" lightningVideosList="{!v.lightningVideosList}" userList="{!v.userList}" contactInfo="{!v.contactInfo}" domainUrl="{!v.domainUrl}" />
+                </lightning:tab>
+                <lightning:tab label="Lightning Videos" title="LightningVideos"
+                               id="LightningVideos">
+                    <c:LightningVideos domainUrl="{!v.domainUrl}" lightningVideosList="{!v.lightningVideosList}"  />
+                </lightning:tab>
+                <lightning:tab label="Lightning Tutorials" title="LightningTutorials"
+                               id="LightningTutorials">
+                    <c:LightningTutorials domainUrl="{!v.domainUrl}" lightningTutorialsList="{!v.lightningTutorialsList}" lightningTutorialsListCopy="{!v.lightningTutorialsList}" />
+                </lightning:tab>
+                <aura:if isTrue="{!not(empty(v.userInfo.Name))}">
+                    <lightning:tab label="Create Lightning Videos" title="CreateLightningVideos"
+                                   id="CreateLightningVideos">
+                        <c:CreateLightningTutorials lightningVideosList="{!v.lightningVideosList}" isAttributeAvailable="isCreateLightningVideos" />
+                    </lightning:tab>
+                    <lightning:tab label="Create Lightning Tutorials" title="CreateLightningTutorials"
+                                   id="CreateLightningTutorials">
+                        <c:CreateLightningTutorials lightningTutorialsList="{!v.lightningTutorialsList}" isAttributeAvailable="isCreateLightningTutorials" />
+                    </lightning:tab>
+                </aura:if>
+                <lightning:tab label="Profile" title="Profile"
+                               id="Profile">
+                    <c:Profile  />
+                </lightning:tab>
+                <lightning:tab label="Contact Us" title="Contact us" id="ContactUs">
+                    <c:ContactUs />
+                </lightning:tab>
+            </lightning:tabset>
+        </div>
+        
+
+
+
+
+        <!--<ul class="socal">
+            <li class="facebook" title="Facebook" onclick="{!c.updateCount}">
+                <a title="Facebook" target="_blank" href="https://www.facebook.com/DYDharam/" ><i class="fa fa-facebook"></i> </a>
+            </li>
+            <li class="google-plus" onclick="{!c.updateCount}"><a title="Google Plus" target="_blank" href="https://plus.google.com/u/0/117272682721793231565/"><i class="fa fa-google-plus"></i> </a></li>
+            <li class="twitter" onclick="{!c.updateCount}"><a  title="Twitter" target="_blank" href="https://twitter.com/DY_Dharam/"><i class="fa fa-twitter"></i> </a></li>
+            <li class="linkedin" onclick="{!c.updateCount}"><a  title="Linkedin" target="_blank" href="https://www.linkedin.com/in/dharmendra-kumar-136180137/"><i class="fa fa-linkedin"></i> </a></li>
+            <li class="blogger" onclick="{!c.updateCount}"><a  title="Blogger" target="_blank" href="http://auralightning.blogspot.com/"><i class="fa fa-blogger"></i>B </a></li>
+        </ul>-->
+        
+        
+        
+        
+        
+        
+    </div>
+    
+    <div class="cusWid100">
+        
+        <div class="cus-footer cusWid100" style="background-color: #305891;">
+            <ul>
+                <li>Copyright © 2019 - Aura Lightning . All Rights Reserved.</li>
+            </ul>
+        </div>
+    </div>
+    
+</aura:component>

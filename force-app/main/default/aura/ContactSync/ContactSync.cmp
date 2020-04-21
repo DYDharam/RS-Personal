@@ -1,0 +1,7 @@
+<aura:component description="ContactSync" controller="ContactSyncController">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:button variant="brand" label="Authorize" iconName="utility:approval" iconPosition="left" onclick="{!c.authorizeData}" /> 
+	
+</aura:component>

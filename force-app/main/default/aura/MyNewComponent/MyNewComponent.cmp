@@ -1,0 +1,8 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="text" type="String" />
+     <aura:registerEvent name="event" type="c:EvtName" />
+     <aura:handler name="event" type="c:EvtName"  action="{!c.evtAction}"/> 
+    
+    <lightning:button label="sdsdfa" onclick="{!c.myAction}" />
+
+</aura:component>

@@ -1,0 +1,36 @@
+.THIS {
+}
+.THIS .item{
+    float:left;
+}
+.THIS .item{
+    width:90%;
+    height:100px;
+    float:left;
+    text-align:center;
+    line-height:100px;
+    background-color:#F3E5F5;
+}
+.THIS .owl-nav{
+    width:100%;
+    float:left;
+    padding-top: 1%;
+}
+.THIS .owl-prev{
+    float:left;
+    text-align:left;
+    background-color: #1e90ff;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 5px 10px 5px 10px;
+    text-transform: capitalize;
+}
+.THIS .owl-next{
+    float:right;
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #1e90ff;
+    padding: 5px 10px 5px 10px;
+    text-align: right;
+    text-transform: capitalize;
+}

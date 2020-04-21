@@ -1,0 +1,10 @@
+.THIS {
+}
+.THIS .slds-vertical-tabs__link {
+    padding: 3.5rem;
+}
+
+.THIS .slds-is-active {
+    background: rgba(74, 140, 172, 0.77);
+    color: #000000;
+}

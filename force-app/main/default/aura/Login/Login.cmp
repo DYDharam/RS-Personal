@@ -1,0 +1,47 @@
+<aura:component controller="RetailShopController" access="GLOBAL" implements="forceCommunity:availableForAllPageTypes,force:appHostable,flexipage:availableForAllPageTypes" >
+    <ltng:require styles="{!$Resource.RetailShop + '/css/jquery-ui.min.accordion.css'}"
+                  scripts="{!join(',',
+                           $Resource.RetailShop + '/js/jquery.min.js',
+                           $Resource.RetailShop + '/js/jquery.session.js',
+                           $Resource.RetailShop + '/js/jquery-ui.min.js'
+                           )}" afterScriptsLoaded="{!c.doInit}" />
+    <aura:attribute name="loginStatus" type="Boolean" default="false" /> 
+    <aura:attribute name="completeName" type="String" />
+    <aura:handler name="LogoutEvent" event="c:LogOut" action="{!c.LogoutEvent}" />
+    
+    
+    
+    
+    
+    <div>
+        <aura:if isTrue="{!!v.loginStatus}">
+            <div id="wrapper1">
+                <div id="logo_wrapper1" class="standard_logo_wrapper1 mb241">
+                    <h1 class="heading1" style="height: 100%; display: table-cell; vertical-align: bottom;">
+                        <img id="logo1" class="standard_logo1" src="https://lh3.googleusercontent.com/Dxa8k45aMyb_dxUeA8bmrtY0sYVMp8Vg7wVIQ08fxojBaRoCaZHlt8ga4KrdsfqAhTCoEja0Hc9d8g=w2048-h2044-no" alt="Salesforce" border="0" name="logo" />
+                    </h1>
+                </div>
+                <div id="header1" class="mb241" style="display: none;"></div>
+                <div id="content1" style="display: block;">
+                    <div id="theloginform1" style="display: block;">
+                        <div id="usernamegroup1" class="inputgroup1">
+                            <label for="username" class="label">Username</label>
+                            <div id="username_container1">
+                                <ui:inputText aura:id="username" value="" class="input1 r41 wide mb161 mt81 username1" />
+                            </div>
+                        </div>
+                        <label for="password" class="label1">Password</label>
+                        <ui:inputSecret class="input1 r41 wide mb161 mt81 password1" value="" aura:id="password" />
+                        <lightning:button class="button1 r41 wide primary" aura:id="loginButton" variant="brand" label="Let Me In." onclick="{!c.confirmLoginJS}" />
+                    </div>
+                </div>
+            </div>
+        </aura:if> <!-- End wrapper -->
+        <!--  Login Page Start -->
+        <aura:if isTrue="{!v.loginStatus}">
+            <div id="loginPage">
+                <c:RetailShop completeUserName="{!v.completeName}" />
+            </div>
+        </aura:if>
+    </div>
+</aura:component>

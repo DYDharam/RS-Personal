@@ -1,0 +1,8 @@
+<aura:component controller="lookupForBulkDataController" description="testLookupComponent" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="listOfSearchRecords" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.onInitLookup}"/>
+    
+    <aura:iteration items="{!v.listOfSearchRecords}" var="rec">
+        <c:lookupForBulkData objectAPIName="Account" lookupRecordId="{!rec.Id}" lookupRecordName="{!rec.Name}" IconName="custom:custom50" value="{!rec.Name}" selectedRecord="" label=""/>
+    </aura:iteration>
+</aura:component>

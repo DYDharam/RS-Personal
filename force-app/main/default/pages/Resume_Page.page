@@ -1,0 +1,66 @@
+<apex:page renderAs="pdf" sidebar="false" showHeader="false" applyBodyTag="false" id="Resume_Page">
+    <apex:includeLightning />
+    <head>
+        <style> 
+            body { font-family: 'Arial Unicode MS'; }
+            @page {
+            size: A4;
+            }
+            .resume_heading {
+            	margin: 0;
+            	padding: 0;
+            font-size: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <center>
+            <h1 class="resume_heading" style="margin: 0; padding: 0; font-size: 35px;"> 
+                Resume
+            </h1>
+            <p style="font-size: 12px; margin: 0; padding-top: 10px;">
+                CURRICULUM VITAE
+            </p>
+            <div style="width: 100%; float: left; padding-top: 30px;">
+                <div style="width: 45%; float: left;">
+                    &nbsp;
+                </div>
+                <div style="width: 10%; float: left; border-top: 5px solid #2F4993;">
+                    &nbsp;
+                </div>
+                <div style="width: 45%; float: left;">
+                    &nbsp;
+                </div>
+            </div>
+            
+            <div style="width: 100%; float: left; padding-top: 5px;">
+                <div style="width: 45%; float: left;">
+                    &nbsp;
+                </div>
+                <div style="width: 10%; float: left; ">
+                    EXPERIENCE
+                </div>
+                <div style="width: 45%; float: left;">
+                    &nbsp;
+                </div>
+            </div>
+            <!--https://chat.whatsapp.com/C563gvd5GGDEeMaHJNS44p-->
+            <div style="width: 100%; float: left; padding-top: 30px; font-size: 14px;">
+                <div style="width: 50%; float: left; text-align: right; border-right: 3px solid #000000; padding-right: 30px;">
+                    <p>
+                        MAY 2017   <b style="background-color: #FFD42D; padding: 5px; color: #666666;"> Current </b>
+                    </p>
+                    <p>
+                        Salesforce Developer - Cloud Analogy
+                    </p>
+                </div>
+                <div style="width: 40%; float: left; padding-left: 30px;">
+                    <p style="text-align: justify; padding: 0; margin: 0;">
+                        Cloud Analogy is recognized as one of the fastest growing companies working in the Salesforce landscape for the past few years. The stunning success of the company is attributed to the hardworking team of Salesforce Certified designers and developers.
+                    </p>
+                </div>
+            </div>
+            
+        </center>
+    </body>
+</apex:page>

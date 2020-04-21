@@ -1,0 +1,158 @@
+<aura:component description="AuraLightningView" controller="AuraLightningHomeController" extends="forceCommunity:navigationMenuBase" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    
+    
+    <aura:attribute name="domainUrl" type="String" />
+    <aura:attribute name="sObjectDetails" type="sObject" />
+    <aura:attribute name="isRunComponent" type="Boolean" default="false" />
+    <aura:attribute name="componentName" type="String" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:if isTrue="{!v.isRunComponent}">
+        <div>
+            <h1 class="slds-text-align_left slds-p-bottom_x-small" style="font-size: x-large;"> {!v.sObjectDetails.Name} </h1>
+            <hr style="padding: 0; margin: 0;" />
+            <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                <div class="slds-size_1-of-4 slds-m-vertical_x-small">
+                    <div class="slds-box_x-small slds-text-align_left">
+                        <strong class=" "> Date : <ui:outputDate value="{!v.sObjectDetails.CreatedDate}" /> </strong>
+                    </div>
+                </div>
+                <div class="slds-size_1-of-4">
+                    <div class="slds-box_x-small slds-text-align_left">
+                        <!--<lightning:icon iconName="utility:user" size="x-small" /> <strong class=" slds-p-left_xx-small"> {!v.sObjectDetails.Owner.Name} </strong>-->
+                    </div>
+                </div>
+                <div class="slds-size_1-of-4">
+                    <div class="slds-box_x-small slds-text-align_left">
+                        <!--<lightning:icon iconName="utility:spinner" size="x-small" /> <strong class=" slds-p-left_xx-small"> Aura Lightning </strong>-->
+                    </div>
+                </div>
+                <div class="slds-size_1-of-4 slds-m-vertical_x-small slds-text-align_right">
+                    <aura:if isTrue="{!v.sObjectDetails.Component_Name__c}">
+                        <lightning:button class="" label="Run Component" name="{!v.sObjectDetails.Component_Name__c}" onclick="{!c.viewComponent}" />
+                    </aura:if>
+                </div>
+            </div>
+            <hr style="padding: 0; margin: 0;" />
+            <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                <div class="slds-size_1-of-1 slds-p-around_x-small">
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Description__c))}">
+                        <h1 class=" slds-p-top_small"> Description </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_large slds-m-top_x-small">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Image_Url__c))}">
+                        <img  class="cusWidth100 slds-p-top_large" src="{!v.sObjectDetails.Image_Url__c}" />
+                        <!--<aura:set attribute="else">
+                            <img  class="slds-p-top_large" src="https://cdn.browshot.com/static/images/not-found.png" />
+                        </aura:set>-->
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.App_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Application </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.App_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Component_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Component </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Component_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Controller_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Controller </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Controller_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Helper_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Helper </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Helper_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Style_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Style </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Style_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Documentation_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Documentation </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Documentation_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Renderer_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Renderer </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Renderer_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Design_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Design </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Design_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Svg_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Svg </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Svg_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Event_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Event </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Event_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Visualforce_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Visualforce Page </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Visualforce_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!not(empty(v.sObjectDetails.Class_Description__c))}">
+                        <h1 class=" slds-p-top_small"> Apex Class </h1>
+                        <p class="cusJustify cusBackground cusLeftBorder slds-p-around_medium slds-m-top_medium">
+                            <lightning:formattedRichText value="{!v.sObjectDetails.Class_Description__c}" />
+                        </p>
+                    </aura:if>
+                    
+                </div>
+            </div>
+        </div>
+        <aura:set attribute="else">
+            <aura:if isTrue="{!v.componentName == 'Batch'}">
+            	<c:Batch />
+            </aura:if>
+            <aura:if isTrue="{!v.componentName == 'Trigger'}">
+            	<c:Trigger />
+            </aura:if>
+            <aura:if isTrue="{!v.componentName == 'Api-Salesforce'}">
+            	<c:apisalesforce />
+            </aura:if>
+        </aura:set>
+    </aura:if>
+    
+    
+    
+    
+</aura:component>

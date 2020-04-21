@@ -1,0 +1,13 @@
+<aura:component description="LightningChartComponent" controller="updateAccountName" access="global">
+    <aura:attribute type="String" name="data" />
+    <aura:attribute type="list" name="categoryList" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <c:LightningChart aura:id="compId" chartType='bar' 
+                      chartTitle='Hotel Performance vs. Prior Year' 
+                      chartSubTitle=''
+                      xAxisCategories="{!v.categoryList}"
+                      yAxisParameter='$ or %'
+                      data="{!v.data}"/>
+    <aura:attribute name="listOfSearchRecords" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.onInitLookup}"/>
+</aura:component>

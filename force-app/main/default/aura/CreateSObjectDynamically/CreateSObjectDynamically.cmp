@@ -1,0 +1,108 @@
+<!--
+ Created by:		Dharmendra Kumar On 12-April-2020.
+ Purpose:		To create sObject record Dynamically.
+ Blog:			https://auralightning.wordpress.com/
+-->
+<aura:component description="CreateSObjectDynamically" controller="CreateSObjectDynamicallyCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction">
+    <aura:attribute name="sObjectName" type="String" default="Account" />
+    <aura:attribute name="pageLayoutName" type="String" default="" />
+    <aura:attribute name="recordId" type="String" default="" />
+    <aura:attribute name="getAllFieldsList" type="list" default="" />
+    <aura:attribute name="getAllFieldsName" type="list" />
+    <!-- 43 Fields on Account 
+   Text 255.
+	Lookup
+ -->
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    
+    <aura:if isTrue="{!not(empty(v.recordId))}">
+        <lightning:recordEditForm aura:id="form"
+                                  recordId="{!v.recordId}"
+                                  objectApiName="{!v.sObjectName}"     
+                                  onload="{!c.handleOnload}"
+                                  onsubmit="{!c.handleOnSubmit}"
+                                  onsuccess="{!c.handleOnSuccess}"
+                                  onerror="{!c.handleOnError}"
+                                  class="slds-card__body_inner">
+            <aura:iteration items="{!v.getAllFieldsName}" var="col">
+                <lightning:inputField fieldName="{!col}"/>
+            </aura:iteration>
+            <lightning:layout horizontalAlign="center" class="slds-m-top_large">
+                <lightning:button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update" />
+            </lightning:layout>
+        </lightning:recordEditForm>
+        
+        
+        
+        
+        <aura:set attribute="else">
+            <lightning:layout horizontalAlign="center" class="slds-m-top_large">
+                <lightning:button class="slds-m-top_small" variant="brand" type="submit" name="insert" label="Insert" onclick="{!c.saveRecordJS}" />
+            </lightning:layout>
+            <div class="slds-p-around_large">
+                <aura:iteration items="{!v.getAllFieldsList}" var="col" indexVar="indx">
+                    ==>> {!indx + 1} ===
+                    <aura:if  isTrue="{!or(col.fieldType == 'string', col.fieldType == 'fax')}" >
+                        <lightning:input class="" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'phone'}">
+                        <lightning:input class="slds-p-top_x-small" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'date'}">
+                        <div style="width:100%;" id="DatefieldType">
+                            <lightning:input class="slds-p-top_x-small" required="{!col.isRequiredField}" type="date"
+                                             label="{!col.fieldLabel}" value="{!col.fieldValue}"/>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'datetime'}">
+                        <div style="width:100%;" id="DatefieldType">
+                            <lightning:input type="datetime" name="input5" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" min="" max="" />
+                            <!--<lightning:input class="slds-p-top_x-small" fieldType="date"
+                                             label="{!col.fieldLabel}" value="{!col.fieldValue}"/>-->
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'email'}">
+                        <lightning:input class="slds-p-top_x-small" required="{!col.isRequiredField}" fieldType="email" name="email"
+                                         value="{!col.fieldValue}" label="{!col.fieldLabel}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'integer'}">
+                        <lightning:input class="slds-p-top_x-small" required="{!col.isRequiredField}" fieldType="number" value="{!col.fieldValue}"
+                                         label="{!col.fieldLabel}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'url'}">
+                        <lightning:input type="url" class="slds-p-top_x-small" required="{!col.isRequiredField}" fieldType="number" value="{!col.fieldValue}"
+                                         label="{!col.fieldLabel}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'boolean'}">
+                        <div class="slds-p-top_x-small">
+                            <input type="checkbox" fieldType="checkbox" required="{!col.isRequiredField}" checked="" id="{!col.fieldValue}" onchange="{!c.setCheckBoxTrue}"/>
+                            <label class="slds-checkbox__label slds-p-left_x-small" for="{!col.fieldLabel}">
+                                <span class="slds-form-element__label">{!col.fieldLabel}</span>
+                            </label>
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'picklist'}">
+                        <lightning:combobox class="slds-p-top_x-small" required="{!col.isRequiredField}" value="{!col.fieldValue}" label="{!col.fieldLabel}"
+                                            placeholder="Select fieldType" options="{!col.fieldPickListData}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'currency'}">
+                        <lightning:input type="number" name="input7" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" formatter="currency" step="0.01"/>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'double'}">
+                        <lightning:input type="number" name="input7" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" />
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'textarea'}">
+                        <lightning:textarea class="slds-p-top_x-small" value="{!col.fieldValue}" required="{!col.isRequiredField}"
+                                            label="{!col.fieldLabel}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!col.fieldType == 'reference'}">
+                        <c:lookupForBulkData objectAPIName="{!col.lookupfieldType}" required="{!col.isRequiredField}" lookupRecordId="" lookupRecordName="" IconName="custom:custom50" value="{!col.fieldValue}" selectedRecord="{!col.fieldValue}" label="{!col.fieldLabel}"/>
+                    </aura:if>
+                </aura:iteration>
+            </div>
+        </aura:set>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,104 @@
+<aura:component description="ButtonFieldsUpdate"
+                implements="flexipage:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,force:hasRecordId"
+                access="global" >
+
+    <aura:attribute name="options" type="List" default="[
+                                                        {'label': 'Reinstatement', 'value': 'Reinstatement'},
+                                                        ]"/>
+    <aura:attribute name="endorsementObjectToInsert" type="sObject" default="{'sObjectType':'CanaryAMS__Endorsement__c'}" />
+    <aura:attribute name="policyObjectInfo" type="sObject" default="{'sObjectType':'CanaryAMS__Policy__c'}" />
+    <aura:attribute name="effectiveDate" type="string"/>
+    <aura:attribute name="endorsementPremium" type="Decimal" default="0.00"/>
+
+    <aura:attribute name="isMessage" type="Boolean" />
+    <aura:attribute name="errorMessage" type="string" />
+    <aura:attribute name="recordId" type="String" default="a1B0v000000kCwQ" />
+    <aura:attribute name="successMessage" type="string" />
+
+    <aura:handler name="init" value="{!this }" action="{! c.doInit }"/>
+
+    <!-- Custom Error Message Start -->
+    <aura:if isTrue="{!not(empty(v.isMessage))}">
+        <div aura:id="toastMessage" id="toastMessage" class="slds-show">
+            <div class="slds-region_narrow slds-is-relative">
+                <div class="slds-notify_container slds-is-absolute" style="margin-top: 3%; position: fixed;">
+                    <div class="slds-grid slds-grid_align-center">
+                        <div class=" slds-col slds-size--1-of-1">
+                            <aura:if isTrue="{!not(empty(v.successMessage))}">
+                                <div class="slds-notify slds-notify_toast slds-theme_success" role="alert">
+                                    <lightning:icon iconName="utility:success" size="small" variant="inverse" alternativeText="Success" />
+                                    <div class="slds-notify__content">
+                                        <h2 class="slds-text-heading_small slds-p-left_small">
+                                            <h2 class="slds-p-left_small">Success Message</h2>
+                                            <p class="slds-p-left_small slds-text-body_regular">{!v.successMessage}</p>
+                                        </h2>
+                                    </div>
+                                    <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" onclick="{!c.closeToast}">
+                                        <lightning:icon iconName="utility:close" size="small" variant="inverse" alternativeText="Close"/>
+                                    </button>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.errorMessage))}">
+                                <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                                    <lightning:icon iconName="utility:error" size="small" variant="inverse" alternativeText="Error" />
+                                    <div class="slds-notify__content">
+                                        <h2 class="slds-text-heading_small">
+                                            <h2 class="slds-p-left_small">Error Message</h2>
+                                            <p class="slds-p-left_small slds-text-body_regular">{!v.errorMessage}</p>
+                                        </h2>
+                                    </div>
+                                    <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" onclick="{!c.closeToast}">
+                                        <lightning:icon iconName="utility:close" size="small" variant="inverse" alternativeText="Close"/>
+                                    </button>
+                                </div>
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Custom Error Message End -->
+
+    <div>
+        <h2 class="slds-text-align_center slds-text-heading_small slds-border_bottom slds-p-bottom_x-small">
+            Reinstatement </h2>
+        <p class="slds-p-top_x-small">
+            The Premium Amount below will match the cancellation premium By saving this Reinstatement Endorsement you
+            are making this policy active again and applying the remaining premium amount back to the policy.
+        </p>
+
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_x-small">
+            <div class="slds-size_1-of-2 slds-p-right_xx-small slds-p-top_xx-small" id="effectiveDate">
+                <!--<lightning:input type="date" name="input1" value="{!v.effectiveDate}" label="Effective Date"/>-->
+                <ui:inputDate aura:id="effectiveDate" label="Select Date" class="effectiveDate" format="DD/MM/YYYY"  value="{!v.effectiveDate}" displayDatePicker="true" />
+            </div>
+            <div class="slds-size_1-of-2 slds-p-left_xx-small">
+                <lightning:combobox name="progress" label="Reason" value="{!v.endorsementObjectToInsert.Type__c}" placeholder="Select Progress"
+                                    options="{! v.options }" />
+            </div>
+        </div>
+
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_x-small">
+            <div class="slds-size_1-of-2 slds-p-right_xx-small">
+                <lightning:input type="number" name="input7" label="Premium" value="{!v.endorsementPremium}"
+                                 formatter="currency" step="0.01"/>
+            </div>
+            <div class="slds-size_1-of-2 slds-p-left_xx-small">
+                <lightning:textarea name="input1" label="Notes" value="{!v.endorsementObjectToInsert.CanaryAMS__Notes__c}"/>
+            </div>
+        </div>
+
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_x-small">
+            <div class="slds-size_1-of-2 slds-p-left_xx-small">
+                &nbsp;
+            </div>
+            <div class="slds-size_1-of-2 slds-p-left_xx-small slds-text-align_right">
+                <lightning:button label="Cencel" title="Cencel" onclick="{! c.closeModalPopup }"/>
+                <lightning:button variant="brand" label="Confirm" title="Brand action" onclick="{! c.onValidateEndorsementObject }"/>
+            </div>
+        </div>
+
+    </div>
+
+</aura:component>

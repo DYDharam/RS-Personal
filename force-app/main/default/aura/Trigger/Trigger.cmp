@@ -1,0 +1,142 @@
+<aura:component description="Trigger" controller="AuraLightningHomeController" extends="forceCommunity:navigationMenuBase" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    
+    <aura:attribute name="questionList" type="List"/>
+    <aura:attribute name="isSpinner" type="Boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    
+    <div>
+        <h1 class="cusBold slds-text-heading_large slds-p-bottom_x-small cusBorder"> Get Started with Apex Triggers </h1>
+        <p class="cusFontWithEtc slds-p-vertical_x-small">
+            Apex triggers enable you to perform custom actions before or after events to records in Salesforce, such as insertions, updates, or deletions. Just like database systems support triggers, Apex provides trigger support for managing records.
+            Typically, you use triggers to perform operations based on specific conditions, to modify related records or restrict certain operations from happening. You can use triggers to do anything you can do in Apex, including executing SOQL and DML or calling custom Apex methods.
+        </p>
+        <p class="cusFontWithEtc slds-p-vertical_x-small">
+            Use triggers to perform tasks that can’t be done by using the point-and-click tools in the Salesforce user interface. For example, if validating a field value or updating a field on a record, use validation rules and workflow rules instead.
+        </p>
+        <p class="cusFontWithEtc slds-p-vertical_x-small">
+            Triggers can be defined for top-level standard objects, such as Account or Contact, custom objects, and some standard child objects. Triggers are active by default when created. Salesforce automatically fires active triggers when the specified database events occur.
+        </p>
+    </div>
+    <div>
+        <h1 class="cusBold slds-text-heading_large slds-p-vertical_x-small cusBorder"> Types of Triggers </h1>
+        <ul>
+        	<li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">1. &nbsp; Before triggers: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    It is used to update or validate record values before they’re saved to the database.
+                </p>
+            </li>
+            <li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">2. &nbsp; After triggers: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    It is used to access field values that are set by the system (such as a record's Id or LastModifiedDate field), and to affect changes in other records. The records that fire the after trigger are read-only.
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div>
+    	<h1 class="cusBold slds-text-heading_large slds-p-vertical_small cusBorder"> Trigger Best Practice </h1>
+        <ul>
+        	<li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">1. &nbsp; One Trigger Per Object: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    A single Apex Trigger is all you need for one particular object. If you develop multiple Triggers for a single object, you have no way of controlling the order of execution if those Triggers can run in the same contexts.
+                </p>
+            </li>
+            <li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">2. &nbsp; Logic-less Triggers: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    If you write methods in your Triggers, those can’t be exposed for test purposes. You also can’t expose logic to be re-used anywhere else in your org.
+                </p>
+            </li>
+            <li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">3. &nbsp; Context-Specific Handler Methods: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    Create context-specific handler methods in Trigger handlers.
+                </p>
+            </li>
+            <li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">4. &nbsp; Bulkify your Code: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    Bulkifying Apex code refers to the concept of making sure the code properly handles more than one record at a time.
+                </p>
+            </li>
+            <li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">5. &nbsp; Avoid SOQL Queries or DML statements inside FOR Loops: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    An individual Apex request gets a maximum of 100 SOQL queries before exceeding that governor limit. So if this trigger is invoked by a batch of more than 100 Account records, the governor limit will throw a runtime exception
+                </p>
+            </li>
+            <li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">6. &nbsp; Using Collections, Streamlining Queries, and Efficient For Loops: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    It is important to use Apex Collections to efficiently query data and store the data in memory. A combination of using collections and streamlining SOQL queries can substantially help writing efficient Apex code and avoid governor limits
+                </p>
+            </li>
+            <li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">7. &nbsp; Querying Large Data Sets: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    The total number of records that can be returned by SOQL queries in a request is 50,000. If returning a large set of queries causes you to exceed your heap limit, then a SOQL query for loop must be used instead. It can process multiple batches of records through the use of internal calls to query and queryMore
+                </p>
+            </li>
+            <li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">8. &nbsp; Use @future Appropriately: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    It is critical to write your Apex code to efficiently handle bulk or many records at a time. This is also true for asynchronous Apex methods (those annotated with the @future keyword). The differences between synchronous and asynchronous Apex can be found.
+                </p>
+            </li>
+            <li class="slds-p-top_small">
+                <strong class="cusBold cusFont slds-text-heading_small">9. &nbsp; Avoid Hardcoding IDs: </strong>
+            	<p class="cusFontWithEtc slds-p-top_xx-small slds-p-left_x-large">
+                    When deploying Apex code between sandbox and production environments, or installing Force.com AppExchange packages, it is essential to avoid hardcoding IDs in the Apex code. By doing so, if the record IDs change between environments, the logic can dynamically identify the proper data to operate against and not fail.
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <h1 class="cusBold slds-text-heading_large slds-p-vertical_small cusBorder"> Sample Code </h1>
+        <p class="cusJustify cusBackground cusLeftBorder slds-m-top_x-small">
+    <pre>
+    trigger UpdateAccountDaysAsPerDay on Contact (before insert) {
+        if(trigger.isBefore &amp;&amp; trigger.isInsert){
+            UpdateAccountDaysAsPerDayHelper.UpdateAccountDaysAsPerDayHelper_forInsert(Trigger.new);
+        }
+        if(trigger.isAfter &amp;&amp; trigger.isUpdate){
+        	// Call the helper class
+        }
+        if(trigger.isBefore &amp;&amp; trigger.isDelete){
+            // Call the helper class
+        }
+    }
+    </pre>
+        </p>
+        
+        <h1 class="cusBold slds-text-heading_large slds-p-vertical_small cusBorder"> Helper Class </h1>
+        <p class="cusJustify cusBackground cusLeftBorder slds-m-top_x-small">
+    <pre>
+    public class UpdateAccountDaysAsPerDayHelper {
+    	public static void UpdateAccountDaysAsPerDayHelper_forInsert(List&lt;sObject&gt; sObject_list) {
+        	// Statements...
+        }
+    }
+    </pre>
+        </p>
+
+        <h1 class="cusBold slds-text-heading_large slds-p-vertical_small cusBorder"> Sample Questions </h1>
+    <aura:iteration items="{!v.questionList}" var="question" indexVar="count">
+
+        <p class="cusJustify cusBackground cusLeftBorder slds-m-top_medium">
+    <pre>
+                <p class="slds-p-top_small cusBold">    Question: {!count + 1} </p>
+            <ui:outputRichText class="slds-text-longform slds-p-around_x-large" value="{!question.Description__c}"/>
+    </pre>
+        </p>
+        
+    </aura:iteration>
+        
+    </div>    
+    
+    
+    
+</aura:component>

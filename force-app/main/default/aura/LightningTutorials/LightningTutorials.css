@@ -1,0 +1,78 @@
+.THIS {
+}
+.THIS .customHeading {
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 35px;
+}
+.THIS .cusBgCol {
+    background-color: #FAFAF9;
+    line-height: 20px;
+    font-weight: bold;
+}
+.THIS .img100 {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.THIS #Image{
+    text-align: center !important;
+}
+.THIS .polaroid {
+    width: 250px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+
+.THIS .polaroid a {
+    text-decoration: none;
+}
+.THIS .cusWidHeight {
+    width: 100%;
+    height: 200px;
+}
+.THIS .cusHref {
+    cursor: pointer;
+}
+.THIS .cusWidOwnerImage {
+    width: 20px;
+    border-radius: 50%;
+}
+.THIS .ownerImg {
+    height: 20px; 
+}
+.THIS .circleImage img {
+    border-radius: 50%;
+}
+
+
+
+
+.THIS .container {
+    /*padding: 10px;*/
+    background-color: #ffffff;
+    color: #000000;
+    opacity: 0.8;
+}
+
+.THIS .card {
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.THIS .container p{
+    padding: 10px;
+    cursor: pointer;
+}
+
+.THIS .container_heading {
+    background-color: #000000;
+    color: #e6e6e6;
+    opacity: 0.8;
+}
+.THIS .container_heading p {
+    padding: 10px;
+    color: #ffffff;
+}

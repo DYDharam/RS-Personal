@@ -1,0 +1,49 @@
+.THIS {
+}
+.THIS .cusFontName {
+    font-size: 14px;
+	color: #828282;
+	float: left;
+	line-height: 42px;
+	margin-bottom: 0px;
+	margin-left: 20px;
+}
+.THIS .cusSendEmail {
+    line-height: 40px;
+    text-align: right;
+}
+.THIS .cusSendEmail img {
+    /*font-size: 14px;
+	color: #828282;
+	float: left;
+	line-height: 40px;
+	margin-bottom: 0px;*/
+    width: 20px;
+}
+.THIS .imgLink img {
+    cursor: pointer;
+    width: 25px;
+}
+.THIS .emailImg {
+    cursor: pointer;
+}
+.THIS .question {
+    font-weight: bold;
+    line-height: 25px;
+    font-size: 14px;
+    text-align: justify;
+}
+.THIS .answer {
+    line-height: 25px;
+    font-size: 14px;
+    text-align: justify;
+}
+.THIS .post-count {
+    border-radius: 100px;
+    padding: 2px 5px;
+    font-size: .7579em;
+    background-color: #ec5645;
+}
+.THIS #checkBoxDisabled .slds-checkbox_faux {
+    background-color: #FFFFFF;
+}

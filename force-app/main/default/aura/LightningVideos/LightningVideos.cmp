@@ -1,0 +1,77 @@
+<aura:component description="LightningVideos" controller="LightningVideosController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global">
+    <aura:attribute name="lightningVideosList" type="List"/>
+    <aura:attribute name="domainUrl" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="demo-only demo--only-sizing slds-grid slds-wrap slds-border_top slds-border_left slds-border_right slds-border_bottom" style="background-color: #F9F9F8; line-height: 35px; border-radius: 2px; font-weight: bold;" >
+        <div class="slds-size_2-of-12 slds-p-left_small">
+             S. No.
+        </div>
+        <div class="slds-size_8-of-12">
+            Name
+        </div>
+        <div class="slds-size_2-of-12 slds-text-align_right slds-p-right_small">
+            Owner
+        </div>
+    </div>
+    
+    
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_stripe slds-border_top slds-border_right slds-border_bottom slds-border_left">
+        <tbody style="line-height: 35px; cursor: pointer;">
+            <aura:iteration items="{!v.lightningVideosList}" var="lightningVideo" indexVar="index"> 
+                <a href="{!lightningVideo.Video_Url__c}" target="_blank" >
+                    <div class="slds-size_2-of-12 slds-p-left_small slds-float_left">
+                        <b>{!index + 1}.</b>
+                    </div>
+                    <div class="slds-size_8-of-12 slds-truncate slds-float_left">
+                        {!lightningVideo.Name}
+                    </div>
+                    <div class="slds-size_2-of-12 slds-text-align_right slds-p-right_small slds-float_left circleImage">
+                        <img class="ownerImg" id="{!lightningVideo.Owner.Name}" src="{!'http://'+v.domainUrl+lightningVideo.CreatedBy.FullPhotoUrl}" />
+                    </div>
+                </a>
+                <hr style="margin: 0; padding: 0;" />
+            </aura:iteration>
+            
+        </tbody>
+    </table>
+    
+
+
+
+
+
+   
+
+
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</aura:component>

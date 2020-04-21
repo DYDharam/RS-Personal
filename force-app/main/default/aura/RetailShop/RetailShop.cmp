@@ -1,0 +1,874 @@
+<aura:component controller="RetailShopController" implements="force:lightningQuickAction,force:hasRecordId,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="customer_wrapper_classAtt" type="Per_Day_Details__c[]" />
+    <aura:attribute name="stock_wrapper_classAtt" type="String[]" />
+    <aura:attribute name="NewCustomer" type="object" />
+    <aura:attribute name="Message" type="String" />
+    <aura:attribute name="Stock_Notification" type="Stock__c[]" />
+    <aura:attribute name="today" type="Date" />
+    <aura:attribute name="from" type="Date" />
+    <aura:attribute name="to" type="Date" />
+    <aura:attribute name="details_From_And_To" type="Per_Day_Details__c[]" />
+    <aura:attribute name="customerName" type="String" />
+    <aura:attribute name="PaymentCustomerNameAtt" type="String[]" />
+    <aura:attribute name="PaymentDetailsACName" type="String[]" />
+    <aura:attribute name="RecentPerDayDetails" type="String[]" />
+    <aura:attribute name="allCustomerDetails" type="list[]" />
+    
+    
+    <aura:attribute name="CurrentCustomerDetails" type="Map" />
+    
+    <aura:attribute name="completeUserName" type="String" />
+    
+   
+    
+    
+   <aura:registerEvent name="LogoutEvent" type="c:LogOut"/>
+ 
+
+    
+    
+    
+    <ltng:require styles="{!$Resource.RetailShop + '/css/jquery-ui.min.accordion.css'}"
+   scripts="{!join(',',
+   $Resource.RetailShop + '/js/jquery.min.js','https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+   $Resource.RetailShop + '/js/jquery.session.js',
+   $Resource.RetailShop + '/js/jquery-ui.min.js'
+            )}" afterScriptsLoaded="{!c.doInit}" />
+    
+	<div>
+   
+    <!--  Login Page End -->
+    
+    <div id="wrapper_content">
+    
+    
+    <!-- Header First Start -->
+
+    <div class="first_header" style="    padding: 1% 2% 1% 2%;">
+    	<div style="width:40%; float:left;">
+    		<div class="slds-media__body modal-content">
+            <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Rohde Corp - 80,000 Widgets">Retail Shop Management System.</h1>
+            <p class="slds-text-body_small slds-line-height_reset">Developed • By • DY Dharam  </p>
+        	</div>
+            <strong> Welcome {!v.completeUserName} </strong>
+    	</div>
+    	<div style="width:20%; float:left;">
+    		<div class="slds-form-element__control">
+                  <ui:inputDate aura:id="dateField" label="Select Date" class="selectdateField"  value="{!v.today}" displayDatePicker="true" change="{!c.getCurrentDate}"/>
+            </div>
+    	</div>
+    	<div style="width:40%; float:right;">
+	   		<div class="slds-button-group slds-form-element__control slds-p-top_small slds-p-left_x-small" role="group" style="float:right;">
+	             <button class="slds-button slds-button_brand" onclick="{!c.NewCustomer_Create}">Add New Customer</button>
+	             &nbsp; &nbsp;
+	             <button class="slds-button slds-button_brand" onclick="{!c.letMeOutJS}">Let Me Out !</button>
+	        </div>
+    	</div>
+    </div>
+    
+    <!-- Header First End -->
+    
+    <!-- SLDS TABS START -->
+    <div class="slds">
+    <!--tab start--> 
+     <div class="slds-tabs--scoped">
+        <ul class="slds-tabs--scoped__nav" role="tablist">
+           <li aura:id="t1" class="slds-tabs--scoped__item slds-text-title--caps slds-active" title="your tab 1" role="presentation" onclick="{! c.tabOneAction}"><a class="slds-tabs--scoped__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-scoped-1" id="tab-scoped-1__item"><strong>Per Day Details</strong></a></li>
+           <li aura:id="t2" class="slds-tabs--scoped__item slds-text-title--caps" title="your tab 2" role="presentation" onclick="{! c.tabTwoAction}"><a class="slds-tabs--scoped__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-2" id="tab-scoped-2__item"><strong>Stock Details</strong></a></li>
+           <li aura:id="t3" class="slds-tabs--scoped__item slds-text-title--caps" title="your tab 3" role="presentation" onclick="{!c.tabThreeAction}"><a class="slds-tabs--scoped__link" href="javascript:void(0);" role="tab" tabindex="-2" aria-selected="true" aria-controls="tab-scoped-1" id="tab-scoped-1__item"><strong>Bill Details</strong></a></li>
+           <li aura:id="t4" class="slds-tabs--scoped__item slds-text-title--caps" title="your tab 4" role="presentation" onclick="{!c.tabFourAction}"><a class="slds-tabs--scoped__link" href="javascript:void(0);" role="tab" tabindex="-3" aria-selected="true" aria-controls="tab-scoped-4" id="tab-scoped-1__item"><strong>Payment</strong></a></li>
+           <li aura:id="t5" class="slds-tabs--scoped__item slds-text-title--caps" title="your tab 5" role="presentation" onclick="{!c.tabFiveAction}"><a class="slds-tabs--scoped__link" href="javascript:void(0);" role="tab" tabindex="-3" aria-selected="true" aria-controls="tab-scoped-4" id="tab-scoped-1__item"><strong>Customer Details</strong></a></li>
+        </ul>
+        <div aura:id="tab1" class="slds-tabs--scoped__content slds-show" role="tabpanel" aria-labelledby="tab-scoped-1__item">
+            <div class="slds-grid">
+                <div class="slds-col">
+                <div class="slds-grid">
+                    <div class="slds-col" style=" width:50%; height:595px; overflow-y: scroll;">
+                        <table id="details" class="slds-table slds-table_bordered slds-border_left slds-table_cell-buffer slds-border_right">
+                            <thead>
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center "><h1>S. No</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center "><h1>Customer Name</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1>Sold Quantity (Ltr)</h1></div>
+                                    </th>
+                                    <!-- <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1>Cash</h1></div>
+                                    </th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.customer_wrapper_classAtt}" var="customers" indexVar="index">
+                                <tr>
+                                    <td data-label="S. No">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub"><strong> {!index+1}. </strong></div>
+                                    </td>
+                                    <td data-label="Customer Name">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub">{!customers.Name}</div>
+                                    </td>
+                                    <td data-label="Quantity">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub"><input type="text" class="slds-input slds-size_1-of-4" disabled="{!customers.isDisabled}"  value="{!customers.sQuantity}" id="{!customers.CustomerId}"  data-id="{!customers.CustomerId}" oninput="{!c.SoldQuantity_JS}" /></div>
+                                    </td>
+                                    <!-- <td data-label="Quantity">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub"><ui:inputCheckbox class="CheckBoxSize" value="{!customers.isCash}" name="{!customers.CustomerId}" disabled="{!customers.isCashDisable}" click="{!c.CashValueDeails_JS}" /></div>
+                                    </td> -->
+                                </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="slds-col slds-p-left_x-small" style=" width:50%;">
+                    	<h2 class="slds-text-title_caps" style="line-height: 30px; color:#000000; background-color: #eeeeee; text-align: center; font-weight: bold;">Recent Records Saved</h2>
+                    	<div style="width:100%; max-height:325px; overflow:auto;">
+                        	<table id="recentPerDayDetailsShow" class="slds-table slds-border_left slds-table_cell-buffer slds-border_right">
+	                            <thead>
+	                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse" style="border:2px solid #eeeeee;">
+	                                    <th scope="col">
+	                                        <div class="slds-truncate slds-text-align_center"><h1><strong>S. No</strong></h1></div>
+	                                    </th>
+	                                    <th scope="col">
+	                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Date</strong></h1></div>
+	                                    </th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <aura:iteration items="{!v.RecentPerDayDetails}" var="recent" indexVar="index">
+	                                <tr id="recentBorderBottom">
+	                                    <td data-label="S. No">
+	                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub"><strong> {!index+1}. </strong></div>
+	                                    </td>
+	                                    <td data-label="Customer Name">
+	                                        <div class="slds-truncate slds-text-align_center" title="Date">
+                                                <a name="{!recent}" onclick="{!c.getRecentDetails}"> {!recent} </a></div>
+	                                    </td>
+	                                    
+	                                </tr>
+	                                </aura:iteration>
+	                            </tbody>
+	                        </table>
+                        </div>
+                    	
+                    	<div style="width:100%; max-height:200px; overflow:auto;">
+	                        <table id="details_notification_alert" class="slds-table slds-border_left slds-table_cell-buffer slds-border_right">
+	                            <thead>
+	                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse" id="notification_alert1">
+	                                    <th scope="col" colspan="3" id="notification_msg">
+	                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Notification For Stock</strong></h1></div>
+	                                    </th>
+	                                </tr>
+	                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse  notification_alert" id="notification_alert2">
+	                                    <th scope="col">
+	                                        <div class="slds-truncate slds-text-align_center"><h1><strong>S. No</strong></h1></div>
+	                                    </th>
+	                                    <th scope="col">
+	                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Name</strong></h1></div>
+	                                    </th>
+	                                    <th scope="col">
+	                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Available in KG.</strong></h1></div>
+	                                    </th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <aura:iteration items="{!v.Stock_Notification}" var="sto_notification" indexVar="index">
+	                                <tr>
+	                                    <td data-label="S. No">
+	                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub"><strong> {!index+1}. </strong></div>
+	                                    </td>
+	                                    <td data-label="Customer Name">
+	                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub">{!sto_notification.Name}</div>
+	                                    </td>
+	                                    <td data-label="Customer Name">
+	                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub">{!sto_notification.Quantity__c}</div>
+	                                    </td>
+	                                    
+	                                </tr>
+	                                </aura:iteration>
+	                            </tbody>
+	                        </table>
+                        </div>
+                        
+                    </div>
+                </div>
+                </div>
+            </div>  
+            
+            <div class="slds-docked-form-footer">
+                    <div class="slds-text-align_center" style="float:left; width:50%;">
+                        <button type="button" class="slds-button slds-button_brand" onclick="{!c.SavePerDayDetailsJS}">Save</button>
+                        <button type="button" class="slds-button slds-button_neutral">Cancel</button>
+                    </div>
+                    <div class="slds-text-align_center" style="float:left; width:50%;">
+                        
+                    </div>
+                </div>
+            
+         </div>      
+        
+    <div aura:id="tab2" class="slds-tabs--scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-2__item">
+         <div class="slds-grid">
+                <div class="slds-col">
+                <div class="slds-grid">
+                    <div class="slds-col" style=" width:50%; height:595px; overflow-y: scroll;">
+                        <table id="" class="slds-border_left slds-border_right slds-table slds-table_bordered slds-table_cell-buffer">
+                            <thead>
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center "><h1>S. No</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center "><h1>Product Name</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1>Available Quantity (Kg)</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1>Add Quantity (Kg)</h1></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.stock_wrapper_classAtt}" var="stock" indexVar="index">
+                                <tr>
+                                    <td data-label="S. No">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub"><strong> {!index+1}. </strong></div>
+                                    </td>
+                                    <td data-label="Customer Name">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub">{!stock.Name}</div>
+                                    </td>
+                                    <td data-label="Quantity">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub">{!stock.sQuantity} KG</div>
+                                    </td>
+                                    <td data-label="Quantity">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub"><ui:inputNumber class="slds-input slds-size_1-of-4" value="{!stock.AddQuantity}" required="true"/></div>
+                                    </td>
+                                </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="slds-col slds-p-left_x-small" style=" width:50%;">
+                        <table id="" class="slds-table slds-border_left slds-table_cell-buffer slds-table_bordered slds-border_right">
+                            <thead>
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>S. No</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Name</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Per Day Use Product</strong></h1></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.stock_wrapper_classAtt}" var="per_day_use" indexVar="index">
+                                <tr>
+                                    <td data-label="S. No">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub"><strong> {!index+1}. </strong></div>
+                                    </td>
+                                    <td data-label="Customer Name">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub">{!per_day_use.Name}</div>
+                                    </td>
+                                    <td data-label="Customer Name">
+                                    	<div class="slds-truncate slds-text-align_center" title="Cloudhub"><ui:inputNumber class="slds-input slds-size_1-of-4" value="{!per_day_use.useProduct}" required="true"/></div>
+                                        
+                                    </td>
+                                    
+                                </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+             
+             	<div class="slds-docked-form-footer">
+                    <div class="slds-text-align_center" style="float:left; width:50%;">
+                        <button type="button" class="slds-button slds-button_brand" onclick="{!c.AddProductQuantity}">Add Quantity</button>
+                        <button type="button" class="slds-button slds-button_neutral">Cancel Quantity</button>
+                    </div>
+                    <div class="slds-text-align_center" style="float:left; width:50%;">
+                        <button type="button" class="slds-button slds-button_brand" onclick="{!c.changePerDayProductDetailsJS}">Change Per Day Product Details</button>
+                    </div>
+                </div>
+             
+            </div>               
+     </div>
+
+	
+	
+      <div aura:id="tab3" class="slds-tabs--scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-3__item">
+            <div class="slds-grid">
+				<div class="slds-col">
+				<div class="slds-grid">
+					<div class="slds-col" style=" width:70%; height:595px; overflow-y: scroll;">
+					
+						
+					
+						<table id="" class="slds-border_left slds-border_right slds-table slds-table_bordered slds-table_cell-buffer">
+							<thead>
+								<tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col" colspan="5">
+                                        <div class="slds-truncate slds-text-align_center">
+                                        	<ui:inputSelect class="fieldChange" aura:id="Payment_Customer_Name" label="Select Customer  " change="{!c.customer_name}">
+                                        		<option value="">-- None --</option>
+										        <aura:iteration items="{!v.customer_wrapper_classAtt}" var="level">
+										             <ui:inputSelectOption text="{!level.Name}" class="selectBox" label="{!level.Name}"/>
+										        </aura:iteration>
+										    </ui:inputSelect>
+										    
+										    <!-- <lightning:select name="mySelect" label="Select Customer: " aura:id="mySelect" value="{!v.selectedValue}" onchange="{!c.customer_name}">
+										        <aura:iteration items="{!v.customer_wrapper_classAtt}" var="level">
+										            <option text="{!level.Name}" value="{!level.Name}" selected="{!level.Name}"/>
+										         </aura:iteration>
+										    </lightning:select> -->
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse  notification_alert">
+                                	<th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>&nbsp;</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>From</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center">
+                                        	<!--  Date Picker From -->
+                                        	<div class="slds-form-element slds-float_left">
+								              <div class="slds-form-element__control">
+								                  <ui:inputDate aura:id="dateField1" class="dateField"  value="{!v.from}" displayDatePicker="true" change="{!c.getFromDate}"/>
+								              </div>
+								            </div>
+								            <!--  Date Picker End From -->
+                                        </div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>To</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center">
+                                        	<!--  Date Picker To -->
+                                        	<div class="slds-form-element slds-float_left">
+								              <div class="slds-form-element__control">
+								                  <ui:inputDate aura:id="dateField2" class="dateField"  value="{!v.to}" displayDatePicker="true" change="{!c.getToDate}"/>
+								              </div>
+								            </div>
+								            <!--  Date Picker End To -->
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>S. No</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>&nbsp;</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Quantity</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Amount</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Date</strong></h1></div>
+                                    </th>
+                                </tr>
+							</thead>
+							<tbody>
+								<aura:iteration items="{!v.details_From_And_To}" var="details" indexVar="index">
+								<tr>
+									<td data-label="S. No">
+										<div class="slds-truncate slds-text-align_center" title="Cloudhub"><strong> {!index+1}. </strong></div>
+									</td>
+									<td data-label="Customer Name">
+										<div class="slds-truncate slds-text-align_center" title="Cloudhub">&nbsp;</div>
+									</td>
+									<td data-label="Customer Name">
+										<div class="slds-truncate slds-text-align_center" title="Cloudhub">{!details.Quantity__c}</div>
+									</td>
+									<td data-label="Customer Name">
+										<div class="slds-truncate slds-text-align_center" title="Cloudhub">{!details.Amount__c}</div>
+									</td>
+									<td data-label="Customer Name">
+										<div class="slds-truncate slds-text-align_center" title="Cloudhub">{!details.Date__c}</div>
+									</td>
+								</tr>
+								</aura:iteration>
+							</tbody>
+						</table>
+					</div>
+					<div class="slds-col slds-p-left_x-small" style=" width:30%;">
+						<table id="" class="slds-border_left slds-border_right slds-table slds-table_bordered slds-table_cell-buffer">
+							<thead>
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col">
+                                    	<div class="slds-truncate slds-text-align_center">
+                                        	<ui:inputText aura:id="total_Quantity" label="Total Quantity : "
+				                                class="slds-input widthAdjust totalQuantity"
+				                                labelClass="slds-form-element__label"/>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                	<th scope="col">
+                                        <div class="slds-truncate slds-text-align_center">
+                                        	<ui:inputText aura:id="total_amount" label="Total Amount : "
+				                                class="slds-input widthAdjust"
+				                                labelClass="slds-form-element__label"
+				                                value=""/>
+                                        </div>
+                                    </th>
+                                </tr>
+							</thead>
+							</table>
+					</div>
+				</div>
+				</div>
+			 
+				<div class="slds-docked-form-footer">
+					<div class="slds-text-align_center" style="float:left; width:50%;">
+						<!-- <button type="button" class="slds-button slds-button_brand" onclick="{!c.AddProductQuantity}">Add Quantity</button> -->
+						
+					</div>
+					<div class="slds-text-align_center" style="float:left; width:50%;">
+						
+					</div>
+				</div>
+			 
+			</div> 
+      </div>
+      
+      
+      
+      <div aura:id="tab4" class="slds-tabs--scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-4__item">
+            <div class="slds-grid">
+				<div class="slds-col">
+				<div class="slds-grid">
+					<div class="slds-col" style=" width:70%; height:595px; overflow-y: scroll;">
+					
+						
+					
+						<table id="" class="slds-border_left slds-border_right slds-table slds-table_bordered slds-table_cell-buffer">
+							<thead>
+								<tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col" colspan="5">
+                                        <div class="slds-truncate slds-text-align_center">
+                                        	<ui:inputSelect class="fieldChange" aura:id="customerNa" label="Select Customer  "  change="{!c.getPaymentDetailsACNameJS}">
+                                        		<option value="">-- None --</option>
+										        <aura:iteration items="{!v.PaymentCustomerNameAtt}" var="payName">
+										             <ui:inputSelectOption text="{!payName.Name}" class="selectBox" label="{!payName.Name}"/>
+										        </aura:iteration>
+										    </ui:inputSelect>
+										    
+										    
+										    <!-- <lightning:select name="mySelect" label="Select Customer: " aura:id="mySelect" value="{!v.selectedValue}" onchange="{!c.customer_name}">
+										        <aura:iteration items="{!v.customer_wrapper_classAtt}" var="level">
+										            <option text="{!level.Name}" value="{!level.Name}" selected="{!level.Name}"/>
+										         </aura:iteration>
+										    </lightning:select> -->
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>S. No</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Date</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Dues Amount</strong></h1></div>
+                                    </th>
+                                    <!-- <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Amount</strong></h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1><strong>Date</strong></h1></div>
+                                    </th> -->
+                                </tr>
+							</thead>
+							<tbody>
+								<aura:iteration items="{!v.PaymentDetailsACName}" var="det" indexVar="index">
+								<tr>
+									<td data-label="S. No">
+										<div class="slds-truncate slds-text-align_center" title="Cloudhub"><strong> {!index+1}. </strong></div>
+									</td>
+									<td data-label="Customer Name">
+										<div class="slds-truncate slds-text-align_center" title="Cloudhub">{!det.Dues_Date__c}</div>
+									</td>
+									<td data-label="Customer Name">
+										<div class="slds-truncate slds-text-align_center" title="Cloudhub">{!det.Dues_Amount__c}</div>
+									</td>
+									<!-- <td data-label="Customer Name">
+										<div class="slds-truncate slds-text-align_center" title="Cloudhub">{!det.Name}</div>
+									</td>
+									<td data-label="Customer Name">
+										<div class="slds-truncate slds-text-align_center" title="Cloudhub">{!det.Name}</div>
+									</td> -->
+								</tr>
+								</aura:iteration>
+							</tbody>
+						</table>
+					</div>
+					<div class="slds-col slds-p-left_x-small" style=" width:30%;">
+						<table id="" class=" slds-table ">
+							<thead>
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                	<th scope="col">
+                                        <div class="slds-truncate slds-text-align_center">
+                                        	<ui:inputText aura:id="TotalDuesAmount" label="Total Dues Amount : "
+				                                class="slds-input widthAdjust"
+				                                labelClass="slds-form-element__label"
+				                                disabled="true"
+				                                value=""/>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <br />
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col">
+                                    	<div class="slds-truncate slds-text-align_center">
+                                        	<ui:inputText aura:id="getPaymentName" label="Name : "
+				                                class="slds-input widthAdjust"
+				                                labelClass="slds-form-element__label"
+				                                disabled="true"
+				                                value=""/>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <br />
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col">
+                                    	<div class="slds-truncate slds-text-align_center">
+                                        	<ui:inputText aura:id="paidAmountFromCustomer" label="Paid Amount : "
+				                                class="slds-input widthAdjust"
+				                                labelClass="slds-form-element__label"
+				                                value=""/>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <br />
+                                <tr>
+                                	<div class="slds-text-align_center" style="float:left; width:100%;">
+										<button type="button" class="slds-text-align_center slds-button slds-button_brand" onclick="{!c.payAmountJS}">Pay Amount</button>
+									</div>
+                                </tr>
+							</thead>
+							</table>
+					</div>
+				</div>
+				</div>
+			 
+				<div class="slds-docked-form-footer">
+					<div class="slds-text-align_center" style="float:left; width:50%;">
+						<!-- <button type="button" class="slds-button slds-button_brand" onclick="{!c.AddProductQuantity}">Add Quantity</button> -->
+						
+					</div>
+					<div class="slds-text-align_center" style="float:left; width:50%;">
+						
+					</div>
+				</div>
+			 
+			</div> 
+      </div>
+      
+<!--  Tabs 5 -->      
+      <div aura:id="tab5" class="slds-tabs--scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-scoped-4__item">
+		<div class="slds-grid">
+			<div class="slds-col">
+			<div class="slds-grid">
+				<div class="slds-col" style=" width:100%;">
+					
+                        <table id="" class="slds-border_left slds-border_right slds-table slds-table_bordered slds-table_cell-buffer">
+                            <thead>
+                                <tr class="slds-text-title_caps slds-theme_info slds-text-color_inverse">
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1>Status</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center "><h1>S. No</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center "><h1>Name</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1>Address</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1>Phone</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1>Price</h1></div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate slds-text-align_center"><h1>Mode</h1></div>
+                                    </th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.allCustomerDetails}" var="customer" indexVar="index">
+                                <!-- View Details -->
+                                <tr title="{!customer.Name}" style="height:50px;">
+                                    <td data-label="S. No">
+                                        <div class="slds-truncate slds-text-align_center">
+                                            <aura:if isTrue="{!customer.Mode == true}">
+                                                <aura:if isTrue="{!customer.status__c == true}">
+                                                    <img width="15" src="{!$Resource.retailShopImage + '/retailShopImage/success.png'}"/>
+                                                    <aura:set attribute="else">
+                                                        <img width="20" src="{!$Resource.retailShopImage + '/retailShopImage/Yellow_Warning_Sign.gif'}"/>
+                                                    </aura:set>
+                                                </aura:if>
+                                            <aura:set attribute="else">
+                                                <input type="checkbox" checked="{!customer.status__c}" id="status" data-id="{!customer.Id}" onchange="{!c.updateCustomerDetailsJS}" />
+                                            </aura:set>
+                                            </aura:if>
+                                            <strong><!--<img style="width:25px;" src="https://vignette.wikia.nocookie.net/dragonvale/images/8/85/Yellow_Warning_Sign.gif/revision/latest?cb=20120415234737" />--> <!--<img style="width:25px;" src="https://cdn4.iconfinder.com/data/icons/icocentre-free-icons/137/f-check_256-512.png" /> {!customer.status__c}.--> </strong></div>
+                                    </td>
+                                    <td data-label="S. No">
+                                        <div class="slds-truncate slds-text-align_center"><strong> {!index+1}. </strong></div>
+                                    </td>
+                                    <td data-label="Customer Name">
+                                        <div class="slds-truncate slds-text-align_center">
+                                            <aura:if isTrue="{!customer.Mode == true}">
+                                                {!customer.Name}
+                                                <aura:set attribute="else">
+                                                    <input type="Text" class="slds-input slds-size_1-of-2" value="{!customer.Name}" id="Name"  data-id="{!customer.Id}" onchange="{!c.updateCustomerDetailsJS}" />
+                                                </aura:set>
+                                            </aura:if>
+                                            
+                                        </div>
+                                    </td>
+                                    <td data-label="Address">
+                                        <div class="slds-truncate slds-text-align_center">
+                                            <aura:if isTrue="{!customer.Mode == true}">
+                                                {!customer.Address__c}
+                                                <aura:set attribute="else">
+                                                    <textarea class="slds-input slds-size_1-of-1" value="{!customer.Address__c}" rows="1" id="Address"  data-id="{!customer.Id}" onchange="{!c.updateCustomerDetailsJS}" />
+                                                </aura:set>
+                                            </aura:if>
+                                            
+                                        </div>
+                                    </td>
+                                    <td data-label="Phone">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub">
+                                            <aura:if isTrue="{!customer.Mode == true}">
+                                                {!customer.Phone__c}
+                                                <aura:set attribute="else">
+                                                    <input type="Text" class="slds-input slds-size_1-of-2" value="{!customer.Phone__c}" id="Phone"  data-id="{!customer.Id}" onchange="{!c.updateCustomerDetailsJS}" />
+                                                </aura:set>
+                                            </aura:if>
+                                        </div>
+                                    </td>
+                                    <td data-label="Price">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub">
+                                            <aura:if isTrue="{!customer.Mode == true}">
+                                                {!customer.Rate__c}
+                                                <aura:set attribute="else">
+                                                    <input type="Text" class="slds-input slds-size_1-of-2" value="{!customer.Rate__c}" id="Rate"  data-id="{!customer.Id}" onchange="{!c.updateCustomerDetailsJS}" />
+                                                </aura:set>
+                                            </aura:if>
+                                        </div>
+                                    </td>
+                                    <td data-label="Mode">
+                                        <div class="slds-truncate slds-text-align_center" title="Cloudhub">
+                                            <aura:if isTrue="{!customer.Mode == true}">
+                                                <img style="cursor:pointer;" data-id="{!customer.Id}" width="20" src="{!$Resource.retailShopImage + '/retailShopImage/edit.png'}"  onclick="{!c.OpenEditModeCustomerJS}" />
+                                                <aura:set attribute="else">
+                                                    <img style="cursor:pointer;" data-id="{!customer.Id}" width="20" src="{!$Resource.retailShopImage + '/retailShopImage/Save.png'}"  onclick="{!c.OpenViewModeCustomerJS}" />
+                                                </aura:set>
+                                            </aura:if>
+                                            <!-- <img style="width:20px;" data-id="{!customer.Id}" src="https://maxcdn.icons8.com/Share/icon/Editing//edit1600.png" onclick="{!c.OpenEditModeCustomerJS}" /> -->
+                                        </div>
+                                        <!--<div class="slds-truncate slds-text-align_center" title="Save" style="display:none;" id="{!customer.Id}">
+                                            <img style="width:20px;" data-id="{!customer.Id}" src="https://cdn3.iconfinder.com/data/icons/black-easy/512/538720-disk_512x512.png" onclick="{!c.OpenEditModeCustomerJS}" />
+                                        </div>-->
+                                    </td>
+                                </tr>
+                                    <!-- View Details End -->
+                                    <!-- Edit Detilas Start -->
+                                    
+                                    <!-- Edit Details End -->
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    
+				<!-- Left Side Content Here -->
+                    
+					
+				</div>
+				<!--<div class="slds-col slds-p-left_x-small" style=" width:30%;">
+					Right Side
+				</div> -->
+			</div>
+			</div>
+		 
+			
+		</div> 
+	</div>
+<!-- Tabs 5 End -->
+      
+      
+        
+                </div>
+  <!--tab end-->
+    </div>
+    <!-- SLDS TABS END -->
+    
+    
+    
+    <div id="MessageWindow" style=" display: none; position: fixed;    left: 0;    right: 0;    top: 0;    right: 0;    z-index: 1000000;    bottom: 0;    background: rgba(0,0,0,0.5)">
+	    <div id="backgroundColor" class="slds-align_absolute-center green_background">
+	    	<div id="Message" class="slds-align_absolute-center MessageContainer" >{!v.Message}</div>
+	    	<div class="slds-align_absolute-center MessageCloseButton" onclick="{!c.CloseMessageWindow}"> X </div>
+	    </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    <!-- New Customer Details -->
+    <div id="New_Customer_Create" style="display: none;">
+        <div class="demo-only" style="height: 640px;">
+          <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open ">
+            <div class="slds-modal__container">
+              <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick="{!c.CloseNewCustomer}" title="Close">
+                  <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Customer Details</h2>
+              </header>
+              <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+              <form>
+                 <ui:inputText aura:id="Name" label="Name"
+                                class="slds-input"
+                                labelClass="slds-form-element__label"
+                                value=""
+                                required="true"/>
+                 <ui:inputText aura:id="Address" label="Address"
+                                class="slds-input"
+                                labelClass="slds-form-element__label"
+                                value=""
+                                required="true"/>
+                 <ui:inputText aura:id="phone" label="Mobile No"
+                                class="slds-input"
+                                labelClass="slds-form-element__label"
+                                value=""
+                                required="true"/>
+                 <ui:inputText aura:id="rate" label="Price"
+                                class="slds-input"
+                                labelClass="slds-form-element__label"
+                                value=""
+                                required="true"/>
+                  
+                  <!-- <div class="slds-file-selector__dropzone">
+                            <input type="file" class="slds-file-selector__input slds-assistive-text" accept="image/png" id="file-upload-input-01"
+                                   aura:id="file" onchange="{!c.showfile}" aria-labelledby="file-selector-primary-label file-selector-secondary-label" />
+                            <label class="slds-file-selector__body" for="file-upload-input-01" id="file-selector-secondary-label">
+                  <span class="slds-file-selector__button slds-button slds-button_neutral">
+                   Upload Files</span>
+                                <span class="slds-file-selector__text slds-medium-show">or Drop Files {!v.FileName} </span>
+                            </label>
+                        </div> -->
+                  <!-- <input type="File" aura:id="file" Label="Select Image"
+                         		class="slds-input"
+                         		labelClass="slds-form-element__label"
+                                value="{!v.NewCustomer.Image__c}"
+                         		/> -->
+                     
+             </form>
+             
+              </div>
+              <footer class="slds-modal__footer">
+                    <lightning:button class="slds-button" iconName="utility:save" label="Save" onclick="{!c.CreateCustomerAccount}"/>
+                    <lightning:button class="slds-button" iconName="utility:close" label="Cancel" onclick="{!c.CloseNewCustomer}"/>
+              </footer>
+            </div>
+          </section>
+          <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>    
+        </div>
+        </div>
+         <!-- New Customer Details End -->
+   </div>
+    
+    
+    <!-- New Popup Show -->
+    
+    <div Id="popupContainer" style="display:none;">
+            <div class="demo-only" style="height: 640px;">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open  slds-modal_large">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.close}">
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <table>
+                                <thead>
+                                    <tr class="slds-text-title_caps headings">
+                                        <th scope="col">
+                                            <div class="slds-truncate slds-text-align_center">
+                                                <h1>S. No</h1></div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate cen slds-text-align_center">
+                                                <h1>Name</h1></div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate cen slds-text-align_center">
+                                                <h1>Quantity</h1></div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </header>
+                        <div class="slds-modal__content" id="modal-content-id-1">
+
+                            <div class="view_result_container" style="width:100%;">
+                                <table id="details" class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                    <tbody class="tbody_border">
+                                      
+                                        <aura:iteration items="{!v.CurrentCustomerDetails}" var="rec" indexVar="index">
+                                            <tr>
+                                                <td data-label="S. No">
+                                                    <div class="slds-truncate slds-text-align_center" title="Cloudhub"><strong> {!index+1}. </strong></div>
+                                                </td>
+                                                <td data-label="Customer Name">
+                                                    <div class="slds-truncate slds-text-align_center" title="Cloudhub">{!rec.Name}</div>
+                                                </td>
+                                                <td data-label="Customer Name">
+                                                    <div class="slds-truncate slds-text-align_center" title="Cloudhub"><input type="text" class="slds-input slds-size_1-of-8"  value="{!rec.Quantity}" id="{!rec.Id}" data-id="{!rec.Id}" oninput="{!c.UpdateSoldQuantity_JS}"  /></div>
+                                                </td>
+                                            </tr>
+                                        </aura:iteration>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <button class="slds-button slds-button_brand" onclick="{!c.recentPerDayDetailUpdateJS}">Update</button>
+                            <button class="slds-button slds-button_neutral" onclick="{!c.close}">Close
+                            </button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+
+        </div>
+    
+    
+    
+    
+   
+</aura:component>

@@ -1,0 +1,5 @@
+.THIS {
+}
+.THIS #effectiveDate .uiInput--input .input, .THIS #effectiveDate .uiInput--input.input {
+        min-height: auto !important;
+}

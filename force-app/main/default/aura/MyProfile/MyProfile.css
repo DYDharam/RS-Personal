@@ -1,0 +1,40 @@
+.THIS {
+}
+.THIS .cusFont {
+    font-family: cursive;
+}
+.THIS .cusHeight30 {
+    /*line-height: 30px;*/
+    font-weight: bold;
+    color: #000000;
+}
+.THIS .cusBold {
+    font-weight: bold;
+}
+.THIS .cusHeight10 {
+    line-height: 10px;
+    font-weight: bold;
+    color: #000000;
+}
+.THIS .cusRightSide {
+    color: gray;
+    font-weight: bold;
+}
+.THIS .cusHeadingCol {
+    color: #2F4993;
+}
+.THIS .cusNormalCol {
+    color: #769ec0;
+}
+.THIS .cusIconBg {
+    background-color: #0d9ddb;
+}
+.THIS .cusBorder {
+    border-right: 2px solid #dddbda;
+}
+.THIS .cusColor {
+    color: #4b4b48;
+}
+.THIS .cusRightSideFont {
+    text-align: justify; color: gray;
+}

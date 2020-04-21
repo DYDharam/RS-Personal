@@ -1,0 +1,119 @@
+<aura:component description="Calender">
+
+
+
+
+
+  <aura:attribute name="calenderRows" type="List[]" />
+
+  <aura:attribute name="currentDate" type="String" />
+
+  <aura:attribute name="currentMonth" type="String" />
+
+  <aura:attribute name="currentMonthNumber" type="Integer" />
+
+  <aura:attribute name="currentYear" type="String" />
+
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+  <div class="slds-m-around_large" >
+
+      <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+
+          <div class="slds-size_1-of-12">
+
+              <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small cusCursor" onclick="{!c.previousMonth}">&lt;</div>
+
+          </div>
+
+          <div class="slds-size_10-of-12">
+
+              <div class=" slds-box_x-small slds-text-align_center slds-m-around_x-small slds-text-heading_small cusBold"> {!v.currentMonth} &nbsp; {!v.currentYear} </div>
+
+          </div>
+
+          <div class="slds-size_1-of-12">
+
+              <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small cusCursor" onclick="{!c.nextMonth}">&gt;</div>
+
+          </div>
+
+      </div>
+
+      <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+
+          <div class="slds-size_1-of-7">
+
+              <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">Sunday</div>
+
+          </div>
+
+          <div class="slds-size_1-of-7">
+
+              <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">Monday</div>
+
+          </div>
+
+          <div class="slds-size_1-of-7">
+
+              <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">Tuesday</div>
+
+          </div>
+
+          <div class="slds-size_1-of-7">
+
+              <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">Wednesday</div>
+
+          </div>
+
+          <div class="slds-size_1-of-7">
+
+              <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">Thrusday</div>
+
+          </div>
+
+          <div class="slds-size_1-of-7">
+
+              <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">Friday</div>
+
+          </div>
+
+          <div class="slds-size_1-of-7">
+
+              <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">Saturday</div>
+
+          </div>
+
+      </div>
+
+      <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+
+          <aura:iteration items="{!v.calenderRows}" var="rows" indexVar="rowCount">
+
+              <aura:if isTrue="{!v.currentDate == rows}">
+
+                  <div class="slds-size_1-of-7" style="line-height: 40px;">
+
+                      <div style="background-color: #649bdc; color: #ffffff;" class="cusBold slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small"> &nbsp;{!rows}</div>
+
+                  </div>
+
+                  <aura:set attribute="else">
+
+                      <div class="slds-size_1-of-7" style="line-height: 40px;">
+
+                          <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small"> &nbsp;{!rows}</div>
+
+                      </div>
+
+                  </aura:set>
+
+              </aura:if>
+
+          </aura:iteration>
+
+      </div>
+
+  </div>
+
+</aura:component>

@@ -1,0 +1,36 @@
+<aura:component description="ColoredCells" controller="ColoredCellsController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="loadMoreOffset" type="Integer" default="10"/>
+    <aura:attribute name="rowsToLoad" type="Integer" default="10"/>
+    
+    <!-- For Sorting -->
+    <aura:attribute name="sortedBy" type="String"/>
+    <aura:attribute name="sortedDirection" type="String"/>
+    <aura:attribute name="defaultSortDirection" type="String"/>
+
+    
+    <aura:attribute name="isSpinner" type="Boolean" default="false"/>
+    <aura:if isTrue="{!v.isSpinner}">
+        <lightning:spinner alternativeText="Loading" size="large" />
+    </aura:if>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <lightning:datatable
+                         keyField="id"
+                         data="{! v.data }"
+                         columns="{! v.columns }"
+                         hideCheckboxColumn="false"
+                         maxRowSelection="1"
+                         showRowNumberColumn="true"
+                         onrowselection="{!c.onRowSelectionJs}"
+                         onrowaction="{! c.handleRowAction }"
+                         hideTableHeader="false"
+                         resizeColumnDisabled="false"
+                         sortedBy="{! v.sortedBy }"
+                         sortedDirection="{! v.sortedDirection }"
+                         defaultSortDirection="{! v.defaultSortDirection }"
+                         onsort="{! c.sortColumns }"
+                         />
+    
+</aura:component>

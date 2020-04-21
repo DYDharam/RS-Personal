@@ -1,0 +1,83 @@
+.THIS {
+}
+.THIS .title-heading {
+    color: #048ec6;
+}
+.THIS .cusJustify {
+    text-align: justify;
+}
+.THIS .cusWidth100 {
+    width: 100%;
+    float: left;
+}
+.THIS .cusWidth50 {
+    width: 50%;
+    float: left;
+}
+.THIS .cusImg {
+    width: 150px;
+}
+.THIS h2 {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.THIS .cusBold {
+    font-weight: bold;
+    color: #5F5F5F;
+}
+
+.THIS .cusCursor {
+    cursor: pointer;
+    
+}
+.THIS .cusBorderForAll {
+    border-bottom: 2px solid #666666;
+}
+.THIS .cusBorderForAllRight {
+    border-top: 2px solid #666666;
+}
+
+
+.THIS .item{
+ float:left;
+}
+.THIS .item{
+    width:90%;
+    height:100px;
+    float:left;
+    text-align:center;
+    line-height:100px;
+    background-color:#F3E5F5;
+}
+.THIS .owl-nav{
+ width:100%;
+ float:left;
+ padding-top: 1%;
+}
+.THIS .owl-prev{
+    float:left;
+    text-align:left;
+    background-color: #1e90ff;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 5px 10px 5px 10px;
+    text-transform: capitalize;
+}
+.THIS .owl-next{
+    float:right;
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #1e90ff;
+    padding: 5px 10px 5px 10px;
+    text-align: right;
+    text-transform: capitalize;
+}
+.THIS .cusHref {
+    text-decoration: none;
+    color: #000000;
+}
+/*.THIS .fullWidthAndHeight div {
+    width: 900px !important;
+    
+}*/

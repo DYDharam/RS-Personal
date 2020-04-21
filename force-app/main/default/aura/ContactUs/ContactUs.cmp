@@ -1,0 +1,36 @@
+<aura:component description="ContactUs" controller="LightningVideosController">
+	
+    <aura:attribute name="options" type="List" default="[
+                                                        {'label': 'New', 'value': 'new'},
+                                                        {'label': 'In Progress', 'value': 'inProgress'},
+                                                        {'label': 'Finished', 'value': 'finished'},
+                                                        ]"/>
+    <aura:attribute name="contactUsInfo" type="sObject" default="{'sobjectType': 'Contact_Us__c'}" />
+    
+    
+    
+    <div class="container">
+        <div style="text-align:center">
+            <h2>Contact Us</h2>
+            <p>Swing by for a cup of coffee, or leave us a message:</p>
+        </div>
+        <div class="row">
+            <div class="column1">
+                <img src="https://www.w3schools.com/w3images/map.jpg" style="width:100%" />
+            </div>
+            <div class="column2">
+                
+                    <lightning:input name="input1" label="First Name" value="{!v.contactUsInfo.Name}" />
+                    <lightning:input name="input1" label="Last Name" value="{!v.contactUsInfo.Last_Name__c}" />
+                    <lightning:input type="email" name="email1" label="Email" value="{!v.contactUsInfo.Email__c}" />
+                    
+                    <!--<lightning:combobox name="progress" label="Status" value="inProgress" placeholder="Select Progress" options="{! v.options }" onchange="{! c.handleChange }"/>-->
+                    
+                    <lightning:textarea label="Description" value="{!v.contactUsInfo.Description__c}" />
+                    
+                    <input class="submit-btn" type="submit" value="Submit" onclick="{!c.saveContactUs}" />
+                
+            </div>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,67 @@
+.THIS {
+}
+.THIS .socal {
+    width: 40px;
+    top: 35%;
+    right: 0px;
+    color: #FFF;
+    position: fixed;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.THIS .socal li {
+	float: none;
+    width: 40px;
+    height: 40px;
+    display: block;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+}
+.THIS .socal li a{ 
+	width: 100%;
+    float: left;
+}
+.THIS .facebook {
+    background-color: #305891;
+}
+.THIS .google-plus {
+    background-color: #ce4d39;
+}
+.THIS .twitter {
+    background-color: #2ca8d2;
+}
+.THIS .pinterest {
+    background-color: #c61118;
+}
+.THIS .linkedin {
+    background-color: #0077B5;
+}
+.THIS .blogger {
+    background-color: #f4873b;
+    font-weight: bold;
+}
+
+.THIS .fa {
+    color: #ffffff;
+}
+.THIS .blogger a {
+    color: #ffffff;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+
+
+.THIS .cusWid100 {
+    width: 100%;
+    float: left;
+}
+.THIS .cus-footer {
+    position: fixed;
+    bottom: 0;
+    color: #ffffff;
+    line-height: 30px;
+    text-align: center;
+    right: 0;
+}

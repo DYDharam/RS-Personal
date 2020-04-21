@@ -1,0 +1,261 @@
+<aura:component description="MyProfile" access="global" controller="MyProfilePageController">
+
+
+	<aura:attribute name="currentUserProfileDetails" type="sObject" default="{'sobjectType': 'User'}" />
+	<aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+    <div>
+
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap cusHeadingCol" style="background-color: #EAEAEA; ">
+
+            <div class="slds-size_1-of-1" style="background-color: #FFFFFF;">
+                <div class="slds-box_x-small slds-text-align_center  slds-m-bottom_large">
+                    <h1 class="slds-text-heading_large slds-p-top_large cusFont" style="font-size: -webkit-xxx-large;"> {!v.currentUserProfileDetails.Name} </h1>
+                    <h3 class="slds-p-top_x-small cusFont" style="font-size: larger; "> {!v.currentUserProfileDetails.Title} </h3>
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                        <div class="slds-size_5-of-12">
+                            &nbsp;
+                        </div>
+                        <div class="slds-size_2-of-12">
+                            <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                <div class="slds-size_4-of-12">
+                                    &nbsp;
+                                </div>
+                                <div class="slds-size_4-of-12">
+                                    <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                                </div>
+                                <div class="slds-size_4-of-12">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-size_5-of-12">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <h3 class="slds-p-top_small"> ABOUT ME </h3>
+                    <p class="cusFont cusNormalCol" style="padding: 3% 15% 3% 15%; font-size: medium;">
+                        "I am a salesforce developer from last 2.5 years at cloud analogy.
+                        I work efficiently both as an individual contributor as well as along with a team.
+                        I seek new challenges and try to think out-of-the-box while looking for creative solutions to a given problem.
+                        Besides the details given in my resume, I believe in character, values, vision, and action.
+                        I am a quick learner and believe in learning from my mistakes for I strongly feel that this virtue will take me ahead in life and career.!"
+                        <!--{!v.currentUserProfileDetails.Description__c}-->
+                    </p>
+                    <!-- Personal Info -->
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                        <div class="slds-size_5-of-12">
+                            &nbsp;
+                        </div>
+                        <div class="slds-size_2-of-12">
+                            <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                <div class="slds-size_4-of-12">
+                                    &nbsp;
+                                </div>
+                                <div class="slds-size_4-of-12">
+                                    <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                                </div>
+                                <div class="slds-size_4-of-12">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-size_5-of-12">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <h3 class="slds-p-top_small slds-p-bottom_medium"> PERSONAL INFO </h3>
+
+
+
+
+
+                    <div class="c-container">
+                        
+                        
+                        
+                        <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large cusColor" >
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder slds-p-right_large custom-box  slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_right">
+                                <strong> Name </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusRightSideFont custom-box slds-p-left_large slds-p-right_x-large slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_left">
+                                {!v.currentUserProfileDetails.Name}
+                            </lightning:layoutItem>
+                            
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder slds-p-right_large custom-box slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_right">
+                                <strong> Birthday </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class=" cusRightSideFont custom-box slds-p-left_large slds-p-right_x-large slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_left">
+                                12-03-1992                                
+                            </lightning:layoutItem>
+                            
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder slds-p-right_large custom-box slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_right">
+                                <strong> Place of Birth </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusRightSideFont custom-box slds-p-left_large slds-p-right_x-large slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_left">
+                                Jharkhand
+                            </lightning:layoutItem>
+                            
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder slds-p-right_large custom-box slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_right">
+                                <strong> Nationality </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusRightSideFont custom-box slds-p-left_large slds-p-right_x-large slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_left">
+                                Indian
+                            </lightning:layoutItem>
+                            
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder slds-p-right_large custom-box slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_right">
+                                <strong> Marital Status </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusRightSideFont custom-box slds-p-left_large slds-p-right_x-large slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_left">
+                                Single
+                            </lightning:layoutItem>
+                            
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder slds-p-right_large custom-box slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_right">
+                                <strong> Freelance </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusRightSideFont custom-box slds-p-left_large slds-p-right_x-large slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_left">
+                                Available
+                            </lightning:layoutItem>
+                            
+                            
+                        </lightning:layout>
+                        
+                        
+                        
+
+                        
+
+                        
+
+                        
+
+                    </div>
+
+
+                    <!-- Contact Info Start-->
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                        <div class="slds-size_5-of-12">
+                            &nbsp;
+                        </div>
+                        <div class="slds-size_2-of-12">
+                            <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                <div class="slds-size_4-of-12">
+                                    &nbsp;
+                                </div>
+                                <div class="slds-size_4-of-12">
+                                    <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                                </div>
+                                <div class="slds-size_4-of-12">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-size_5-of-12">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <h3 class="slds-p-top_small"> CONTACT INFO </h3>
+                    <div class="c-container">
+                        <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                            <lightning:layoutItem size="5" flexibility="auto" padding="" class="custom-box slds-p-top_left slds-p-top_small slds-p-bottom_small slds-text-align_right">
+                                &nbsp;
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="2" flexibility="auto" padding="" class="custom-box slds-p-top_x-small">
+                                <lightning:icon size="xx-small" iconName="action:new_person_account" alternativeText="Approved" />
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="5" flexibility="auto" padding="" class="custom-box slds-p-top_right slds-p-top_small slds-p-bottom_small slds-text-align_left">
+                                &nbsp;
+                            </lightning:layoutItem>
+                        </lightning:layout>
+
+                        <lightning:layout verticalAlign="stretch" multipleRows="true" class="slds-p-top_x-small">
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-around_xx-small slds-text-align_right slds-border_right cusHeight30 cusLeftSide">
+                                Adress: &nbsp; &nbsp;
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-around_xx-small slds-text-align_left cusHeight30 cusRightSide">
+                                 &nbsp; &nbsp;  Addi Banglow, Jhumri Telaiya
+                            </lightning:layoutItem>
+                        </lightning:layout>
+
+                        <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-around_xx-small slds-text-align_right slds-border_right cusHeight30 cusLeftSide">
+                                  &nbsp; &nbsp;
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-around_xx-small slds-text-align_left cusRightSide">
+                                 &nbsp; &nbsp; Koderma, Jharkhand.
+                            </lightning:layoutItem>
+                        </lightning:layout>
+
+                        <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-around_xx-small slds-text-align_right slds-border_right cusHeight30 cusLeftSide">
+                                E-Mail:  &nbsp; &nbsp;
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-around_xx-small slds-text-align_left cusRightSide">
+                                 &nbsp; &nbsp; infodharmendra2020@gmail.com
+                            </lightning:layoutItem>
+                        </lightning:layout>
+
+                        <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-around_xx-small slds-text-align_right slds-border_right cusHeight30 cusLeftSide">
+                                Phone:  &nbsp; &nbsp;
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-around_xx-small slds-text-align_left cusHeight30 cusRightSide">
+                                 &nbsp; &nbsp; +919572337612
+                            </lightning:layoutItem>
+                        </lightning:layout>
+
+                        <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class=" slds-p-around_xx-small custom-box slds-text-align_right slds-border_right cusHeight30 cusLeftSide">
+                                Facebook: &nbsp; &nbsp;
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" flexibility="auto" padding="" class="slds-p-around_xx-small custom-box slds-text-align_left cusHeight30 cusRightSide">
+                                 &nbsp; &nbsp; DYDharam
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </div>
+
+
+
+
+                    <!-- Contact Info Start-->
+                    <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                        <div class="slds-size_5-of-12">
+                            &nbsp;
+                        </div>
+                        <div class="slds-size_2-of-12">
+                            <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                <div class="slds-size_4-of-12">
+                                    &nbsp;
+                                </div>
+                                <div class="slds-size_4-of-12">
+                                    <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                                </div>
+                                <div class="slds-size_4-of-12">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-size_5-of-12">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <h3 class="slds-p-top_small"> OTHER INFO </h3>
+
+                    <div class="c-container">
+                        <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                            <lightning:layoutItem size="5" flexibility="auto" padding="" class="custom-box slds-p-top_left slds-p-top_small slds-p-bottom_small slds-text-align_right">
+                                <p class="cusBold"> DOWNLOAD MY CV </p>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="2" flexibility="auto" padding="" class="custom-box slds-p-top_x-small">
+                                <lightning:icon size="xx-small" iconName="action:download" alternativeText="Approved" />
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="5" flexibility="auto" padding="" class="custom-box slds-p-top_right slds-p-top_small slds-p-bottom_small slds-text-align_left">
+                                <p class="cusBold"> PRINT MY RESUME </p>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

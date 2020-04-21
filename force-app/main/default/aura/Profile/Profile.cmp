@@ -1,0 +1,22 @@
+<aura:component description="Profile">
+
+    <div class="" style="padding: 3% 10% 3% 10%;">
+        <lightning:tabset variant="vertical">
+            <lightning:tab label="ABOUT ME">
+                <c:MyProfile />
+            </lightning:tab>
+            <lightning:tab label="RESUME">
+                <c:MyResume/>
+            </lightning:tab>
+            <lightning:tab label="PORTFOLIO">
+                Portfolio in under Construction.
+            </lightning:tab>
+            <lightning:tab label="BLOG">
+                Blog in under Construction.
+            </lightning:tab>
+            <lightning:tab label="CONTACT">
+                <c:Contact />
+            </lightning:tab>
+        </lightning:tabset>
+    </div>
+</aura:component>

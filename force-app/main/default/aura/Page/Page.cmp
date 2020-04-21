@@ -1,0 +1,39 @@
+<aura:component description="Page" extends="forceCommunity:navigationMenuBase" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global">
+	
+        
+    
+    
+	
+    
+    <aura:attribute name="domainUrl" type="String"/>
+    <aura:attribute name="componentName" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!--<aura:handler name="change" value="{!v.callParentDoinitForRefresh}" action="{!c.doInit}"/>-->
+    <aura:handler name="cmpRefreshLightningMenuEvent" event="c:refreshLightningMenuEvent" action="{!c.doInit}"/>
+    
+    
+    <aura:if isTrue="{!v.componentName == 'Calender'}">
+    	<c:Calender />
+    </aura:if>
+    <aura:if isTrue="{!v.componentName == 'MyProfile'}">
+    	<c:MyProfile />
+    </aura:if>
+    <aura:if isTrue="{!v.componentName == 'Profile'}">
+        <c:Profile />
+    </aura:if>
+    
+    
+    <aura:if isTrue="{!v.componentName == 'profile'}">
+    	<c:MyProfile />
+    </aura:if>
+    <aura:if isTrue="{!v.componentName == 'resume'}">
+    	<c:MyResume />
+    </aura:if>
+    <aura:if isTrue="{!v.componentName == 'contact'}">
+    	<c:Contact />
+    </aura:if>
+    
+    
+</aura:component>

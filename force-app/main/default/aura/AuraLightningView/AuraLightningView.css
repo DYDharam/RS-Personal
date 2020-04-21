@@ -1,0 +1,14 @@
+.THIS {
+}
+.THIS .cusJustify {
+	text-align: justify;
+}
+.THIS .cusLeftBorder {
+	border-left: 3px solid #16A1E7;
+}
+.THIS .cusBackground {
+	background-color: #F8F8F8;
+}
+.THIS .cusWidth100 {
+    width: 100%;
+}

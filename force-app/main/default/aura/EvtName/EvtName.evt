@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="EvtName" >
+        <aura:attribute name="text" type="String" />
+
+</aura:event>

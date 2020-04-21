@@ -1,0 +1,69 @@
+.THIS {
+}
+
+
+.THIS .flip-card {
+  background-color: transparent;
+  width: 300px;
+  perspective: 1000px;
+}
+
+.THIS .flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+
+.THIS .flip-card-front, .THIS .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.THIS .flip-card-front {
+  background-color: #bbb;
+  color: black;
+  z-index: 2;
+}
+
+.THIS .flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+
+.THIS .cusCursor {
+	cursor: pointer;
+}
+
+.THIS .bgGreen span{
+    background-color: #4CAF50;
+}
+.THIS .bgBlue span{
+    background-color: #1666a5;
+}
+.THIS .bgYellow span{
+    background-color: #ff9800;
+}
+.THIS .bgRed span{
+    background-color: #f32f2f;
+}
+.THIS .green svg{
+    fill: #4CAF50;
+}
+.THIS .blue svg{
+    fill: #1666a5;
+}
+.THIS .yellow svg{
+    fill: #ff9800;
+}
+.THIS .red svg{
+    fill: #f32f2f;
+}

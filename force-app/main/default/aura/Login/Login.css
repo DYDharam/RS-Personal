@@ -1,0 +1,197 @@
+.THIS {
+}
+@media only screen and (max-height: 610px){
+	.THIS #wrapper1, .THIS #wrapper_forgot_forgot1 {
+    padding-top: 20px;
+}
+}
+
+@media only screen and (max-height: 670px){
+	.THIS #wrapper1, .THIS #wrapper_forgot1 {
+    padding-top: 40px;
+}
+}
+
+@media only screen and (max-height: 736px){
+	.THIS #wrapper1, .THIS #wrapper_forgot1 {
+    padding-top: 60px;
+}
+}
+
+
+@media only screen and (max-height: 900px){
+	.THIS #wrapper1, .THIS #wrapper_forgot1 {
+    padding-top: 100px;
+}
+}
+
+
+@media only screen and (max-height: 1000px){
+	.THIS #wrapper1, .THIS #wrapper_forgot1 {
+    padding-top: 140px;
+}
+}
+
+
+@media only screen and (max-height: 1200px){
+	.THIS #wrapper1, .THIS #wrapper_forgot1 {
+    padding-top: 180px;
+}
+}
+
+.THIS #wrapper1 {
+    width: 30% !important;
+    margin-left: 35% !important;
+    margin-top: 5% !important;
+}
+.THIS #wrapper1, .THIS #wrapper_forgot1 {
+    padding: 20px 0px 0px 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 380px;
+    -moz-transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    transition: all 0.25s;
+}
+.THIS #logo1{
+    width:70%;
+    border-radius:50%;
+    border:1px solid #000000;
+}
+.THIS .standard_logo_wrapper1 {
+    height: 113px;
+    overflow: hidden;
+    width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: table;
+}
+.THIS .forgotPassword1{
+    float:right;
+}
+.THIS .demo-only1{
+    display:none;
+}
+.THIS .mb241 {
+    margin-bottom: 24px;
+}
+.THIS #header1 {
+    color: #16325c;
+}
+
+.THIS #header1 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 24px;
+    font-family: SFSLight, Arial, sans-serif;
+}
+
+.THIS #content1, .THIS .container1 {
+    background-color: #ffffff;
+}
+
+.THIS #content1 {
+    display: none;
+}
+.THIS #content1 {
+    margin: 0px auto;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #D8DDE6;
+    color: #16325c;
+}
+.THIS #signup1 {
+    display: none;
+}
+
+.THIS .heading1 {
+	height: 100%; display: table-cell; vertical-align: bottom;
+}
+.THIS .label1 {
+    font-size: 12px;
+    color: #54698d;
+    margin: 0 0 8px 0;
+    line-height: inherit;
+}
+
+.THIS label1 {
+    cursor: default;
+}
+.THIS input.input, .THIS select.input, .THIS input.answer-input.input, .THIS input.password-input.input {
+    border: 1px solid #D8DDE6;
+    border-radius: 4px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    background-color: #fff;
+    font-family: SFS, Arial, sans-serif;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    font-size: 14px;
+    transition: all 0.1s;
+}
+
+.THIS .username1 {
+    display: block;
+}
+
+.THIS .input1 {
+    padding: 12px;
+}
+
+.THIS .wide {
+    width: 100%;
+}
+
+.THIS .r41 {
+    border-radius: 4px;
+}
+
+.THIS .mt81 {
+    margin-top: 8px;
+}
+
+.THIS .mb161 {
+    margin-bottom: 16px;
+}
+.THIS input1 {
+    height: auto !important;
+}
+
+
+.THIS #content1 {
+    margin: 0px auto;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #D8DDE6;
+    color: #16325c;
+}
+.THIS .button1 {
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: 0;
+    font-size: 14px;
+    font-family: SFS, Arial, sans-serif;
+    color: white;
+    background-color: #005fb2;
+    cursor: pointer;
+    background-image: none !important;
+}
+
+
+.THIS .success_msg{
+    display:none;
+}
+.THIS .heading_h2{
+    background-color:green;
+}
+.THIS #forgotPassword1{
+    display:none;
+}

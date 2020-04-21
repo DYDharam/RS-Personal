@@ -1,0 +1,11 @@
+<apex:page controller="GoogleDriveController">
+<apex:form >
+    <apex:pageblock >
+        <apex:commandbutton action="{!DriveAuth}" value="Google Drive Authentication" >
+             <!-- <apex:inputFile value="{!attachment.body}"  id="file"/>-->
+    </apex:commandbutton></apex:pageblock>
+
+    <apex:inputfile value="{!file}" contentType="{!filetype}"  filename="{!filename}"/>
+    <apex:commandButton value="Upload fiel" action="{!UploadFile}"/>
+</apex:form>
+</apex:page>

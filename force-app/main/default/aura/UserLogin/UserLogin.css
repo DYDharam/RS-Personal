@@ -1,0 +1,41 @@
+.THIS {
+}
+
+.THIS .icon1, .THIS .icon2{
+    left:10%;
+}
+.THIS .fa-user, .THIS .fa-unlock-alt{
+    line-height:25px;
+}
+.THIS #ProfileImageUrl{
+    width:150px;
+    height:150px;
+}
+.THIS .btn-custom{
+    color: white;
+    background: #f05f2a;
+    border: none;
+    padding: 8px 31px;
+	outline:none;
+    font-size: 1.1em;
+    cursor: pointer;
+	letter-spacing: 1px;
+	font-weight: 400;
+	background: rgba(227, 255, 254, 0.16);
+    border: 1px solid rgba(0, 0, 0, 0.33);
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    background: #fff;
+    color: black;
+	transition:0.5s all;
+	-webkit-transition:0.5s all;
+	-o-transition:0.5s all;
+	-moz-transition:0.5s all;
+	-ms-transition:0.5s all;
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+}

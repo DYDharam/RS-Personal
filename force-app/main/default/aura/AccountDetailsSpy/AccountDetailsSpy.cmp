@@ -1,0 +1,11 @@
+<aura:component description="AccountDetailsSpy" controller="StreamingApiAccountHandlerController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <c:StreamingApiAccountHandler channelName="/topic/AccountSpy" onStreamEvent="{!c.handleMessage}" />
+    <lightning:button label="Update Phone Field" onclick="{!c.updateAccountPhone}" />
+    <br />
+    <br />
+    <strong class="slds-p-top_small">
+    	Note:
+    </strong>
+    <p class="slds-p-top_small"> It will not work for the Guest User Community. If you have a user then you can able to use this API.</p>
+    <a class="slds-p-top_small" href="{!$Resource.resourceFile}" >Download Static Resource File</a>
+</aura:component>

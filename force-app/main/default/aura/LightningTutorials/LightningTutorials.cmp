@@ -1,0 +1,181 @@
+<aura:component description="LightningTutorials">
+    <aura:attribute name="lightningTutorialsList" type="list" />
+    <aura:attribute name="lightningTutorialsListCopy" type="list" />
+    <aura:attribute name="openModalWithDescription" type="Boolean" default="false" />
+    <aura:attribute name="lightningTutorialsRecord" type="sObject" />
+    <aura:attribute name="tutorialName" type="String" />
+    <aura:attribute name="tutorialDescription" type="String" />
+    <aura:attribute name="domainUrl" type="String"/>
+    
+    
+    <aura:if isTrue="{!v.openModalWithDescription}">
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.lightningTutorialsRecord.Name}</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <lightning:tabset selectedTabId="Image">
+                            <lightning:tab label="Image" id="Image">
+                                <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Image_Url__c))}">
+                                	<img src="{!v.lightningTutorialsRecord.Image_Url__c}" />
+                                    <aura:set attribute="else">
+                                    	<img src="https://cdn.browshot.com/static/images/not-found.png" />
+                                    </aura:set>
+								</aura:if>
+                            </lightning:tab>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Description__c))}">
+                                <lightning:tab label="Description" id="Description">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.App_Description__c))}">
+                                <lightning:tab label="App" id="App">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.App_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Component_Description__c))}">
+                                <lightning:tab label="Component" id="Component">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Component_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Controller_Description__c))}">
+                                <lightning:tab label="Controller" id="Controller">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Controller_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Helper_Description__c))}">
+                                <lightning:tab label="Helper" id="Helper">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Helper_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Style_Description__c))}">
+                                <lightning:tab label="Style" id="Style">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Style_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Documentation_Description__c))}">
+                                <lightning:tab label="Documentation" id="Documentation">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Documentation_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Renderer_Description__c))}">
+                                <lightning:tab label="Renderer" id="Renderer">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Renderer_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Design_Description__c))}">
+                                <lightning:tab label="Design" id="Design">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Design_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Svg_Description__c))}">
+                                <lightning:tab label="Svg" id="Svg">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Svg_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Event_Description__c))}">
+                                <lightning:tab label="Event" id="Event">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Event_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Visualforce_Description__c))}">
+                                <lightning:tab label="Visualforce Page" id="VisualforcePage">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Visualforce_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(v.lightningTutorialsRecord.Class_Description__c))}">
+                                <lightning:tab label="Class" id="Class">
+                                    <lightning:formattedRichText value="{!v.lightningTutorialsRecord.Class_Description__c}"></lightning:formattedRichText>
+                                </lightning:tab>
+                            </aura:if>
+                        </lightning:tabset>
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <aura:if isTrue="{!v.lightningTutorialsRecord.Component_Name__c}">
+                        	<lightning:button label="Run Component" name="{!v.lightningTutorialsRecord.Component_Name__c}" onclick="{!c.viewComponent}" />
+                        </aura:if>
+                        <lightning:button label="Close" variant="brand" onclick="{!c.closeModalWindow}" />
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    
+    
+    
+    
+    
+    
+    <div class="demo-only demo--only-sizing slds-grid slds-wrap" >
+        <div class="slds-size_4-of-12">
+             &nbsp;
+        </div>
+        <div class="slds-size_4-of-12">
+            &nbsp;
+        </div>
+        <div class="slds-size_4-of-12 slds-p-bottom_x-small">
+            <lightning:input
+                             aura:id="tutorialSearch"
+                             name="enter-search"
+                             placeholder="Search In Progress."
+                             variant="label-hidden"
+                             label="Search when user hits the 'enter' key"
+                             type="search"
+                             onchange="{!c.searchLightningTutorials}"
+                             />
+        </div>
+    </div>
+    
+    <div class="demo-only demo--only-sizing slds-grid slds-wrap slds-border_top slds-border_left slds-border_right slds-border_bottom" style="background-color: #F9F9F8; line-height: 35px; border-radius: 2px; font-weight: bold;" >
+        <div class="slds-size_2-of-12 slds-p-left_small">
+             S. No.
+        </div>
+        <div class="slds-size_3-of-12">
+            Name
+        </div>
+        <div class="slds-size_5-of-12">
+            Description
+        </div>
+        <div class="slds-size_2-of-12 slds-text-align_right slds-p-right_small">
+            Owner
+        </div>
+    </div>
+    
+    
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_stripe slds-border_top slds-border_right slds-border_bottom slds-border_left">
+        <tbody style="line-height: 35px; cursor: pointer;">
+            <aura:iteration items="{!v.lightningTutorialsList}" var="lightningTutorials" indexVar="index">
+                <div class="menu-hover" id="{!lightningTutorials.Id}" onclick="{!c.openTutorialRecord}">
+                    <div id="{!lightningTutorials.Id}" class="slds-size_2-of-12 slds-p-left_small slds-float_left">
+                        <b id="{!lightningTutorials.Id}">{!index + 1}.</b>
+                    </div>
+                    <div id="{!lightningTutorials.Id}" class="slds-size_3-of-12 slds-truncate slds-float_left">
+                        {!lightningTutorials.Name} &nbsp;
+                    </div>
+                    <div id="{!lightningTutorials.Id}" class="slds-size_5-of-12 slds-truncate slds-float_left">
+                        {!lightningTutorials.Name} &nbsp;
+                    </div>
+                    <div id="{!lightningTutorials.Id}" class="slds-size_2-of-12 slds-text-align_right slds-p-right_small slds-float_left circleImage">
+                        <img id="{!lightningTutorials.Id}" class="ownerImg" src="{!'http://'+v.domainUrl+lightningTutorials.CreatedBy.FullPhotoUrl}" /> &nbsp;
+                    </div>
+                </div>
+                <hr style="margin: 0; padding: 0;" />
+            </aura:iteration>
+        </tbody>
+    </table>
+    
+    
+    
+</aura:component>

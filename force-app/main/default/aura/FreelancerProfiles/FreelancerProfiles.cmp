@@ -1,0 +1,75 @@
+<aura:component description="FreelancerProfiles" extends="forceCommunity:navigationMenuBase" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AuraLightningHomeController">
+    
+    
+    
+    <!-- 
+     Here, include:
+    
+     Your title (e.g. Senior Graphic Designer)
+     Years of experience in the field
+     Areas of expertise and/or your specialty
+     Technical skills and program knowledge
+     Industry expertise (if applicable)
+     Links to sample work
+    
+    
+    In this article, you'll learn how to...
+    
+     1.	Create a profile to showcase your skills
+     2.	Select a professional profile picture
+     3.	Highlight your expertise in the title and overview
+     4.	Create an outstanding introduction video
+     5.	Feature your work in your portfolio
+     6.	Emphasize your experience with certifications
+     7.	Include your employment history
+     8.	Update your educational experience
+    -->
+    
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_x-large">
+        <div class="slds-size_3-of-12">
+            <div style=" border-radius: 5px; text-align: center; background-color: #F0F0F0;" class="slds-p-around_xx-small">
+                <img class="" style="" src="https://pbs.twimg.com/profile_images/1129363505323204608/hTuuL1ml.jpg" />
+            </div>
+            
+        </div>
+        <div class="slds-size_9-of-12">
+            <div class="slds-p-left_x-large slds-p-right_large slds-p-bottom_large" style="text-align: justify; font-size: 16px;">
+                <div class="" style="text-align: left;">
+                    <h1 class="" style="font-size: 25px; color: #000000;"> Dharmendra Yadav </h1>
+                    <h2 class="slds-p-vertical_xx-small" style="font-size: 18px;"> Senior Salesforce Developer </h2>
+                </div>
+            	<p> 
+                	My name is Dharmendra Yadav and I am a senior Salesforce developer and has worked on Salesforce Service, Community. I have an extremely knowledgeable about Lightning, advanced Apex programming, integrations and Visualforce development. I managed many complex projects and led and facilitated onsite and offsite teams.
+                    <br />
+                    <p class="slds-p-top_small">
+                    	<h2> Key Expertise: </h2>
+                        <div class="slds-p-top_xx-small slds-p-left_medium" style="font-size: 15px;">
+                        	<p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> Aura Lightning </p>
+                            <p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> Apex Trigger </p>
+                            <p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> Visualforce Page </p>
+                            <p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> Batch Classes </p>
+                            <p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> Salesforce Communities </p>
+                            <p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> Process builder &amp; Workflow </p>
+                            <p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> Soql &amp; Sosl </p>
+                            <p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> Integration </p>
+                            <p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> Javascript (Basic) </p>
+                            <p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> JQuery (Basic) </p>
+                            <p class="slds-p-vertical_xxx-small"> <b>>> &nbsp;</b> Cascading Style Sheets (CSS) </p>
+                        </div>
+                    </p>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</aura:component>

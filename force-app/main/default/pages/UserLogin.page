@@ -1,0 +1,27 @@
+<apex:page sidebar="false" showHeader="false" id="UserLogin">
+	<apex:includeLightning />
+
+    <div id="lightningContainer">
+        
+    </div>
+
+  
+    
+    <script>
+     $Lightning.use("c:UserLoginApplication", function() {
+     $Lightning.createComponent("c:UserLogin",
+     { 
+     borderColor : "#16325c", 
+     bgColor : "#16325c" ,
+     fontColor : "#FFF",
+     frontText : "What's cool about Lightning Component Development",
+     backText : "You dont need to enable Lightning experience, It will work on Classic Instance as well"
+     },
+     "lightningContainer",
+     function(cmp) {
+     console.log('Component created, do something cool here');
+     });
+     });
+     </script>
+        
+</apex:page>

@@ -1,0 +1,23 @@
+.THIS {
+}
+
+.THIS .slds-lookup__item-action .slds-icon {
+	margin-right: 0;
+	margin-top: 0;
+	width: 1.5rem;
+	height: 1.5rem;
+}
+.THIS .rightBorderRadiusRemove {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+}
+.THIS .leftBorderRadiusRemove {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+}
+.THIS .customSelect {
+	background: #d8d8d8;
+}
+.THIS .slds-lookup__menu {
+	z-index: 5 !important;
+}

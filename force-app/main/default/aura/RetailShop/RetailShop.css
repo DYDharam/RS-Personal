@@ -1,0 +1,53 @@
+.THIS {
+}
+.THIS .CheckBoxSize{
+	width:17px !important;
+	height:17px !important;
+}
+.THIS .green_background{
+	background-color:green; width:25%; line-height:30px; color:#FFFFFF;margin: 4% auto;
+}
+.THIS .MessageCloseButton{
+	float:right;  width:10%;  color:#ffffff; border-radius:10px; cursor:pointer;
+}
+.THIS .MessageContainer{
+	float:left; width:90%;
+}
+.THIS #details{
+    width:100%;
+}
+.THIS #notification_msg{
+	background-color: lightsalmon;
+	color: #000000;
+}
+.THIS #notification_alert1, .THIS #notification_alert2{
+	display: none;
+	
+}
+.THIS .dateField{
+	height:30px;
+	width:145%;
+	padding-left:5%;
+}
+.THIS .selectdateField{
+	height:30px;
+	padding-left:5%;
+}
+.THIS .selectBox{
+	height:30px;
+}
+.THIS .widthAdjust{
+	width:50%;
+}
+.THIS #recentBorderBottom{
+	border-bottom:1px solid #eeeeee;
+}
+.THIS .fieldChange{
+    width:30%;
+    height:30px;
+    padding-left:0.3%
+}
+.THIS .first_header{
+	width:100%;
+	float:left;
+}

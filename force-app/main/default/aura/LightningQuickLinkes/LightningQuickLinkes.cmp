@@ -1,0 +1,12 @@
+<aura:component description="LightningQuickLinkes" controller="LightningQuickLinkesController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="cusWrapperOfObjectNIconsList" type="list" />
+
+    <aura:iteration items="{!v.cusWrapperOfObjectNIconsList}" var="wrapper">
+        <aura:if isTrue="{!wrapper.iconName != 'empty'}">
+            <div class="slds-p-around_x-small slds-border_top slds-border_bottom slds-border_left slds-border_right slds-m-top_x-small">
+                <lightning:icon iconName="{!wrapper.objectNameNIcon}" alternativeText="{!wrapper.objectNameLabel}" /> &nbsp; {!wrapper.objectNameLabel}
+            </div>
+        </aura:if>
+    </aura:iteration>
+</aura:component>

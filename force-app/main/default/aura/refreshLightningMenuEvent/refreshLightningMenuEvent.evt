@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="refreshLightningMenuEvent">
+    <!--<aura:attribute name="message" type="String"/>-->
+    <aura:attribute name="notifyClosePopup" type="Boolean"/>
+</aura:event>

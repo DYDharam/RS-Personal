@@ -1,0 +1,272 @@
+<aura:component description="CreateLightningTutorials" controller="LightningVideosController">
+    <aura:attribute name="CreateLightningTutorials" type="Boolean" />
+    <aura:attribute name="isAttributeAvailable" type="String" />
+    <aura:attribute name="lightningVideosList" type="List"/>
+    <aura:attribute name="lightningTutorialsList" type="List"/>
+    <aura:attribute name="newLightningRecordCreate" type="sObject" default="{'sobjectType':'Lightning_Videos__c'}"/>
+    <aura:attribute name="newLightningTutorialsCreate" type="sObject" default="{'sobjectType':'Lightning_Tutorials__c'}"/>
+    
+    
+    <aura:attribute name="openModal" type="Boolean" default="false" />
+    <aura:attribute name="editMode" type="Boolean" default="false" />
+    <aura:attribute name="recordName" type="String" />
+    <aura:attribute name="editRecordId" type="String" />
+    <aura:attribute name="newRecordMode" type="String" />
+    <aura:attribute name="newLightningTutorials" type="String" />
+    
+    
+    
+    <aura:registerEvent name="cmpRefreshLightningMenuEvent" type="c:refreshLightningMenuEvent"/>
+    
+    
+    <div aura:id="setSpinnerTrueFalse" id="setSpinnerTrueFalse"  class="demo-only demo--inverse slds-hide" style="height: 6rem;">
+        <div class="slds-spinner_container slds-is-fixed">
+            <div role="status" class="slds-spinner slds-spinner_medium">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+    
+    <aura:if isTrue="{!v.openModal}">
+        <div class="Container">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                     aria-describedby="modal-content-id-1"
+                     class="slds-modal slds-modal_medium slds-fade-in-open">
+                <div class="slds-modal__container" style="margin-top: 2%;width:80%;">
+                    <header class="slds-modal__header">
+                        <aura:if isTrue="{!v.editMode}">
+                            Edit {!v.recordName}
+                        </aura:if>
+                        <aura:if isTrue="{!v.newRecordMode}">
+                            Create New Record
+                        </aura:if>
+                        <aura:if isTrue="{!v.newLightningTutorials}">
+                            Create New Record
+                        </aura:if>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1"
+                         style="max-height: 350px;">
+                        <aura:if isTrue="{!v.editMode}">
+                            <force:recordEdit aura:id="edit" recordId="{!v.editRecordId}"/>
+                        </aura:if>
+                        <aura:if isTrue="{!v.newRecordMode}">
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col">
+                                    <lightning:input label="Enter Name" value="{!v.newLightningRecordCreate.Name}" />
+                                </div>
+                                <div class="slds-col">
+                                    <lightning:input type="url" label="Enter video URL" name="input1" value="{!v.newLightningRecordCreate.Video_Url__c}" />
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col">
+                                    <lightning:input type="url" label="Enter image URL" name="input1" value="{!v.newLightningRecordCreate.Image_Url__c}" />
+                                </div>
+                                <div class="slds-col">
+                                    <lightning:textarea name="input1" label="Enter some Description" value="{!v.newLightningRecordCreate.Description__c}" />
+                                </div>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.newLightningTutorials}">
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col cusWid50">
+                                    <lightning:input label="Enter Name" value="{!v.newLightningTutorialsCreate.Name}" />
+                                </div>
+                                <div class="slds-col cusWid50">
+                                    <lightning:input type="url" label="Enter a Image URL" value="{!v.newLightningTutorialsCreate.Image_Url__c}" name="input1" />
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-top_x-small">
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText value="{!v.newLightningTutorialsCreate.Visualforce_Description__c}" placeholder="Type your apex Visualforce data"/>
+                                </div>
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText label="Component" value="{!v.newLightningTutorialsCreate.App_Description__c}" placeholder="Type your App Description"/>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-top_x-small">
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText label="Component" value="{!v.newLightningTutorialsCreate.Component_Description__c}" placeholder="Type your component data"/>
+                                </div>
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText value="{!v.newLightningTutorialsCreate.Controller_Description__c}" placeholder="Type your controller data"/>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-top_x-small">
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText value="{!v.newLightningTutorialsCreate.Helper_Description__c}" placeholder="Type your helper data"/>
+                                </div>
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText value="{!v.newLightningTutorialsCreate.Style_Description__c}" placeholder="Type your style data"/>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-top_x-small">
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText value="{!v.newLightningTutorialsCreate.Documentation_Description__c}" placeholder="Type your documentation data"/>
+                                </div>
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText value="{!v.newLightningTutorialsCreate.Renderer_Description__c}" placeholder="Type your renderer data"/>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-top_x-small">
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText value="{!v.newLightningTutorialsCreate.Design_Description__c}" placeholder="Type your design data"/>
+                                </div>
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText value="{!v.newLightningTutorialsCreate.Svg_Description__c}" placeholder="Type your svg data"/>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-p-top_x-small">
+                                <div class="slds-col cusWid50">
+                                    <lightning:inputRichText value="{!v.newLightningTutorialsCreate.Class_Description__c}" placeholder="Type your apex class data"/>
+                                </div>
+                                <div class="slds-col cusWid50">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </aura:if>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <aura:if isTrue="{!v.editMode}">
+                            <lightning:button label="Save" variant="brand" onclick="{!c.saveRecord}"/>
+                        </aura:if>
+                        <aura:if isTrue="{!v.newRecordMode}">
+                            <lightning:button label="Create" variant="brand" onclick="{!c.createLightningRecord}" />
+                        </aura:if>
+                        <aura:if isTrue="{!v.newLightningTutorials}">
+                            <lightning:button label="Create Tutorials" variant="brand" onclick="{!c.createLightningTutorials}" />
+                        </aura:if>
+                        <lightning:button label="Cancel" onclick="{!c.closeEditMode}"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    
+    <aura:if isTrue="{!v.isAttributeAvailable == 'isCreateLightningVideos'}">
+        <table aria-multiselectable="true" class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols" role="grid">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="slds-text-title_caps slds-is-resizable cusTableHeaderBackgroundColor" scope="col">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Name">Name</span>
+                        </div>
+                    </th>
+                    <th class="slds-text-title_caps slds-is-resizable cusTableHeaderBackgroundColor" scope="col">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Account Name">Video Url</span>
+                        </div>
+                    </th>
+                    <th class="slds-text-title_caps slds-is-resizable cusTableHeaderBackgroundColor" scope="col">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Close Date">Image Url</span>
+                        </div>
+                    </th>
+                    <th class="slds-text-title_caps slds-is-resizable cusTableHeaderBackgroundColor" scope="col">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Stage">Owner</span>
+                        </div>
+                    </th>
+                    <th class="slds-text-title_caps slds-is-resizable cusTableHeaderBackgroundColor" scope="col">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Stage">
+                                Action
+                                <lightning:buttonIcon size="xx-small" iconName="utility:add" onclick="{!c.createRecord}" alternativeText="Add" />
+                            </span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:if isTrue="{!v.lightningVideosList.length > 0}">
+                    <aura:iteration items="{!v.lightningVideosList}" var="lightningTutorials">
+                        <tr aria-selected="false" class="slds-hint-parent">
+                            <td role="gridcell">
+                                <div class="slds-truncate" title="{!lightningTutorials.Name}"><a href="{!'lightning-tutorials/'+lightningTutorials.Id}" target="_blank" > {!lightningTutorials.Name} </a></div>
+                            </td>
+                            <th scope="row" tabindex="0">
+                                <div class="slds-truncate" title="{!lightningTutorials.Video_Url__c}"><a href="{!lightningTutorials.Video_Url__c}" target="_blank" tabindex="-1">{!lightningTutorials.Video_Url__c}</a></div>
+                            </th>
+                            <th scope="row" tabindex="0">
+                                <div class="slds-truncate" title="{!lightningTutorials.Image_Url__c}"><a href="{!lightningTutorials.Image_Url__c}" target="_blank" tabindex="-1">{!lightningTutorials.Image_Url__c}</a></div>
+                            </th>
+                            <td role="gridcell">
+                                <div class="slds-truncate" title="{!lightningTutorials.Owner.Name}">{!lightningTutorials.Owner.Name}</div>
+                            </td>
+                            <td role="gridcell">
+                                <div class="" title="Action">
+                                    <lightning:buttonMenu iconSize="x-small" aura:id="menu" onselect="{!c.lightningTutorialsSelect}" alternativeText="Show menu">
+                                        <!--<lightning:menuItem iconName="action:edit" value="{!join(',', lightningTutorials.Id, 'edit', lightningTutorials.Name)}" label="Edit" />-->
+                                        <lightning:menuItem iconName="action:delete" value="{!join(',', lightningTutorials.Id, 'delete', lightningTutorials.Name)}" label="Delete" />
+                                    </lightning:buttonMenu>
+                                </div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </aura:if>
+            </tbody>
+        </table>        
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isAttributeAvailable == 'isCreateLightningTutorials'}">
+        <table aria-multiselectable="true" class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols" role="grid">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="slds-text-title_caps slds-is-resizable cusTableHeaderBackgroundColor" scope="col">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Name">Name</span>
+                        </div>
+                    </th>
+                    <th class="slds-text-title_caps slds-is-resizable cusTableHeaderBackgroundColor" scope="col">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Close Date">Image Url</span>
+                        </div>
+                    </th>
+                    <th class="slds-text-title_caps slds-is-resizable cusTableHeaderBackgroundColor" scope="col">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Stage">Owner</span>
+                        </div>
+                    </th>
+                    <th class="slds-text-title_caps slds-is-resizable cusTableHeaderBackgroundColor" scope="col">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Stage">
+                                Action
+                                <lightning:buttonIcon size="xx-small" iconName="utility:add" onclick="{!c.createRecordTutorials}" alternativeText="Add" />
+                            </span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:if isTrue="{!v.lightningTutorialsList.length > 0}">
+                    <aura:iteration items="{!v.lightningTutorialsList}" var="lightningTutorials">
+                        <tr aria-selected="false" class="slds-hint-parent">
+                            <td role="gridcell">
+                                <div class="slds-truncate" title="{!lightningTutorials.Name}"><a href="{!'lightning-tutorials/'+lightningTutorials.Id}" target="_blank" > {!lightningTutorials.Name} </a></div>
+                            </td>
+                            <th scope="row" tabindex="0">
+                                <div class="slds-truncate" title="{!lightningTutorials.Name}"><a href="{!lightningTutorials.Image_Url__c}" target="_blank" tabindex="-1">{!lightningTutorials.Image_Url__c}</a></div>
+                            </th>
+                            <td role="gridcell">
+                                <div class="slds-truncate" title="{!lightningTutorials.Name}">{!lightningTutorials.Owner.Name}</div>
+                            </td>
+                            <td role="gridcell">
+                                <div class="" title="Action">
+                                    <lightning:buttonMenu iconSize="x-small" aura:id="menu" onselect="{!c.lightningTutorials}" alternativeText="Show menu">
+                                        <!--<lightning:menuItem iconName="action:edit" value="{!join(',', lightningTutorials.Id, 'edit', lightningTutorials.Name)}" label="Edit" />-->
+                                        <lightning:menuItem iconName="action:delete" value="{!join(',', lightningTutorials.Id, 'delete', lightningTutorials.Name)}" label="Delete" />
+                                    </lightning:buttonMenu>
+                                </div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </aura:if>
+            </tbody>
+        </table>
+        
+    </aura:if>
+</aura:component>

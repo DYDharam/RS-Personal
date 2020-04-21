@@ -1,0 +1,218 @@
+<aura:component description="Home" controller="LightningHomeController">
+	
+    <aura:attribute name="contactInfo" type="sObject"/>
+    <aura:attribute name="userList" type="List"/>
+    <aura:attribute name="domainUrl" type="String"/>
+    <aura:attribute name="userInfo" type="sObject"/>
+    <aura:attribute name="lightningVideosList" type="List"/>
+    
+    <!-- For Email Component -->
+    <aura:attribute name="senderEmail" type="String"/>
+    <aura:attribute name="senderSubject" type="string"/>
+    <aura:attribute name="senderBody" type="string"/>
+    <aura:attribute name="currentUserName" type="string" default=""/>
+    <aura:attribute name="questionsList" type="List"/>
+
+    <!--<img style="width: 100%;" src="https://static.wixstatic.com/media/6e7956e368454d8d8f650aeacfc60718.jpg" />-->
+    
+    <ltng:require styles="{!$Resource.Tutorials + '/Tutorials/css/font-awesome.min.css'}" />
+
+    <!-- Modal -->
+    <aura:dependency resource="markup://c:ModalWindow" />
+    <aura:registerEvent name="cmpRefreshLightningMenuEvent" type="c:refreshLightningMenuEvent"/>
+    <aura:handler name="refreshHome" event="c:refreshHomeComponentEvent" action="{!c.saveQuestionDetailsJS}"/>
+
+    <div class="slds">
+        <div aura:id="ModalDialogPlaceholder" />
+    </div>
+    
+    
+    <!-- slds modal to show Email Component -->
+    <div aura:id="emailComponent" class="demo-only slds-hide" style="height: 640px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Send Email to {!v.currentUserName}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="CC">Subject</label>
+                        <div class="slds-form-element__control">
+                            <ui:inputText class="slds-input" aura:id="subject" value="{!v.senderSubject}" placeholder="Subject"/>                            
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-p-bottom_small">
+                        <label class="slds-form-element__label" for="textareaSample2">Mail Body</label>
+                        <div class="slds-form-element__control">
+                            <lightning:inputRichText aura:id="body" value="{!v.senderBody}" />
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.closeModalSendMail}">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick="{!c.sendMail}">Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+
+
+
+
+
+
+
+
+
+    
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+        <div class="slds-size_4-of-5 slds-p-right_x-small">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Account Name">
+                            <p class="slds-float_left slds-p-top_x-small">
+                                Salesforce Questions &nbsp;
+                                <aura:if isTrue="{!v.questionsList.length > 0}">
+                                    ( {!v.questionsList.length} )
+                                    <aura:set attribute="else">
+                                        ( 0 )
+                                    </aura:set>
+                                </aura:if>
+                            </p>
+                            <aura:if isTrue="{!not(empty(v.userInfo.Name))}">
+                                <lightning:button class="slds-float_right" variant="brand" label="Add Question" title="Brand action" onclick="{!c.addQuestionModal}" />
+                            </aura:if>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <aura:iteration items="{!v.questionsList}" var="question" indexVar="questionNubmer">
+                    <tr class="slds-hint-parent">
+                        <td data-label="Account Name">
+                            <div class="slds-truncate slds-text-heading_x-small" title="{!question.Name}">
+                                {!questionNubmer + 1}. &nbsp;{!question.Name}
+                            </div>
+                            <aura:iteration items="{!question.Answers__r}" var="answer">
+                                <p class="slds-p-around_xx-small " id="checkBoxDisabled">
+                                    <lightning:input type="checkbox" class="slds-p-left_small" label="{!answer.Name}" name="input2" checked="{!answer.isValid__c}" disabled="true" />
+                                </p>
+                            </aura:iteration>
+                        </td>
+                    </tr>
+                </aura:iteration>
+
+                </tbody>
+            </table>
+            
+            
+            
+
+        </div>
+        <div class="slds-size_1-of-5">
+            <aura:iteration items="{!v.userList}" var="users" indexVar="index">
+                <div style="border: 1px solid;" class="slds-m-top_small">
+                    <div style="background-color: #25A9CC;  ">
+                        <img style="width: 30%; margin: 10% 35%; border: 3px solid #FFFFFF; border-radius: 50%;" src="{!'https://'+ v.domainUrl + users.FullPhotoUrl}" />
+                    </div>
+                    <div style="line-height: 30px;">
+                        <div class="slds-grid">
+                            <div class="slds-size_4-of-5">
+                                <p class="cusFontName"> {!users.Name}</p>
+                            </div>
+                            <div class="slds-size_1-of-5 slds-p-right_small cusSendEmail">
+                                <img title="Send an Email" class="emailImg" id="{!users.Email + ',' + users.Name}" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgfLgRKniITFTx_gAgqdSG_CwnZCRrdvFPy1WbDejohWeGneQm" onclick="{!c.sendEmailToSalesforceUser}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="line-height: 30px;">
+                        <div class="slds-grid imgLink" style="text-align: center; background-color: #111F28; color: #ffffff;">
+                            <div class="slds-col slds-size_1-of-5">
+                                <img name="{!join(',', users.Id, 'facebook', users.Facebook_Url__c)}" src="{!$Resource.Tutorials + '/Tutorials/images/social-images/facebook.png'}" onclick="{!c.updateSocialRecord}" />
+                                <aura:if isTrue="{!not(empty(users.Contact.Facebook__c))}">
+                                    <span class="post-count">{!users.Contact.Facebook__c}</span>
+                                	<aura:set attribute="else">
+                                    <span class="post-count">0</span>
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                <img name="{!join(',', users.Id, 'google-plus')}" src="{!$Resource.Tutorials + '/Tutorials/images/social-images/google-plus1.png'}" onclick="{!c.updateSocialRecord}" />
+                                <aura:if isTrue="{!not(empty(users.Contact.Google_Plus__c))}">
+                                    <span class="post-count">{!users.Contact.Google_Plus__c}</span>
+                                    <aura:set attribute="else">
+                                        <span class="post-count">0</span>
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                <img name="{!join(',', users.Id, 'twitter')}" src="{!$Resource.Tutorials + '/Tutorials/images/social-images/twitter.png'}" onclick="{!c.updateSocialRecord}" />
+                                <aura:if isTrue="{!not(empty(users.Contact.Twitter__c))}">
+                                    <span class="post-count">{!users.Contact.Twitter__c}</span>
+                                    <aura:set attribute="else">
+                                        <span class="post-count">0</span>
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                <img name="{!join(',', users.Id, 'linkedin')}" src="{!$Resource.Tutorials + '/Tutorials/images/social-images/linkedin.png'}" onclick="{!c.updateSocialRecord}" />
+                                <aura:if isTrue="{!not(empty(users.Contact.Linkedin__c))}">
+                                    <span class="post-count">{!users.Contact.Linkedin__c}</span>
+                                    <aura:set attribute="else">
+                                        <span class="post-count">0</span>
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                <img name="{!join(',', users.Id, 'blogger')}" src="{!$Resource.Tutorials + '/Tutorials/images/social-images/blogger.png'}" onclick="{!c.updateSocialRecord}" />
+                                <aura:if isTrue="{!not(empty(users.Contact.Blogger__c))}">
+                                    <span class="post-count">{!users.Contact.Blogger__c}</span>
+                                    <aura:set attribute="else">
+                                        <span class="post-count">0</span>
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aura:iteration>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+        <!--<div class="slds-size_1-of-5">
+            &nbsp;
+        </div>
+        <div class="slds-size_1-of-5">
+            &nbsp;
+        </div>
+        <div class="slds-size_1-of-5">
+            &nbsp;
+        </div>
+        <div class="slds-size_1-of-5">
+            &nbsp;
+        </div>
+        <div class="slds-size_1-of-5">
+            <div class="slds-p-top_small">
+            	<c:ratingComponent isSocialActivity="true" fiveStarValue="{!v.contactInfo.Facebook__c}" fourStarValue="{!v.contactInfo.Google_Plus__c}" threeStarValue="{!v.contactInfo.Twitter__c}" twoStarValue="{!v.contactInfo.Linkedin__c}" oneStarValue="{!v.contactInfo.Blogger__c}" />
+            </div>
+        </div>-->
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</aura:component>

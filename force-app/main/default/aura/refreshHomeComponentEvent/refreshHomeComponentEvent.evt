@@ -1,0 +1,4 @@
+<aura:event type="Component" description="refreshHomeComponentEvent">
+    <aura:attribute name="questionName" type="String" default="" access="global" />
+    <aura:attribute name="optionAnswerList" type="list" access="global" />
+</aura:event>

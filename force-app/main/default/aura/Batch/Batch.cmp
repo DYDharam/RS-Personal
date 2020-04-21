@@ -1,0 +1,205 @@
+<aura:component description="Batch" extends="forceCommunity:navigationMenuBase" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    
+    
+    
+    <!-- https://webkul.com/blog/batch-apex/ -->	
+    <div>
+        <h1 class="cusBold slds-text-heading_large slds-p-bottom_x-small cusBorder"> Batch Apex </h1>
+        <p class="cusFontWithEtc slds-p-around_x-small">
+            A developer can now employ batch Apex to build complex, long-running processes that run on thousands of records on the Lightning Platform. Batch Apex operates over small batches of records, covering your entire record set and breaking the processing down to manageable chunks. For example, a developer could build an archiving solution that runs on a nightly basis, looking for records past a certain date and adding them to an archive. Or a developer could build a data cleansing operation that goes through all Accounts and Opportunities on a nightly basis and updates them if necessary, based on custom criteria.
+        </p>
+        <p class="cusFontWithEtc slds-p-around_x-small">
+            Batch Apex is exposed as an interface that must be implemented by the developer. Batch jobs can be programmatically invoked at runtime using Apex.
+        </p>
+        <p class="cusFontWithEtc slds-p-around_x-small">
+            You can only have five queued or active batch jobs at one time. You can evaluate your current count by viewing the Scheduled Jobs page in Salesforce or programmatically using SOAP API to query the AsyncApexJob object.
+        </p>
+    </div>
+    <div>
+        <h1 class="cusBold slds-text-heading_large slds-p-vertical_x-small cusBorder"> Batch Apex Governor Limits </h1>
+        <ul>
+        	<li class="slds-p-top_small">
+            	<p class="cusFontWithEtc slds-p-vertical_xxx-small slds-p-horizontal_x-small">
+                    <strong class="cusBold cusFont slds-text-heading_small">1. &nbsp;  </strong>
+                    Up to five queued or active batch jobs are allowed for Apex.
+                </p>
+            </li>
+            <li class="">
+            	<p class="cusFontWithEtc slds-p-vertical_xxx-small slds-p-horizontal_x-small">
+                    <strong class="cusBold cusFont slds-text-heading_small">2. &nbsp;  </strong>
+                    A user can have up to 50 query cursors open at a time. For example, if 50 cursors are open and a client application still logged in as the same user attempts to open a new one, the oldest of the 50 cursors is released. Note that this limit is different for the batch Apex start method, which can have up to five query cursors open at a time per user. The other batch Apex methods have the higher limit of 50 cursors. Cursor limits for different Force.com features are tracked separately. For example, you can have 50 Apex query cursors, 50 batch cursors, and 50 Visualforce cursors open at the same time.
+                </p>
+            </li>
+            <li class="">
+            	<p class="cusFontWithEtc slds-p-vertical_xxx-small slds-p-horizontal_x-small">
+                    <strong class="cusBold cusFont slds-text-heading_small">3. &nbsp;</strong>
+                    A maximum of 50 million records can be returned in the Database.QueryLocator object. If more than 50 million records are returned, the batch job is immediately terminated and marked as Failed.
+                </p>
+            </li>
+            <li class="">
+            	<p class="cusFontWithEtc slds-p-vertical_xxx-small slds-p-horizontal_x-small">
+                    <strong class="cusBold cusFont slds-text-heading_small">4. &nbsp;  </strong>
+                    If the start method returns a QueryLocator, the optional scope parameter of Database.executeBatch can have a maximum value of 2,000. If set to a higher value, Salesforce chunks the records returned by the QueryLocator into smaller batches of up to 2,000 records. If the start method returns an iterable, the scope parameter value has no upper limit; however, if you use a very high number, you may run into other limits.
+                </p>
+            </li>
+            <li class="">
+            	<p class="cusFontWithEtc slds-p-vertical_xxx-small slds-p-horizontal_x-small">
+                    <strong class="cusBold cusFont slds-text-heading_small">5. &nbsp;  </strong>
+                    If no size is specified with the optional scope parameter of Database.executeBatch, Salesforce chunks the records returned by the start method into batches of 200, and then passes each batch to the execute method. Apex governor limits are reset for each execution of execute.
+                </p>
+            </li>
+            <li class="">
+            	<p class="cusFontWithEtc slds-p-vertical_xxx-small slds-p-horizontal_x-small">
+                    <strong class="cusBold cusFont slds-text-heading_small">6. &nbsp;  </strong>
+                    The start, execute, and finish methods can implement up to 10 callouts each.
+                </p>
+            </li>
+            <li class="">
+            	<p class="cusFontWithEtc slds-p-vertical_xxx-small slds-p-horizontal_x-small">
+                    <strong class="cusBold cusFont slds-text-heading_small">7. &nbsp;  </strong>
+                    Batch executions are limited to 10 callouts per method execution.
+                </p>
+            </li>
+            <li class="">
+            	<p class="cusFontWithEtc slds-p-vertical_xxx-small slds-p-horizontal_x-small">
+                    <strong class="cusBold cusFont slds-text-heading_small">8. &nbsp;  </strong>
+                    The maximum number of batch executions is 250,000 per 24 hours.
+                </p>
+            </li>
+            <li class="">
+            	<p class="cusFontWithEtc slds-p-vertical_xxx-small slds-p-horizontal_x-small">
+                    <strong class="cusBold cusFont slds-text-heading_small">9. &nbsp;  </strong>
+                    Only one batch Apex job's start method can run at a time in an organization. Batch jobs that haven’t started yet remain in the queue until they're started. Note that this limit doesn't cause any batch job to fail and execute methods of batch Apex jobs still run in parallel if more than one job is running.
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <h1 class="cusBold slds-text-heading_large slds-p-vertical_small cusBorder"> Batch Class </h1>
+        <p class="cusJustify cusBackground cusLeftBorder slds-m-top_x-small">
+    <pre>
+    Batch class sample:
+        
+    global class AccountNameUpdateBatchClass implements Database.Batchable&lt;sObject&gt; {
+        global Integer totalAccountRecord = 0;
+        global String sObjectName;
+        global AccountNameUpdateBatchClass () {
+            //sObjectName = sObjectName;
+        }
+        global Database.QueryLocator start(Database.BatchableContext BC) {
+            String stringQuery = 'SELECT Id, Name FROM ' + sObjectName + ' LIMIT 50000000';
+            return Database.getQueryLocator(stringQuery);
+        }
+        global void execute (Database.BatchableContext BC, List&lt;Account&gt; accountList) {
+            List&lt;Account&gt; updateAccountList = new List&lt;Account&gt;();
+            for(Account accounts : accountList) {
+                String accountName = accounts.Name;
+                if(!accountName.contains(' Batch Record')) {
+                    accounts.Name = accounts.Name + ' Batch Record';
+                    updateAccountList.add(accounts);
+                    totalAccountRecord += totalAccountRecord;
+                }
+            }
+            if(updateAccountList.size() > 0) {
+                update updateAccountList;
+            }
+        }
+        global void finish (Database.BatchableContext BC) {
+            List&lt;Messaging.SingleEmailMessage&gt; mails = new List&lt;Messaging.SingleEmailMessage&gt;();   
+            Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+            List&lt;String&gt; sendTo = new List&lt;String&gt;();
+            sendTo.add('infodharmendra2020@gmail.com');
+            mail.setToAddresses(sendTo);
+            mail.setReplyTo('noreply@gmail.com');
+            mail.setSenderDisplayName('Dharam@cloud.com Org');
+            mail.setSubject('Updated Account Name From Batch Class');
+            mail.setHtmlBody('Total Account Record: ' + totalAccountRecord);
+            mails.add(mail);
+            Messaging.sendEmail(mails);
+            
+        }
+    }
+    /*
+    How to execute the batch class.
+    ExampleBatchClass obj = new ExampleBatchClass();
+    Database.execute(obj, 200);
+    */
+    
+    /*
+    How to execute the batch class with parameter.
+    AccountNameUpdateBatchClass b = new AccountNameUpdateBatchClass(); 
+    b.sObjectName = 'Account';
+    Database.executeBatch(b, 10);
+    */ 
+    
+    Batch class schedular:
+        
+    global class Payment_PerMonth_Batch_Schedular implements Schedulable{
+        global void execute(SchedulableContext SC) {
+            Payment_PerMonth_Batch PPB = new Payment_PerMonth_Batch();
+            Database.executebatch(PPB);
+        }
+    }
+        
+    Execuation of Schedular class:
+        
+    Schedular_Class schedule = new Schedular_Class();
+    String sch = '0 02 7 1/1 * ? *';
+    String jobID = System.schedule('Schedular_Name', sch, schedule);
+        
+    </pre>
+        </p>
+        
+        
+        
+        
+        
+    </div>
+
+<div>
+        <h1 class="cusBold slds-text-heading_large slds-p-vertical_small cusBorder"> Queueable Batch Class </h1>
+        <p class="cusJustify cusBackground cusLeftBorder slds-m-top_x-small">
+    <pre>
+    Queueable class sample:
+        
+    public class QueueableBatchClass implements Queueable {
+        private List&lt;Account&gt; accounts;
+        public QueueableBatchClass(List&lt;Account&gt; records) {
+            this.accounts = records;
+        }
+        public void execute(QueueableContext context) {
+            List&lt;Account&gt; updateAccountList = new List&lt;Account&gt;();
+            for (Account account : accounts) {
+                String accountName = account.Name;
+                if(accountName.contains(' Batch Record')) {
+                    List&lt;String&gt; strList = new List&lt;String&gt;();
+                    strList = accountName.split(' Batch Record');
+                    account.Name = strList[0];
+                    updateAccountList.add(account);
+                }
+            }
+            if(updateAccountList.size() > 0) {
+                update updateAccountList;
+            }
+        }
+    }
+    
+    
+    /*
+    List&lt;Account&gt; accList = new List&lt;Account&gt;();
+    accList = [SELECT Id, Name FROM Account];
+    System.enqueueJob(new QueueableBatchClass(accList));
+    */
+        
+    </pre>
+        </p>
+        
+        
+        
+        
+        
+    </div>    
+    
+    
+    
+</aura:component>

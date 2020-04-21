@@ -1,0 +1,5 @@
+({
+    renderChart : function( component, data ) {
+        
+    }
+})

@@ -1,0 +1,13 @@
+<aura:component description="StreamingApiAccountHandler" access="global" controller="StreamingApiAccountHandlerController">
+    <aura:attribute name="channelName" type="String" required="true"/>
+    <aura:attribute name="resourceFile" type="Object"/>
+    <aura:attribute name="subscription" type="Object"/>
+    <aura:handler name="destroy" value="{!this}" action="{!c.unsubscribe}"/>
+    <aura:registerEvent name="onStreamEvent" type="c:StreamEvent"/>
+    <!-- Must include cometD library -->
+    <ltng:require scripts="{!join(',',
+                           $Resource.resourceFile + '/cometd.js'
+                           )}"
+                  afterScriptsLoaded="{!c.doInit}"
+                  />
+</aura:component>

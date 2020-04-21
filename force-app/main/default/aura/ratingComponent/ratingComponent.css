@@ -1,0 +1,70 @@
+.THIS {
+}
+
+
+.THIS #rate>.btn-grey{
+    background-color:#D8D8D8;
+	color:#FFF;
+}
+.THIS #rate>.rating-block{
+	background-color:#FAFAFA;
+	border:1px solid #EFEFEF;
+	padding:15px 15px 20px 15px;
+	border-radius:3px;
+}
+.THIS #rate>.bold{
+	font-weight:700;
+}
+.THIS #rate>.padding-bottom-7{
+	padding-bottom:7px;
+}
+
+.THIS #rate>.review-block{
+	background-color:#FAFAFA;
+	border:1px solid #EFEFEF;
+	padding:15px;
+	border-radius:3px;
+	margin-bottom:15px;
+}
+.THIS #rate>.review-block-name{
+	font-size:12px;
+	margin:10px 0;
+}
+.THIS #rate>.review-block-date{
+	font-size:12px;
+}
+.THIS #rate>.review-block-rate{
+	font-size:13px;
+	margin-bottom:15px;
+}
+.THIS #rate>.review-block-title{
+	font-size:15px;
+	font-weight:700;
+	margin-bottom:10px;
+}
+.THIS #rate>.review-block-description{
+	font-size:13px;
+}
+.THIS .progress {
+    background-color: #dedede;
+    border-radius: 10px;
+}
+.THIS .cusHeight {
+    height: 9px;
+    border-radius: 10px;
+}
+.THIS .cusGreenBack {
+    background-color: #5CB85C;
+}
+.THIS .cusBlueBack {
+    background-color: #428BCA;
+}
+.THIS .cusSkyBlueBack {
+    background-color: #5BC0DE;
+}
+.THIS .cusYellowBack {
+    background-color: #F0AD4E;
+}
+.THIS .cusRedBack {
+    background-color: #D9534F;
+}

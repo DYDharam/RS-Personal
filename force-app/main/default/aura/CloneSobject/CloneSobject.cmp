@@ -1,0 +1,6 @@
+<aura:component description="CloneSobject" controller="CloneWithChildrenCtrlComponent">
+	
+    
+    <aura:attribute name="recordId" type="String" default="0017F00001hceaX" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+</aura:component>

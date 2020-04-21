@@ -1,0 +1,17 @@
+.THIS {
+}
+.THIS .cusFont {
+    font-family: cursive;
+}
+.THIS .cusBold {
+    font-weight: bold;
+}
+.THIS .cusHeadingCol {
+    color: #2F4993;
+}
+.THIS .cusCursor {
+    cursor: pointer;
+}
+.THIS .cusBorder {
+    border-right: 2px solid #dddbda;
+}

@@ -1,0 +1,17 @@
+<apex:page id="ContactSyncPage" sidebar="false" showHeader="false">
+    <apex:includeLightning />
+
+    <div id="lightning" />
+
+    <script>
+        var codeVar = '{!$CurrentPage.parameters.code}';
+        $Lightning.use("c:ContactSyncApplication", function() {
+            $Lightning.createComponent("c:ContactSync",
+                    { code : codeVar },
+                    "lightning",
+                    function(cmp) {
+                        // do some stuff
+                    });
+        });
+    </script>
+</apex:page>

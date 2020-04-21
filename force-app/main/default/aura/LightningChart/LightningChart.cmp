@@ -1,0 +1,19 @@
+<aura:component description="LightningChart" >
+    <!--<ltng:require scripts="{!join(',',
+                           $Resource.AllJq + '/AllJq/js/jquery.min.js', 'http://code.highcharts.com/highcharts.js'
+                           )}" afterScriptsLoaded="{!c.afterScriptsLoaded}" /> -->
+    <ltng:require scripts="{!$Resource.highcharts}" afterScriptsLoaded="{!c.afterScriptsLoaded}"/>
+    
+    
+    <!--<ltng:require scripts="{!$Resource.AllJq + '/AllJq/js/jquery.min'}" afterScriptsLoaded="{!c.afterScriptsLoaded}"/>-->
+    
+    <div aura:id="chart" class="slds-box slds-box--small"></div>
+    
+    <aura:attribute name="chartType" type="string" />
+    <aura:attribute name="chartTitle" type="string" />
+    <aura:attribute name="chartSubTitle" type="string" />
+    <aura:attribute name="xAxisCategories" type="string[]"/>
+    <aura:attribute name="yAxisParameter" type="string"/>
+    <aura:attribute name="data" type="string"/>
+    
+</aura:component>

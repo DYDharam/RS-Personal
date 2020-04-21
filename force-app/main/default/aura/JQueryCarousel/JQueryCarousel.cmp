@@ -1,0 +1,13 @@
+<aura:component description="JQueryCarousel" controller="JQueryCarouselController">
+    <ltng:require styles="{!$Resource.AllJq + '/AllJq/css/owl.carousel.min.css'}"
+                  scripts="{!join(',',
+                           $Resource.AllJq + '/AllJq/js/jquery.min.js',
+                           $Resource.AllJq + '/AllJq/js/owl.carousel.js'
+                           )}" afterScriptsLoaded="{!c.doInit}" />  
+    <aura:attribute name="accounts" type="String[]"/>
+    <div class="owl-carousel owl-theme" style="padding:1%;">
+        <aura:iteration var="a" items="{!v.accounts}">
+            <div class="item"><h4>{!a.Name}</h4></div>
+        </aura:iteration>
+    </div>        
+</aura:component>

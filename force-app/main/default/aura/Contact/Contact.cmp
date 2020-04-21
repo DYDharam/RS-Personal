@@ -1,0 +1,174 @@
+<aura:component description="Contact" controller="MyProfilePageController">
+
+    <aura:attribute name="mapMarkers" type="Object"/>
+    <aura:attribute name="zoomLevel" type="Integer" />
+    <aura:attribute name="contactUsInfo" type="sObject" default="{'sobjectType': 'Contact_Us__c'}" />
+    <aura:attribute name="currentUserProfileDetails" type="sObject" default="{'sobjectType': 'User'}" />
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+        <div class="slds-size_1-of-12">
+            &nbsp;
+        </div>
+        <div class="slds-size_10-of-12">
+            <div class="slds-box_x-small slds-text-align_center  slds-m-bottom_large cusHeadingCol">
+                <h1 class="slds-text-heading_large slds-p-top_large cusFont" style="font-size: -webkit-xxx-large;"> Contact </h1>
+                <h3 class="slds-p-top_x-small cusFont" style="font-size: inherit; "> SAY HELLO </h3>
+
+
+                <!-- Personal Info -->
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                    <div class="slds-size_5-of-12">
+                        &nbsp;
+                    </div>
+                    <div class="slds-size_2-of-12">
+                        <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                            <div class="slds-size_4-of-12">
+                                &nbsp;
+                            </div>
+                            <div class="slds-size_4-of-12">
+                                <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                            </div>
+                            <div class="slds-size_4-of-12">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-size_5-of-12">
+                        &nbsp;
+                    </div>
+                </div>
+                <h3 class="slds-p-top_small"> MAP LOCATION </h3>
+                <lightning:map class="slds-p-top_large" mapMarkers="{! v.mapMarkers }" zoomLevel="{!v.zoomLevel}" />
+
+
+
+                <!-- Personal Info -->
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_medium" >
+                    <div class="slds-size_5-of-12">
+                        &nbsp;
+                    </div>
+                    <div class="slds-size_2-of-12">
+                        <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                            <div class="slds-size_4-of-12">
+                                &nbsp;
+                            </div>
+                            <div class="slds-size_4-of-12">
+                                <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                            </div>
+                            <div class="slds-size_4-of-12">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-size_5-of-12">
+                        &nbsp;
+                    </div>
+                </div>
+                <h3 class="slds-p-top_small"> PERSONAL INFO </h3>
+
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_medium">
+                    <div class="slds-size_1-of-3">
+                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small" style="height: 200px;">
+                            <!--<lightning:icon variant="bare" iconName="standard:address" alternativeText="Connected" />-->
+                            <img style="width: 20%;" class="slds-p-top_small" src="https://www.shareicon.net/data/2015/08/26/91217_map_512x512.png" />
+                            <h2 class="slds-p-top_medium slds-p-bottom_small"> Drop On In</h2>
+                            <p style="letter-spacing: 1px;">
+                                Indirapuram, Ghaziabad <br />
+                                Noida <br />
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slds-size_1-of-3">
+                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small" style="height: 200px;">
+                            <img style="width: 20%;" class="slds-p-top_small" src="https://images-na.ssl-images-amazon.com/images/I/417MahKs6fL.png" />
+                            <h2 class="slds-p-top_medium slds-p-bottom_small"> Give Me A Call </h2>
+                            <p style="letter-spacing: 1px;">
+                                Mobile : +91 9572337612 <br />
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slds-size_1-of-3">
+                        <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small" style="height: 200px;">
+                            <img style="width: 20%;" class="slds-p-top_small" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYrJ0W3dT6Z00cDhqkrHpF-_nfrF3ahiKWLlM7eWWdhh9X4iJQ" />
+                            <h2 class="slds-p-top_medium slds-p-bottom_small"> Let's Connect </h2>
+                            <p style="letter-spacing: 1px;">
+                                Email: infodharmendra2020@gmail.com <br />
+                                Twitter : @DY_Dharam <br />
+                                Skype : infodharmendra2020 <br />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Personal Info -->
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_large" >
+                    <div class="slds-size_5-of-12">
+                        &nbsp;
+                    </div>
+                    <div class="slds-size_2-of-12">
+                        <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                            <div class="slds-size_4-of-12">
+                                &nbsp;
+                            </div>
+                            <div class="slds-size_4-of-12">
+                                <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                            </div>
+                            <div class="slds-size_4-of-12">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-size_5-of-12">
+                        &nbsp;
+                    </div>
+                </div>
+                <h3 class="slds-p-top_small"> REACH ME HERE </h3>
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_large" >
+                    <div class="slds-size_1-of-2 slds-p-right_x-small">
+                        <lightning:input name="input1" label="First Name" variant="label-hidden" placeholder="First Name" value="{!v.contactUsInfo.Name}" />
+                    </div>
+                    <div class="slds-size_1-of-2 slds-p-left_x-small">
+                        <lightning:input name="input1" label="Last Name" variant="label-hidden" placeholder="Last Name" value="{!v.contactUsInfo.Last_Name__c}" />
+                    </div>
+                </div>
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small" >
+                    <div class="slds-size_1-of-1">
+                        <lightning:input type="email" name="email1" variant="label-hidden" placeholder="Email" label="Email" value="{!v.contactUsInfo.Email__c}" />
+                    </div>
+                </div>
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small" >
+                    <div class="slds-size_1-of-1">
+                        <lightning:input name="input1"  label="Subject"  value="{!v.contactUsInfo.Subject__c}" variant="label-hidden" placeholder="Subject" />
+                    </div>
+                </div>
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small" >
+                    <div class="slds-size_1-of-1">
+                        <lightning:textarea label="" variant="label-hidden" placeholder="Message" value="{!v.contactUsInfo.Description__c}" />
+                    </div>
+                </div>
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small" >
+                    <div class="slds-size_1-of-1">
+                        <lightning:button variant="brand" label="Submit Form" title="Brand action" onclick="{!c.saveContactUs}"  />
+                    </div>
+                </div>
+
+
+
+
+
+
+                <!--<lightning:combobox name="progress" label="Status" value="inProgress" placeholder="Select Progress" options="{! v.options }" onchange="{! c.handleChange }"/>-->
+
+
+
+            </div>
+
+        </div>
+        <div class="slds-size_1-of-12">
+            &nbsp;
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,324 @@
+<aura:component description="MyResume" controller="MyProfilePageController" >
+
+
+    <aura:attribute name="testimonialList" type="list" />
+    <aura:attribute name="newTestimonialObj" type="sObject" />
+    <aura:attribute name="currentTestimonialRecord" type="Integer" default="0" />
+    <aura:attribute name="totalTestimonialRecord" type="Integer" default="0" />
+    <!-- https://www.mstsolutions.com/technical/sublime-text-3-with-mavensmate-for-force-com-development/ -->
+    <ltng:require styles="{!$Resource.AllJq + '/AllJq/css/owl.carousel.min.css'}"
+                  scripts="{!join(',',
+                          $Resource.AllJq + '/AllJq/js/jquery.min.js',
+                          $Resource.AllJq + '/AllJq/js/owl.carousel.js'
+                          )}" afterScriptsLoaded="{!c.doInit}" />
+
+
+    <div>
+
+
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap cusHeadingCol" style="background-color: #EAEAEA; ">
+                    
+                    <div class="slds-size_1-of-1" style="background-color: #FFFFFF;">
+                        <div class="slds-box_x-small slds-text-align_center  slds-m-bottom_large">
+                            <h1 class="slds-text-heading_large slds-p-top_large cusFont" style="font-size: -webkit-xxx-large;"> Resume </h1>
+                            <h3 class="slds-p-top_x-small cusFont" style="font-size: inherit; "> CURRICULUM VITAE </h3>
+                            
+                            
+                            <!-- Personal Info -->
+                            <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                <div class="slds-size_5-of-12">
+                                    &nbsp;
+                                </div>
+                                <div class="slds-size_2-of-12">
+                                    <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                        <div class="slds-size_4-of-12">
+                                            &nbsp;
+                                        </div>
+                                        <div class="slds-size_4-of-12">
+                                            <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                                        </div>
+                                        <div class="slds-size_4-of-12">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_5-of-12">
+                                    &nbsp;
+                                </div>
+                            </div>
+
+                            <h3 class="slds-p-top_small"> EXPERIENCE </h3>
+                            <div class="c-container slds-p-top_medium">
+                                <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                                    <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder custom-box slds-p-left_small slds-p-top_small slds-p-bottom_small slds-text-align_right slds-p-right_large">
+                                        <div class=""> 
+                                        	<p>
+                                            	<p class="">
+                                            <strong style=" color: gray;"> JAN 2017 </strong> &nbsp; <strong style="background-color: #FFD42D;" class="slds-p-top_xx-small slds-p-bottom_xx-small slds-p-left_x-small slds-p-right_x-small"> Current </strong>
+                                                </p>
+                                                <p class="cusBold slds-p-top_x-small">
+                                                	Salesforce Developer - Cloud Analogy
+                                                </p>
+                                            </p>
+                                        </div>
+                                    </lightning:layoutItem>
+                                    <!--<lightning:layoutItem size="2" flexibility="auto" padding="" class="custom-box slds-p-top_x-small">
+                                        <lightning:icon size="x-small" iconName="action:clone" alternativeText="Approved" />
+                                    </lightning:layoutItem>-->
+                                    <lightning:layoutItem size="6" flexibility="auto" padding="" class="slds-p-left_large custom-box slds-p-right_x-large slds-p-top_small slds-p-bottom_small slds-text-align_left">
+                                        <p class="" style="text-align: justify; color: gray;">
+                                            Cloud Analogy is recognized as one of the fastest growing companies working in the Salesforce landscape for the past few years.
+                                            The stunning success of the company is attributed to the hardworking team of Salesforce Certified designers and developers.
+                                        </p>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                            </div>
+
+
+
+                            <!-- For Top Border -->
+                            <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                <div class="slds-size_5-of-12">
+                                    &nbsp;
+                                </div>
+                                <div class="slds-size_2-of-12">
+                                    <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                        <div class="slds-size_4-of-12">
+                                            &nbsp;
+                                        </div>
+                                        <div class="slds-size_4-of-12">
+                                            <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                                        </div>
+                                        <div class="slds-size_4-of-12">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_5-of-12">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <h3 class="slds-p-top_small"> EDUCATION </h3>
+                            <div class="c-container slds-p-top_medium">
+                                <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                                    <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder slds-p-right_large custom-box slds-p-top_left slds-p-top_small slds-p-bottom_small slds-text-align_right">
+                                        <div class="">
+                                            <p>
+                                            <p class="">
+                                                <strong style=" color: gray;"> MAY 2015 - JUNE 2017 </strong>
+                                            </p>
+                                            <p class="cusBold slds-p-top_x-small">
+                                                MCA (Master of Computer Application)
+                                            </p>
+                                            </p>
+                                        </div>
+                                    </lightning:layoutItem>
+                                    <!--<lightning:layoutItem size="2" flexibility="auto" padding="" class="custom-box slds-p-top_x-small">
+                                        <lightning:icon size="x-small" iconName="action:clone" alternativeText="Approved" />
+                                    </lightning:layoutItem>-->
+                                    <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-left_large slds-p-right_x-large slds-p-top_small slds-p-bottom_small slds-text-align_left">
+                                        <p class="" style="text-align: justify; color: gray;">
+                                            I have completed my MCA (Master of Computer Application) from Ganeshi Lal Bajaj (G.L. Bajaj), Greater Noida with an aggregate of 70% in the year 2017.
+                                        </p>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                            </div>
+
+
+
+                            <div class="c-container slds-p-top_medium">
+                                <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                                    <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder slds-p-right_large custom-box slds-p-top_left slds-p-top_small slds-p-bottom_small slds-text-align_right">
+                                        <div class="">
+                                            <p>
+                                            <p class="">
+                                                <strong style=" color: gray;"> MAY 2012 - JUNE 2015 </strong>
+                                            </p>
+                                            <p class="cusBold slds-p-top_x-small">
+                                                BCA (Bachelor of Computer Applications)
+                                            </p>
+                                            </p>
+                                        </div>
+                                    </lightning:layoutItem>
+                                    <!--<lightning:layoutItem size="2" flexibility="auto" padding="" class="custom-box slds-p-top_x-small">
+                                        <lightning:icon size="x-small" iconName="action:clone" alternativeText="Approved" />
+                                    </lightning:layoutItem>-->
+                                    <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-left_large slds-p-right_x-large slds-p-top_small slds-p-bottom_small slds-text-align_left">
+                                        <p class="" style="text-align: justify; color: gray;">
+                                            I have completed my BCA (Bachelor of Computer Application) from Jagannath Jain College (J. J. College), Jhumri Telaiya, Koderma (Jharkhand) with an aggregate of 70% in the year 2015.
+                                        </p>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                            </div>
+
+
+
+                            <!-- For Top Border With SKILL-->
+                            <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                <div class="slds-size_5-of-12">
+                                    &nbsp;
+                                </div>
+                                <div class="slds-size_2-of-12">
+                                    <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                        <div class="slds-size_4-of-12">
+                                            &nbsp;
+                                        </div>
+                                        <div class="slds-size_4-of-12">
+                                            <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                                        </div>
+                                        <div class="slds-size_4-of-12">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_5-of-12">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <h3 class="slds-p-top_small"> SKILL </h3>
+                            <div class="c-container slds-p-top_medium">
+                                <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                                    <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder slds-p-right_large custom-box slds-p-top_left slds-p-top_small slds-p-bottom_small slds-text-align_right">
+                                        <div class="">
+                                            <p>
+                                                <p class="cusBold slds-p-top_x-small"> Aura Lightning </p>
+                                                <p class="cusBold slds-p-top_x-small"> Apex Trigger </p>
+                                                <p class="cusBold slds-p-top_x-small"> Visualforce Page </p>
+                                                <p class="cusBold slds-p-top_x-small"> Batch Classes </p>
+                                                <p class="cusBold slds-p-top_x-small"> Communities </p>
+                                                <p class="cusBold slds-p-top_x-small"> Process builder &amp; Workflow </p>
+                                                <p class="cusBold slds-p-top_x-small"> Soql &amp; Sosl </p>
+                                                <p class="cusBold slds-p-top_x-small"> JavaScript </p>
+                                                <p class="cusBold slds-p-top_x-small"> JQuery </p>
+                                                <p class="cusBold slds-p-top_x-small"> Html &amp; Html5 </p>
+                                                <p class="cusBold slds-p-top_x-small"> Cascading Style Sheets (CSS) </p>
+                                                <p class="cusBold slds-p-top_x-small"> Php </p>
+
+                                                <p class="cusBold slds-p-top_x-small"> VISUALFORCE PAGES </p>
+                                            </p>
+                                        </div>
+                                    </lightning:layoutItem>
+                                    <!--<lightning:layoutItem size="2" flexibility="auto" padding="" class="custom-box slds-p-top_x-small">
+                                        <lightning:icon size="x-small" iconName="action:clone" alternativeText="Approved" />
+                                    </lightning:layoutItem>-->
+                                    <lightning:layoutItem size="6" flexibility="auto" padding="" class="custom-box slds-p-left_large slds-p-right_x-large slds-p-top_small slds-p-bottom_small slds-text-align_left">
+                                        <p>
+                                            <strong>
+                                                Assests
+                                            </strong>
+                                            <p class="slds-p-top_small" style="text-align: justify; color: gray;">
+                                                Responsible, Diligence, Labour, Rigor, Creative, Funny, Good Communicator, Flexible
+                                            </p>
+                                        </p>
+
+                                        <p class="slds-p-top_medium">
+                                            <p class="slds-p-bottom_small">
+                                                <strong class=" ">
+                                                    Languages
+                                                </strong>
+                                            </p>
+                                            <p class="slds-p-top_xx-small" style="text-align: justify; color: gray;"> English </p>
+                                            <p class="slds-p-top_xx-small" style="text-align: justify; color: gray;"> Hindi </p>
+                                        </p>
+
+                                        <p class="slds-p-top_medium">
+                                            <p class="slds-p-bottom_small">
+                                                <strong class=" ">
+                                                    Hobbies &amp; Interests
+                                                </strong>
+                                            </p>
+                                        <p class="slds-p-top_xx-small" style="text-align: justify; color: gray;"> Music, Gaming, Travel </p>
+                                        </p>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                            </div>
+
+
+
+                            <!-- TESTIMONIALS Start Here -->
+                            <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                <div class="slds-size_5-of-12">
+                                    &nbsp;
+                                </div>
+                                <div class="slds-size_2-of-12">
+                                    <div class="demo-only demo-only--sizing slds-grid slds-wrap" >
+                                        <div class="slds-size_4-of-12">
+                                            &nbsp;
+                                        </div>
+                                        <div class="slds-size_4-of-12">
+                                            <p class="slds-m-top_large" style="border-bottom: 5px solid;"> &nbsp; &nbsp; &nbsp; </p>
+                                        </div>
+                                        <div class="slds-size_4-of-12">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-size_5-of-12">
+                                    &nbsp;
+                                </div>
+                            </div>
+
+                            <h3 class="slds-p-top_small"> TESTIMONIALS </h3>
+                            <div class="c-container slds-p-top_medium">
+                                <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+
+                                    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                                        <div class="slds-size_2-of-12" style="line-height: 200px; text-align: right;">
+                                            <aura:if isTrue="{!v.currentTestimonialRecord != 0}">
+                                                <lightning:icon class="slds-p-right_x-small cusCursor" size="x-small" iconName="utility:chevronleft" onclick="{!c.previousSlide}" alternativeText="Approved" />
+                                            </aura:if>
+                                        </div>
+                                        <div class="slds-size_8-of-12 ">
+
+                                            <!--<aura:iteration var="tstMon" items="{!v.testimonialList}">-->
+
+                                            <p class="cusFont" style="text-align: left; min-height: 200px; background-color: #F2F3F4; padding: 5% 10% 5% 10%; letter-spacing: 1px;">
+                                                <p style="color: gray;"> {!v.newTestimonialObj.Description__c}
+                                                </p>
+                                                <p class="slds-p-top_small">
+                                                    <aura:if isTrue="{!v.newTestimonialObj.Is_Private__c}">
+                                                        <strong> ANONYMOUS </strong>
+                                                        <aura:set attribute="else">
+                                                            <strong> {!v.newTestimonialObj.Name} </strong>
+                                                            <p class="" style="font-size: smaller;"> {!v.newTestimonialObj.Designation__c} </p>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </p>
+                                            </p>
+                                            <p class="slds-p-top_large">
+                                                <aura:if isTrue="{!v.newTestimonialObj.Is_Private__c}">
+                                                    <img style="width: 20%; border-radius: 50%;" src="{!$Resource.profiles_images + '/profiles_images/anonymous.png'}" />
+                                                    <aura:set attribute="else">
+                                                        <img style="width: 20%; border-radius: 50%;" src="{!v.newTestimonialObj.Image_Url__c}" />
+                                                    </aura:set>
+                                                </aura:if>
+                                            </p>
+                                            <!--</aura:iteration>-->
+                                        </div>
+                                        <div class="slds-size_2-of-12" style="line-height: 200px; text-align: left;">
+                                            <aura:if isTrue="{!v.currentTestimonialRecord != v.totalTestimonialRecord - 1}">
+                                                <lightning:icon class="slds-p-left_x-small cusCursor" size="x-small" iconName="utility:chevronright" onclick="{!c.nextSlide}" alternativeText="Approved" />
+                                            </aura:if>
+                                        </div>
+                                    </div>
+
+                                </lightning:layout>
+                            </div>
+
+
+
+
+
+                            
+                            
+                            
+                            
+                        </div>
+                    </div>
+              
+                </div>
+    </div>
+    
+    
+
+</aura:component>

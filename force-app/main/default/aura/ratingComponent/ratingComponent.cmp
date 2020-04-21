@@ -1,0 +1,258 @@
+<aura:component description="ratingComponent">
+    
+    <ltng:require styles="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />  
+    
+    
+    <aura:attribute name="fiveStarValue" type="String" default="100" />
+    <aura:attribute name="fourStarValue" type="String" default="80" />
+    <aura:attribute name="threeStarValue" type="String" default="60" />
+    <aura:attribute name="twoStarValue" type="String" default="40" />
+    <aura:attribute name="oneStarValue" type="String" default="20" />
+    
+    <aura:attribute name="fiveStarProgress" type="String" default="100" />
+    <aura:attribute name="fourStarProgress" type="String" default="80" />
+    <aura:attribute name="threeStarProgress" type="String" default="60" />
+    <aura:attribute name="twoStarProgress" type="String" default="40" />
+    <aura:attribute name="oneStarProgress" type="String" default="20" />
+    
+    <aura:attribute name="isSocialActivity" type="Boolean" default="false" />
+    
+    
+    
+    <div id="rate">
+        
+        
+        <div class="">
+            
+            <div class="row">
+                <div class="col-sm-3">
+                    <aura:if isTrue="{!v.isSocialActivity}">
+                        <h4>Social Visitors</h4>
+                        <aura:set attribute="else">
+                        	<h4>Rating breakdown</h4>
+                        </aura:set>
+                    </aura:if>
+                    <div class="pull-left">
+                        <div class="pull-left"  style="width:35px;">
+                            <div style="height:9px; margin:5px 0;">
+                                <aura:if isTrue="{!v.isSocialActivity}">
+                                    <ul class="">
+                                        <li class="facebook" style="width: 20px; text-align: center; border-radius: 10%;">
+                                            <i class="fa fa-facebook"> </i>
+                                        </li>
+                                    </ul>
+                                	<aura:set attribute="else">
+                                        5 
+                                        <img src="https://img.icons8.com/ios/2x/star-filled.png" style="width: 30%; line-height: 10px; padding-bottom: 5%;" />
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                        </div>
+                        <div class="pull-left" style="width:180px;">
+                            <div class="progress" style="height:9px; margin:8px 0;">
+                                <div style="{! 'width:'+v.fiveStarProgress + '%;'}" class="cusHeight cusGreenBack"> </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-left:10px;">
+                            {!v.fiveStarValue}
+                        </div>
+                    </div>
+                    <div class="pull-left">
+                        <div class="pull-left" style="width:35px;">
+                            <div style="height:9px; margin:5px 0;">
+                                <aura:if isTrue="{!v.isSocialActivity}">
+                                    <ul class="">
+                                        <li class="google-plus" style="width: 20px; text-align: center; border-radius: 10%;">
+                                            <i class="fa fa-google-plus"> </i>
+                                        </li>
+                                    </ul>
+                                    <aura:set attribute="else">
+                                        4 
+                                        <img src="https://img.icons8.com/ios/2x/star-filled.png" style="width: 30%; line-height: 10px; padding-bottom: 5%;" />
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                        </div>
+                        <div class="pull-left" style="width:180px;">
+                            <div class="progress" style="height:9px; margin:8px 0;">
+                                <div style="{! 'width:'+v.fourStarProgress + '%;'}" class="cusHeight cusBlueBack"> </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-left:10px;">
+                            {!v.fourStarValue}
+                        </div>
+                    </div>
+                    <div class="pull-left">
+                        <div class="pull-left" style="width:35px;">
+                            <div style="height:9px; margin:5px 0;">
+                                <aura:if isTrue="{!v.isSocialActivity}">
+                                    <ul class="">
+                                        <li class="twitter" style="width: 20px; text-align: center; border-radius: 10%;">
+                                            <i class="fa fa-twitter"> </i>
+                                        </li>
+                                    </ul>
+                                    <aura:set attribute="else">
+                                        3 
+                                        <img src="https://img.icons8.com/ios/2x/star-filled.png" style="width: 30%; line-height: 10px; padding-bottom: 5%;" />
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                        </div>
+                        <div class="pull-left" style="width:180px;">
+                            <div class="progress" style="height:9px; margin:8px 0;">
+                                <div style="{! 'width:'+v.threeStarProgress + '%;'}" class="cusHeight cusSkyBlueBack"> </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-left:10px;">
+                            {!v.threeStarValue}
+                        </div>
+                    </div>
+                    <div class="pull-left">
+                        <div class="pull-left" style="width:35px;">
+                            <div style="height:9px; margin:5px 0;">
+                                <aura:if isTrue="{!v.isSocialActivity}">
+                                    <ul class="">
+                                        <li class="linkedin" style="width: 20px; text-align: center; border-radius: 10%;">
+                                            <i class="fa fa-linkedin"> </i>
+                                        </li>
+                                    </ul>
+                                    <aura:set attribute="else">
+                                        2 
+                                        <img src="https://img.icons8.com/ios/2x/star-filled.png" style="width: 30%; line-height: 10px; padding-bottom: 5%;" />
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                        </div>
+                        <div class="pull-left" style="width:180px;">
+                            <div class="progress" style="height:9px; margin:8px 0;">
+                                <div style="{! 'width:'+v.twoStarProgress + '%;'}" class="cusHeight cusYellowBack"> </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-left:10px;">
+                            {!v.twoStarValue}
+                        </div>
+                    </div>
+                    <div class="pull-left">
+                        <div class="pull-left" style="width:35px;">
+                            <div style="height:9px; margin:5px 0;">
+                                <aura:if isTrue="{!v.isSocialActivity}">
+                                    <ul class="">
+                                        <li class="blogger" style="width: 20px; text-align: center; border-radius: 10%;">
+                                            <i class="fa fa-blogger" style="font-weight: bold;"> B </i>
+                                        </li>
+                                    </ul>
+                                    <aura:set attribute="else">
+                                        1 
+                                        <img src="https://img.icons8.com/ios/2x/star-filled.png" style="width: 30%; line-height: 10px; padding-bottom: 5%;" />
+                                    </aura:set>
+                                </aura:if>
+                            </div>
+                        </div>
+                        <div class="pull-left" style="width:180px;">
+                            <div class="progress" style="height:9px; margin:8px 0;">
+                                <div style="{! 'width:'+v.oneStarProgress + '%;'}" class="cusHeight cusRedBack"> </div>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-left:10px;">
+                            {!v.oneStarValue}
+                        </div>
+                    </div>
+                </div>			
+            </div>			
+            
+        </div>
+    </div> <!-- /container -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!--<div id="rating-section">
+        <p class="slds-p-bottom_xx-small">4.1 average based on 254 reviews.</p>
+        <hr style="border:3px solid #f1f1f1; margin: 0;" />
+        
+        <div class="row slds-p-top_x-small cusWid100 cusBold" style="line-height: 12px;">
+            <div class="cusWid10 slds-text-align_left">
+                5 Star
+            </div>
+            <div class="cusWid78 cusBorRadius" style="background-color: #f1f1f1;">
+                <div class="fiveStarRating">
+                    &nbsp;
+                </div>                    
+            </div>
+            <div class="cusWid10 slds-text-align_right">
+                5 Star
+            </div>
+        </div>
+        
+        
+        <div class="row slds-p-top_x-small cusWid100 cusBold" style="line-height: 12px;">
+            <div class="cusWid10 slds-text-align_left">
+                4 Star
+            </div>
+            <div class="cusWid78 cusBorRadius" style="background-color: #f1f1f1;">
+                <div class="fourStarRating">
+                    &nbsp;
+                </div>                    
+            </div>
+            <div class="cusWid10 slds-text-align_right">
+                100
+            </div>
+        </div>
+        
+        <div class="row slds-p-top_x-small cusWid100 cusBold" style="line-height: 12px;">
+            <div class="cusWid10 slds-text-align_left">
+                4 Star
+            </div>
+            <div class="cusWid78 cusBorRadius" style="background-color: #f1f1f1;">
+                <div class="threeStarRating">
+                    &nbsp;
+                </div>                    
+            </div>
+            <div class="cusWid10 slds-text-align_right">
+                100
+            </div>
+        </div>
+        
+        <div class="row slds-p-top_x-small cusWid100 cusBold" style="line-height: 12px;">
+            <div class="cusWid10 slds-text-align_left">
+                4 Star
+            </div>
+            <div class="cusWid78 cusBorRadius" style="background-color: #f1f1f1;">
+                <div class="twoStarRating">
+                    &nbsp;
+                </div>                    
+            </div>
+            <div class="cusWid10 slds-text-align_right">
+                100
+            </div>
+        </div>
+        
+        
+        <div class="row slds-p-top_x-small cusWid100 cusBold" style="line-height: 12px;">
+            <div class="cusWid10 slds-text-align_left">
+                4 Star
+            </div>
+            <div class="cusWid78 cusBorRadius" style="background-color: #f1f1f1;">
+                <div class="oneStarRating">
+                    &nbsp;
+                </div>                    
+            </div>
+            <div class="cusWid10 slds-text-align_right">
+                100
+            </div>
+        </div>
+    </div>-->
+</aura:component>

@@ -1,0 +1,26 @@
+.THIS {
+}
+.THIS .cusFontWithEtc {
+    text-align: justify;
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+.THIS .cusBold {
+    font-weight: bold;
+}
+.THIS .cusBorder {
+    border-bottom: 2px solid #000000;
+}
+.THIS .cusFont {
+    
+}
+.THIS .cusJustify {
+	text-align: justify;
+}
+.THIS .cusLeftBorder {
+	border-left: 3px solid #16A1E7;
+}
+.THIS .cusBackground {
+	background-color: #F8F8F8;
+}

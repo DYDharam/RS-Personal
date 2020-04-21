@@ -1,0 +1,120 @@
+<aura:component controller="UserLoginController" implements="force:lightningQuickAction,force:hasRecordId,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes" access="global">
+    <ltng:require styles="{!join(',',
+                          $Resource.RetailShop + '/css/jquery-ui.min.accordion.css','//fonts.googleapis.com/css?family=Bellefair&amp;subset=hebrew,latin-ext',
+                          $Resource.LoginPageDesign + '/LoginPageDesign/css/style.css',
+                          $Resource.LoginPageDesign + '/LoginPageDesign/css/font-awesome.css'
+                          )}"
+   scripts="{!join(',',
+   $Resource.RetailShop + '/js/jquery.min.js','https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+   $Resource.RetailShop + '/js/jquery.session.js',
+   $Resource.RetailShop + '/js/jquery-ui.min.js'
+            )}" afterScriptsLoaded="{!c.doInit}" />
+    <aura:attribute name="profilePic" type="String" access="global" />
+    <aura:attribute name="userId" type="String" access="global" />
+    <aura:attribute name="viewImage" type="Boolean" default="false" />
+    <aura:attribute name="NewUser" type="String" />
+    
+    <aura:attribute name="loginSuccessfull" type="Boolean" default="true" />
+    
+<aura:if isTrue="{!v.loginSuccessfull}">   
+<!-- For New User Entry Start -->
+    
+	<div id="ForUser_SetPassword" style="display:none;">
+    	<div class="header-w3l">
+		<h1>Booster Login Form</h1>
+        </div>
+        <div class="main-content-agile">
+            <div class="sub-main-w3">	
+                <div class="wthree-pro">
+                    <img id="ProfileImageUrl" src="{!$Resource.LoginPageDesign + '/LoginPageDesign/images/No.jpg'}" alt="image" />
+                    <h2>Login Now</h2>
+                </div>
+                <form action="#" method="post">
+                    <ui:inputText aura:id="NewUserEmail" placeholder="Username or E-mail" value="{!v.NewUser.Name}" class="user" />
+                    <!--<input type="text" placeholder="Username or E-mail" aura:id="NewUserEmail1" value="{!v.NewUserEmail}" id="UserNameLogin" name="UserNameLogin" class="user" />-->
+                    
+                    <ui:inputSecret aura:id="NewUserPassword" placeholder="New Password" value="{!v.NewUser.Password}" class="pass" />
+                    <!-- <input  placeholder="New Password" aura:id="NewUserPass" value="" id="UserPassword" name="UserPassword" class="pass" type="password" /> -->
+
+                    <ui:inputSecret aura:id="NewUserConfirmPassword" placeholder="Confirm Password" value="{!v.NewUser.ConfirmPassword}" class="pass" />
+                    <!-- <input  placeholder="Confirm Password" aura:id="NewUserConfirmPass" value="" id="UserlConfirmPassword" name="UserlConfirmPassword" class="pass" type="password" /> -->
+                 
+                    
+                    <div class="sub-w3l">
+                        <div class="right-w3l">
+                                <input type="button" class="btn-custom" value="Create Login" onclick="{!c.CreateLogin_JS}" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--//main-->
+        
+        <!--footer-->
+        <div class="footer">
+            <p>&copy; 2018 Booster Login Form. All rights reserved | Design by <a href="#">W3layouts</a></p>
+        </div>
+    </div>
+<!-- For New User Entry End -->
+    
+<!-- For User Is Register Want to Open (Start) -->
+    <div id="ForUser_Login" style="display:none;">
+	<div class="header-w3l">
+		<h1>Booster Login Form</h1>
+	</div>
+    <div class="main-content-agile">
+        <div class="sub-main-w3">	
+            <div class="wthree-pro">
+                
+                <aura:if isTrue="{!v.viewImage}">
+                    	<img id="ProfileImageUrl" src="{!$Resource.LoginPageDesign + '/LoginPageDesign/images/No.jpg'}" alt="image" />
+                    <aura:set attribute="else">
+                        <img id="ProfileImageUrl" src="{!v.profilePic}" alt="image" />
+                    </aura:set>
+                </aura:if>
+                <h2>Login Now</h2>
+            </div>
+            <form action="#" method="post">
+                <input placeholder="Username or E-mail" name="Name" class="user" type="text" />
+                <span class="icon1"></span><br /><br />
+                    <input  placeholder="Password" name="Password" class="pass" type="password" />
+                <span class="icon2"></span><br />
+                <div class="sub-w3l">
+                    <div class="left-w3l">
+                        <span><input type="checkbox" />Remember Me</span>
+                    </div>
+                    <div class="right-w3l">
+                            <input type="submit" value="Login" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--//main-->
+    
+    <!--footer-->
+    <div class="footer">
+        <p>&copy; 2018 Booster Login Form. All rights reserved | Design by <a href="#">W3layouts</a></p>
+    </div>
+    <!--//footer-->
+        </div>
+<!-- For User Is Register Want to Open (End) -->
+    
+<!-- Invalid User Here (Start) -->
+    <div id="ErrorUser" style="display:none;">
+    	<div class="header-w3l">
+		<h1>Your Are Not A User</h1>
+        </div>
+        <div class="main-content-agile" style="height:600px;">
+            
+        </div>
+        <!--//main-->
+        
+        
+    </div>
+<!-- Invalid User Here (Start) -->
+	<aura:set attribute="else">
+                        Login Successfully 
+    </aura:set>
+</aura:if>
+</aura:component>
