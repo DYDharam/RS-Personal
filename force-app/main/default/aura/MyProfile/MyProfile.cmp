@@ -35,11 +35,7 @@
                     </div>
                     <h3 class="slds-p-top_small"> ABOUT ME </h3>
                     <p class="cusFont cusNormalCol" style="padding: 3% 15% 3% 15%; font-size: medium;">
-                        "I am a salesforce developer from last 2.5 years at cloud analogy.
-                        I work efficiently both as an individual contributor as well as along with a team.
-                        I seek new challenges and try to think out-of-the-box while looking for creative solutions to a given problem.
-                        Besides the details given in my resume, I believe in character, values, vision, and action.
-                        I am a quick learner and believe in learning from my mistakes for I strongly feel that this virtue will take me ahead in life and career.!"
+                        I am a Salesforce Developer from last 3* years. I work efficiently both as an individual contributor as well as along with a team. I seek new challenges and try to think out-of-the-box while looking for creative solutions to a given problem. Besides the details given in my resume, I believe in character, values, vision, and action. I am a quick learner and believe in learning from my mistakes for I strongly feel that this virtue will take me ahead in life and career.!
                         <!--{!v.currentUserProfileDetails.Description__c}-->
                     </p>
                     <!-- Personal Info -->
@@ -86,7 +82,7 @@
                                 <strong> Birthday </strong>
                             </lightning:layoutItem>
                             <lightning:layoutItem size="6" flexibility="auto" padding="" class=" cusRightSideFont custom-box slds-p-left_large slds-p-right_x-large slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_left">
-                                12-03-1992                                
+                                12-March                               
                             </lightning:layoutItem>
                             
                             <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder slds-p-right_large custom-box slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_right">
@@ -114,7 +110,7 @@
                                 <strong> Freelance </strong>
                             </lightning:layoutItem>
                             <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusRightSideFont custom-box slds-p-left_large slds-p-right_x-large slds-p-top_xx-small slds-p-bottom_xx-small slds-text-align_left">
-                                Available
+                                ...........
                             </lightning:layoutItem>
                             
                             

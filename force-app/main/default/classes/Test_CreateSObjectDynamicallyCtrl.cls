@@ -4,18 +4,47 @@
 */
 @isTest
 public class Test_CreateSObjectDynamicallyCtrl {
-    public static Account createAccountRecord(Boolean isInsert){
+    
+    /*@testSetup
+    static void test_Scenario1(){
+        Test.startTest();
         Account accountObject = new Account();
-        accountObject.Name = 'Test Account - 01';
-        if(isInsert) {
-            insert accountObject;
+        accountObject.Name = 'Test Account - 02';
+        insert accountObject;
+        Test.stopTest();
+    }
+    
+    static TestMethod void test_Scenario2(){
+        Test.startTest();
+        User usr = [Select Id From User Where Id = :UserInfo.getUserId()];
+        System.runAs(usr){
+            // To run As Current User.
         }
-        return accountObject;
+        Test.stopTest();
+    }*/
+    
+    public static List<Account> createAccountRecord(Boolean isInsert, Integer noOfRecords){
+        List<Account> accountList = new List<Account>();
+        for(Integer i = 0; i < noOfRecords; i++) {
+            Account accountObject = new Account();
+            accountObject.Name = 'Test Account - 01';
+            accountList.add(accountObject);
+        }
+        if(isInsert) {
+            insert accountList;
+        }
+        return accountList;
+    }
+    @isTest static void Test_getSobjectList_Apex() {
+        test.startTest();
+        List<CreateSObjectDynamicallyCtrl.sobjectListNameNApi> sobjectPickList = CreateSObjectDynamicallyCtrl.getSobjectList_Apex();
+        System.assertNotEquals(sobjectPickList.size(), 0);
+        test.stopTest();
     }
     @isTest static void Test_getAllFields_Apex() {
         test.startTest();
-        Account accountObject = createAccountRecord(true);
-        List<CreateSObjectDynamicallyCtrl.wrapperOfSObjectDetails> wrapperOfSObjectList = CreateSObjectDynamicallyCtrl.getAllFields_Apex('Account', accountObject.Id);
+        List<Account> accountList = createAccountRecord(true, 200);
+        List<CreateSObjectDynamicallyCtrl.wrapperOfSObjectDetails> wrapperOfSObjectList = CreateSObjectDynamicallyCtrl.getAllFields_Apex('Account', accountList[0].Id);
         System.assertNotEquals(wrapperOfSObjectList.size(), 0);
         test.stopTest();
     }
@@ -40,21 +69,14 @@ public class Test_CreateSObjectDynamicallyCtrl {
     }
     @isTest static void Test_getAllFields_Apex_Copy() {
         test.startTest();
-        Account accountObject = createAccountRecord(true);
-        List<CreateSObjectDynamicallyCtrl.wrapperOfSObjectDetails> wrapperOfSObjectList = CreateSObjectDynamicallyCtrl.getAllFields_Apex_Copy('Account', accountObject.Id, '');
+        List<Account> accountList = createAccountRecord(true, 200);
+        List<CreateSObjectDynamicallyCtrl.wrapperOfSObjectDetails> wrapperOfSObjectList = CreateSObjectDynamicallyCtrl.getAllFields_Apex_Copy('Account', accountList[0].Id, '');
         System.assertNotEquals(wrapperOfSObjectList.size(), 0);
-        test.stopTest();
-    }
-    @isTest static void Test_getAllFields() {
-        test.startTest();
-        Account accountObject = createAccountRecord(true);
-        List<String> fieldsList = CreateSObjectDynamicallyCtrl.getAllFields('Account', accountObject.Id);
-        System.assertNotEquals(fieldsList.size(), 0);
         test.stopTest();
     }
     @isTest static void Test_saveSobjectRecord_Apex() {
         test.startTest();
-        Account accountObject = createAccountRecord(false);
+        //List<Account> accountList = createAccountRecord(false, 200);
         List<sObject> objectList = CreateSObjectDynamicallyCtrl.saveSobjectRecord_Apex('[{"Name":"Tstest"}]', 'List<Account>');
         System.assertEquals(objectList.size(), 1);
         test.stopTest();

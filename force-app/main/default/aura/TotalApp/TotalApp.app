@@ -9,6 +9,7 @@
     <!--<c:CSVCreatorComp />-->
     <!--<c:LightningQuickLinkes />-->
     <c:CreateSObjectDynamically />
+    <!--<c:createSObjectRecordComponent />-->
     
     
     <!--<c:AccountDetailsSpy />-->

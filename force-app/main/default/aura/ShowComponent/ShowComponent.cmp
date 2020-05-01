@@ -41,6 +41,9 @@
     <aura:if isTrue="{!v.componentName == 'CreateSObjectDynamically'}">
         <c:CreateSObjectDynamically />
     </aura:if>
+    <aura:if isTrue="{!v.componentName == 'createSObjectRecordComponent'}">
+        <c:createSObjectRecordComponent />
+    </aura:if>
     
     
 </aura:component>

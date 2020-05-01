@@ -54,7 +54,33 @@
                                         <div class=""> 
                                         	<p>
                                             	<p class="">
-                                            <strong style=" color: gray;"> JAN 2017 </strong> &nbsp; <strong style="background-color: #FFD42D;" class="slds-p-top_xx-small slds-p-bottom_xx-small slds-p-left_x-small slds-p-right_x-small"> Current </strong>
+                                            <strong style=" color: gray;"> OCT 2019 </strong> &nbsp; <strong style="background-color: #FFD42D;" class="slds-p-top_xx-small slds-p-bottom_xx-small slds-p-left_x-small slds-p-right_x-small"> Current </strong>
+                                                </p>
+                                                <p class="cusBold slds-p-top_x-small">
+                                                	Salesforce Developer - DXC Technology
+                                                </p>
+                                            </p>
+                                        </div>
+                                    </lightning:layoutItem>
+                                    <!--<lightning:layoutItem size="2" flexibility="auto" padding="" class="custom-box slds-p-top_x-small">
+                                        <lightning:icon size="x-small" iconName="action:clone" alternativeText="Approved" />
+                                    </lightning:layoutItem>-->
+                                    <lightning:layoutItem size="6" flexibility="auto" padding="" class="slds-p-left_large custom-box slds-p-right_x-large slds-p-top_small slds-p-bottom_small slds-text-align_left">
+                                        <p class="" style="text-align: justify; color: gray;">
+                                            DXC in India is a hotbed of Innovation and technical expertise and a gold standard for process maturity and quality. Our operations are the company’s largest globally, employing high-caliber technology professionals focused on helping customers address their core challenges and take advantage of market opportunities.
+                                        </p>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                            </div>
+                            
+                            
+                            <div class="c-container slds-p-top_medium">
+                                <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+                                    <lightning:layoutItem size="6" flexibility="auto" padding="" class="cusBorder custom-box slds-p-left_small slds-p-top_small slds-p-bottom_small slds-text-align_right slds-p-right_large">
+                                        <div class=""> 
+                                        	<p>
+                                            	<p class="">
+                                            <strong style=" color: gray;"> MAY 2017 - AUG 2019 </strong> &nbsp;
                                                 </p>
                                                 <p class="cusBold slds-p-top_x-small">
                                                 	Salesforce Developer - Cloud Analogy

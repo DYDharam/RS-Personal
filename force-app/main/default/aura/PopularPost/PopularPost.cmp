@@ -29,115 +29,109 @@
     <aura:if isTrue="{!v.isSpinner}">
         <lightning:spinner alternativeText="Loading" size="large" />
     </aura:if>
-    
-    <!--
-		<iframe style="border: none;" border="0" width="100%" height="40px" src="https://retailshop-dev-ed-++-c.ap5.visual.force.com/apex/FacebookPage"> </iframe>
-    	<div id="fb-root"> </div>
-    	<div class="fb-share-button" data-href="http://javafreakers.com" data-layout="button" data-desc="Hello world"></div>
- 	-->
     <div>
-        
-        <div class="slds-m-vertical_x-small demo-only demo-only--sizing slds-grid slds-wrap slds-p-around_x-small " style=" background-color: #23CD62; color: #FFFFFF;">
-            <lightning:icon class="slds-float_left wtsupFill slds-text-align_center" iconName="utility:chat" size="x-small" alternativeText="Join Whatsapp" />
-            <a class="slds-float_left" style="width: 94%; text-align:center; color: #FFFFFF" href="https://chat.whatsapp.com/C563gvd5GGDEeMaHJNS44p">Join Whatsapp</a>
-        </div>
-        
-        
-        <h2 class="slds-p-bottom_x-small " style="text-align:center; border-bottom: 2px solid #000000;">POPULAR POST'S</h2>
-        <aura:iteration items="{!v.lightningTutorialsList}" var="tutorial" indexVar="count">
-            <div class="card slds-p-top_x-small slds-border_bottom">
-                <h1 class="cusCursor" onclick="{!c.openRecord}" id="{!tutorial.Id}">{!tutorial.Name}</h1>
-                <!-- <p class="title slds-p-bottom_x-small">By: {!tutorial.Owner.Name} </p>-->
-                <ui:outputDate value="{!tutorial.CreatedDate}" />
+        <div>
+            
+            <div class="slds-m-vertical_x-small demo-only demo-only--sizing slds-grid slds-wrap slds-p-around_x-small " style=" background-color: #23CD62; color: #FFFFFF;">
+                <lightning:icon class="slds-float_left wtsupFill slds-text-align_center" iconName="utility:chat" size="x-small" alternativeText="Join Whatsapp" />
+                <a class="slds-float_left" style="width: 94%; text-align:center; color: #FFFFFF" href="https://chat.whatsapp.com/C563gvd5GGDEeMaHJNS44p">Join Whatsapp</a>
             </div>
-        </aura:iteration>
+            
+            
+            <h2 class="slds-p-bottom_x-small " style="text-align:center; border-bottom: 2px solid #000000;">POPULAR POST'S</h2>
+            <aura:iteration items="{!v.lightningTutorialsList}" var="tutorial" indexVar="count">
+                <div class="card slds-p-top_x-small slds-border_bottom">
+                    <h1 class="cusCursor" onclick="{!c.openRecord}" id="{!tutorial.Id}">{!tutorial.Name}</h1>
+                    <ui:outputDate value="{!tutorial.CreatedDate}" />
+                </div>
+            </aura:iteration>
+            
+            <h2 class="slds-p-bottom_x-small slds-p-top_medium" style="text-align:center; border-bottom: 2px solid #000000;"> CATEGORIES </h2>
+            
+            <div class="card slds-border_bottom">
+                <h1 class="cusCursor slds-p-vertical_x-small" id="Trigger" onclick="{!c.openPage}"> Apex Trigger</h1>
+            </div>
+            <div class="card slds-border_bottom">
+                <h1 class="cusCursor slds-p-vertical_x-small" id="Batch" onclick="{!c.openPage}"> Batch &amp; Queueable Batch Class</h1>
+            </div>
+            <div class="card slds-border_bottom">
+                <h1 class="cusCursor slds-p-vertical_x-small" id="Api-Salesforce" onclick="{!c.openPage}"> Api's in Salesforce</h1>
+            </div>
+        </div>
         
-        <h2 class="slds-p-bottom_x-small slds-p-top_medium" style="text-align:center; border-bottom: 2px solid #000000;"> CATEGORIES </h2>
         
-        <div class="card slds-border_bottom">
-            <h1 class="cusCursor slds-p-vertical_x-small" id="Trigger" onclick="{!c.openPage}"> Apex Trigger</h1>
+        
+        
+        
+        
+        
+        <h2 class="slds-p-bottom_x-small slds-p-top_large" style="text-align:center; border-bottom: 2px solid #000000;">USER'S RATING</h2>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small">
+            <div class="slds-size_1-of-12">
+                <lightning:icon class="green" iconName="utility:smiley_and_people" alternativeText="Approved" />
+            </div>
+            <div class="slds-size_10-of-12 slds-p-top_x-small slds-p-left_x-small">
+                <lightning:progressBar class="bgGreen" value="{!v.excellentValue}" size="large" />
+            </div>
+            <div class="slds-size_1-of-12">
+                <p class="slds-text-align_center slds-p-top_xx-small"> {!v.excellentValueCount} </p>
+            </div>
         </div>
-        <div class="card slds-border_bottom">
-            <h1 class="cusCursor slds-p-vertical_x-small" id="Batch" onclick="{!c.openPage}"> Batch &amp; Queueable Batch Class</h1>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small">
+            <div class="slds-size_1-of-12">
+                <lightning:icon class="blue" iconName="utility:emoji" alternativeText="Approved" />
+            </div>
+            <div class="slds-size_10-of-12 slds-p-top_x-small slds-p-left_x-small">
+                <lightning:progressBar class="bgBlue" value="{!v.goodValue}" size="large" />
+            </div>
+            <div class="slds-size_1-of-12">
+                <p class="slds-text-align_center slds-p-top_xx-small"> {!v.goodValueCount} </p>
+            </div>
         </div>
-        <div class="card slds-border_bottom">
-            <h1 class="cusCursor slds-p-vertical_x-small" id="Api-Salesforce" onclick="{!c.openPage}"> Api's in Salesforce</h1>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small">
+            <div class="slds-size_1-of-12">
+                <lightning:icon class="yellow" iconName="utility:sentiment_neutral" alternativeText="Approved" />
+            </div>
+            <div class="slds-size_10-of-12 slds-p-top_x-small slds-p-left_x-small">
+                <lightning:progressBar class="bgYellow" value="{!v.averageValue}" size="large" />
+            </div>
+            <div class="slds-size_1-of-12">
+                <p class="slds-text-align_center slds-p-top_xx-small"> {!v.averageValueCount} </p>
+            </div>
         </div>
-    </div>
-    
-    
-    
-    
-    <!--<lightning:icon class="green" size="x-large" iconName="utility:trailhead" alternativeText="Approved" />-->
-    
-    
-    <h2 class="slds-p-bottom_x-small slds-p-top_large" style="text-align:center; border-bottom: 2px solid #000000;">USER'S RATING</h2>
-    <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small">
-        <div class="slds-size_1-of-12">
-            <lightning:icon class="green" iconName="utility:smiley_and_people" alternativeText="Approved" />
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small">
+            <div class="slds-size_1-of-12">
+                <lightning:icon class="red" iconName="utility:sentiment_negative" alternativeText="Approved" />
+            </div>
+            <div class="slds-size_10-of-12 slds-p-top_x-small slds-p-left_x-small">
+                <lightning:progressBar class="bgRed" value="{!v.badValue}" size="large" />
+            </div>
+            <div class="slds-size_1-of-12">
+                <p class="slds-text-align_center slds-p-top_xx-small"> {!v.badValueCount} </p>
+            </div>
         </div>
-        <div class="slds-size_10-of-12 slds-p-top_x-small slds-p-left_x-small">
-            <lightning:progressBar class="bgGreen" value="{!v.excellentValue}" size="large" />
-        </div>
-        <div class="slds-size_1-of-12">
-            <p class="slds-text-align_center slds-p-top_xx-small"> {!v.excellentValueCount} </p>
-        </div>
-    </div>
-    <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small">
-        <div class="slds-size_1-of-12">
-            <lightning:icon class="blue" iconName="utility:emoji" alternativeText="Approved" />
-        </div>
-        <div class="slds-size_10-of-12 slds-p-top_x-small slds-p-left_x-small">
-            <lightning:progressBar class="bgBlue" value="{!v.goodValue}" size="large" />
-        </div>
-        <div class="slds-size_1-of-12">
-            <p class="slds-text-align_center slds-p-top_xx-small"> {!v.goodValueCount} </p>
-        </div>
-    </div>
-    <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small">
-        <div class="slds-size_1-of-12">
-            <lightning:icon class="yellow" iconName="utility:sentiment_neutral" alternativeText="Approved" />
-        </div>
-        <div class="slds-size_10-of-12 slds-p-top_x-small slds-p-left_x-small">
-            <lightning:progressBar class="bgYellow" value="{!v.averageValue}" size="large" />
-        </div>
-        <div class="slds-size_1-of-12">
-            <p class="slds-text-align_center slds-p-top_xx-small"> {!v.averageValueCount} </p>
-        </div>
-    </div>
-    <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small">
-        <div class="slds-size_1-of-12">
-            <lightning:icon class="red" iconName="utility:sentiment_negative" alternativeText="Approved" />
-        </div>
-        <div class="slds-size_10-of-12 slds-p-top_x-small slds-p-left_x-small">
-            <lightning:progressBar class="bgRed" value="{!v.badValue}" size="large" />
-        </div>
-        <div class="slds-size_1-of-12">
-            <p class="slds-text-align_center slds-p-top_xx-small"> {!v.badValueCount} </p>
-        </div>
-    </div>
-    
-    <h2 class="slds-p-bottom_x-small slds-p-top_large" style="text-align:center; border-bottom: 2px solid #000000;">RATE US</h2>
-    
-    <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small">
-        <div class="slds-size_1-of-1">
-            <lightning:progressIndicator aura:id="getId" currentStep="0" type="path" variant="base">
-                <lightning:progressStep label="Excellent" value="1" onclick="{!c.currentStepRating}" /> 
-                <lightning:progressStep label="Good" value="2" onclick="{!c.currentStepRating}" /> 
-                <lightning:progressStep label="Average" value="3" onclick="{!c.currentStepRating}" /> 
-                <lightning:progressStep label="Bad" value="4" onclick="{!c.currentStepRating}" /> 
-            </lightning:progressIndicator>
-        </div>
-        <aura:if isTrue="{!v.isAvailableForRating}">
+        
+        <h2 class="slds-p-bottom_x-small slds-p-top_large" style="text-align:center; border-bottom: 2px solid #000000;">RATE US</h2>
+        
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-p-top_small">
             <div class="slds-size_1-of-1">
-                <lightning:input varient="label-hidden" placeholder="Name"  value="{!v.userName}" />
-                <lightning:input varient="label-hidden" placeholder="Email" value="{!v.userEmail}" />
-                <lightning:textarea varient="label-hidden" value="{!v.description}" placeholder="type here..."/>
-                <lightning:button variant="brand" class="slds-m-top_small " label="Rate Us" title="Rate us" onclick="{!c.rateUsComplete}" />
+                <lightning:progressIndicator aura:id="getId" currentStep="0" type="path" variant="base">
+                    <lightning:progressStep label="Excellent" value="1" onclick="{!c.currentStepRating}" /> 
+                    <lightning:progressStep label="Good" value="2" onclick="{!c.currentStepRating}" /> 
+                    <lightning:progressStep label="Average" value="3" onclick="{!c.currentStepRating}" /> 
+                    <lightning:progressStep label="Bad" value="4" onclick="{!c.currentStepRating}" /> 
+                </lightning:progressIndicator>
             </div>
-        </aura:if>
+            <aura:if isTrue="{!v.isAvailableForRating}">
+                <div class="slds-size_1-of-1">
+                    <lightning:input varient="label-hidden" placeholder="Name"  value="{!v.userName}" />
+                    <lightning:input varient="label-hidden" placeholder="Email" value="{!v.userEmail}" />
+                    <lightning:textarea varient="label-hidden" value="{!v.description}" placeholder="type here..."/>
+                    <lightning:button variant="brand" class="slds-m-top_small " label="Rate Us" title="Rate us" onclick="{!c.rateUsComplete}" />
+                </div>
+            </aura:if>
+        </div>
+        
+        <h2 class="slds-p-bottom_x-small slds-p-top_large" style="text-align:center; border-bottom: 2px solid #000000;">TOTAL PAGE VIEW : {!v.totalCommunityView}</h2>
     </div>
-    
-    <h2 class="slds-p-bottom_x-small slds-p-top_large" style="text-align:center; border-bottom: 2px solid #000000;">TOTAL PAGE VIEW : {!v.totalCommunityView}</h2>
-    
 </aura:component>

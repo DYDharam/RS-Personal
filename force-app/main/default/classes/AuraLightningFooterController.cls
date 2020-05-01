@@ -17,7 +17,7 @@ public class AuraLightningFooterController {
         try {
             Id profileId=userinfo.getProfileId();
             String profileName=[Select Id,Name from Profile where Id=:profileId].Name;
-            system.debug('profileName-- >>>> ' + profileName);
+            system.debug('profileName-- ::::>>>> ' + profileName);
             usrList = [SELECT Id, Name, ProfileId, Profile.Name, UserRole.Name FROM User  LIMIT 1];
             if(usrList.size() > 0) {
                 ltw.userInfo = usrList[0];

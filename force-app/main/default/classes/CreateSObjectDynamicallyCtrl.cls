@@ -1,9 +1,40 @@
-public class CreateSObjectDynamicallyCtrl {
-    
-    // For the component of CreateSObjectWithPageLayout.
+public with sharing class CreateSObjectDynamicallyCtrl {
     
     
-    // For the component of CreateSObjectDynamically.
+    
+    @AuraEnabled
+    public static List<sobjectListNameNApi> getSobjectList_Apex() {
+        List<sobjectListNameNApi> sobjectPickList = new List<sobjectListNameNApi>();
+        try {
+            for (Schema.SObjectType obj : Schema.getGlobalDescribe().values()){
+                Schema.DescribeSObjectResult objDescription = obj.getDescribe();
+                
+                
+                Schema.sObjectType objType = Schema.getGlobalDescribe().get(objDescription.getName());
+                Schema.DescribeSObjectResult objDesc = objType.getDescribe();
+                
+                if(objDesc.isUpdateable() && objDesc.isCreateable() ) {
+                    sobjectListNameNApi wrapSobject = new sobjectListNameNApi();
+                    wrapSobject.label = objDescription.getLabel();
+                    wrapSobject.value = objDescription.getName();
+                    sobjectPickList.add(wrapSobject);
+                }
+                
+            }
+        } catch (Exception e) {
+            System.debug('Get exception on line number ' + e.getLineNumber() +
+                         '   due to following method getAllStudentRecords  ' + e.getMessage());
+        }
+        return sobjectPickList;
+    }
+        
+    public class sobjectListNameNApi {
+        @AuraEnabled
+        public String label {set; get;}
+        @AuraEnabled
+        public String value {set; get;}
+    }
+    
     @AuraEnabled
     public static List<wrapSelectFromPickList> getPickListValues (String fieldsName, String strObjectName){
         try {
@@ -23,8 +54,6 @@ public class CreateSObjectDynamicallyCtrl {
                     wsfpl.label = f.getLabel();
                     wsfpl.value = f.getValue();
                     wrapList.add(wsfpl);
-                    system.debug('System debug Check:::: ');
-                    system.debug('System debug Check:::::::: ');
                 }
                 if(wrapList.size() > 0) {
                     return wrapList;
@@ -167,31 +196,6 @@ public class CreateSObjectDynamicallyCtrl {
         return wrapSobjD;
     }
     
-    /*
-* 
-List<Metadata.Metadata> layouts = Metadata.Operations.retrieve(Metadata.MetadataType.Layout, new List<String> {'Account-Account Layout'});
-Metadata.Layout layoutMd = (Metadata.Layout) layouts.get(0);
-for (Metadata.LayoutSection section : layoutMd.layoutSections) {
-	for (Metadata.LayoutColumn column : section.layoutColumns) {
-		if (column.layoutItems != null) {
-			for (Metadata.LayoutItem item : column.layoutItems) {
-				System.debug(item.field);
-			}
-		}
-	}
-}
-*/
-    
-    @AuraEnabled
-    public static List<String> getAllFields (String sObjectName, String recordId) {
-        List<String> fieldsList = new List<String>();
-        try {
-            fieldsList = CreateSObjectDynamicallyCtrl.getFieldsName_Apex(sObjectName);
-        } catch (Exception e) {
-            throw new AuraHandledException('Oops! Something went wrong: ' + e.getMessage());
-        }
-        return fieldsList;
-    }
     public Class wrapperOfSObjectDetails {
         @AuraEnabled
         public String fieldLabel {
@@ -287,29 +291,6 @@ for (Metadata.LayoutSection section : layoutMd.layoutSections) {
         Schema.DescribeFieldResult f = r.fields.getMap().get(fieldName).getDescribe();
         String fieldType = String.valueOf(f.getType());
         return fieldType;
-    }
-    
-    public static List<String> getFieldsName_Apex (String selectedObject) {
-        List<String> fieldsList = new List<String>();
-        try{
-            Map<String, Schema.SObjectType> schemaMap = Schema.getGlobalDescribe();
-            Schema.SObjectType leadSchema = schemaMap.get(selectedObject);
-            Map<String, Schema.SObjectField> fieldMap = leadSchema.getDescribe().fields.getMap();
-            //Map<String, Schema.SObjectField> map = Schema.SObjectType.Custom1__c.fields.getMap();
-            for (String fieldName: fieldMap.keySet()) {  
-                String mylabel;
-                if(fieldMap.get(fieldName).getDescribe().isUpdateable() && fieldMap.get(fieldName).getDescribe().isCreateable() && fieldMap.get(fieldName).getDescribe().isAccessible()) {
-                    mylabel = fieldMap.get(fieldName).getDescribe().getName();
-                    system.debug('mylabel-->>>'+mylabel);
-                    if(mylabel != 'Salutation' && mylabel != 'OtherGeocodeAccuracy' && mylabel != 'MailingGeocodeAccuracy') {
-                        fieldsList.add(mylabel);
-                    }
-                }
-            }
-        } Catch (Exception Ex){
-            System.debug('Error is :::::: ' + Ex.getMessage() + ' On Line Number ::::: ' + Ex.getLineNumber());
-        }
-        return fieldsList;
     }
     
     @AuraEnabled

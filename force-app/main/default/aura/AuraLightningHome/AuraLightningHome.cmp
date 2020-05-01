@@ -11,11 +11,6 @@
     <aura:attribute name="isNextDisabled" type="Boolean" default="false" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
-    <!--<ltng:require styles="{!$Resource.AllJq + '/AllJq/css/owl.carousel.min.css'}"
-                  scripts="{!join(',',
-                          $Resource.AllJq + '/AllJq/js/jquery.min.js',
-                          $Resource.AllJq + '/AllJq/js/owl.carousel.js'
-                          )}" afterScriptsLoaded="{!c.doInit}" />-->
     
     
     <aura:if isTrue="{!v.isSpinner}">
@@ -38,19 +33,14 @@
             </div>
         </div>
 		
-        <!--<div class="owl-carousel owl-theme" style="padding:1%;">
-            <aura:iteration var="video" items="{!v.lightningVideoTutorialsList}">
-                <div class="item"><a class="cusHref slds-p-around_xx-small" href="{!video.Video_Url__c}" target="_blank"> {!video.Name} </a></div>
-            </aura:iteration>
-        </div>-->
+
         
         
         <div class="demo-only demo-only--sizing slds-grid slds-wrap slds-float_left slds-p-top_x-large">
             <div class="slds-size_1-of-1 fullWidthAndHeight">
-                <!--<lightning:fileCard fileId="0697F00000VSvW9QAL" description="Sample Description"/>-->
             </div>
         </div>
-        <!--<iframe src="{!$Resource.TriggersAndOrderOfExecution}"></iframe>-->
+        
         
         
         <div class="cusBorderForAll slds-p-bottom_small demo-only demo-only--sizing slds-grid slds-wrap" style="flaot: left; width: 100%;">
@@ -131,39 +121,6 @@
             </div>
         </div>
         
-        
-        <!--<div class="demo-only demo-only-||-sizing slds-grid slds-wrap" style="flaot: left; width: 100%;">
-            <div class="slds-size_1-of-1">
-                <aura:if isTrue="{!v.lightningTutorialsList.length > 0}">
-                    <aura:iteration items="{!v.lightningTutorialsList}" var="tutorial" indexVar="count">
-                        <div class="slds-p-top_medium">
-                            <div class="cusBorderForAll slds-p-around_small">
-                                <div class="demo-only demo-only-||-sizing slds-grid slds-wrap">
-                                    <div class="slds-size_8-of-12">
-                                        <p style="font-family: inherit; color: #000000; font-size: 22px;  text-decoration: none;">
-                                            <b style="cursor: pointer;" id="{!tutorial.Id}" onclick="{! c.viewRecords }"> {!count + 1}. {!tutorial.Name} </b>
-                                        </p>
-                                    </div>
-                                    <div class="slds-size_4-of-12 slds-text-align_right">
-                                        <lightning:button class="slds-m-right_x-small " name="{!tutorial.Id}" label="View" title="Neutral action" onclick="{! c.viewRecord }"/>
-                                        <lightning:buttonIconStateful class="" iconName="utility:like" selected="" name="{!tutorial.Id}" onclick="{! c.handleLikeButtonClick }" alternativeText="Like" />
-                                    </div>
-                                </div>
-                            </div>
-                                <p class="slds-p-around_x-small" style="font-family: inherit; text-align: justify; color: #666; font-size: 16px; font-weight: 400; line-height: 26px;">
-                                    <aura:if isTrue="{!not(empty(tutorial.Description__c))}">
-                                        <lightning:formattedRichText value="{!tutorial.Description__c}" />
-                                        
-                                        <aura:set attribute="else">
-                                            What we think in ​our ​minds will eventually become what we believe. This is why it is so important that we start saying positive things about ourselves many times each and every day. Choose two or three of the statements below and repeat them to yourself throughout the day.
-                                        </aura:set>
-                                    </aura:if>
-                                </p>
-                            </div>
-                    </aura:iteration>
-                </aura:if>
-            </div>
-        </div>-->
         
         
         
