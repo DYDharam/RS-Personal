@@ -3,11 +3,13 @@
 		var sObjectName = c.get('v.sObjectName');
         var recId = c.get('v.recordId');
         //c.set('v.sObjectName', 'Account');
-        h.getSObjectPickListValue_helper(c, e, h);
+        //h.getSObjectPickListValue_helper(c, e, h);
+        
+        
+        h.getAllFields_helper(c, e, h, sObjectName, '');
 	},
-    getSObjectPickListValue_helper : function(c, e, h) {
+    /*getSObjectPickListValue_helper : function(c, e, h) {
         try {
-            c.set('v.isSpinnerRunning', true);
             var action = c.get("c.getSobjectList_Apex");
             action.setCallback(this, function(response){
                 var state = response.getState();
@@ -34,23 +36,21 @@
                 }else{
                     console.log('Something went wrong, Please check with your admin');
                 }
-                c.set('v.isSpinnerRunning', false);
             });
             $A.enqueueAction(action);
         } catch(ex){
             console.log(ex);
-        }
-    },
+        }//
+    },*/
     getAllFields_helper : function(c, e, h, sObjectName, recId) {
         try {
-            c.set('v.isSpinnerRunning', true);
-            var seletedSobjectName = c.get('v.seletedSobjectName');
+            var seletedSobjectName = c.get('v.sObjectName');
             var pageLayoutName = c.get('v.pageLayoutName');
             var action = c.get("c.getAllFields_Apex_Copy"); //getAllFields_Apex
             action.setParams({
                 sObjectName : sObjectName,
                 recordId : recId,
-                pageLayoutName : seletedSobjectName + '-' + seletedSobjectName + ' Layout'
+                pageLayoutName : pageLayoutName // + '-' + 'Account (Support) Layout'
             });
             action.setCallback(this, function(response){
                 var state = response.getState();
@@ -118,7 +118,6 @@
         }
     },*/
     saveRecordJS_helper : function(c, e, h, getAllFieldsList) {
-        c.set('v.isSpinnerRunning', true);
         var newListForInsert = [];
         if(!$A.util.isEmpty(getAllFieldsList.length) && !$A.util.isUndefined(getAllFieldsList.length) && getAllFieldsList.length != 0) {
             var str = '{';
@@ -147,31 +146,26 @@
     },
     saveRecordApex_helper : function(c, e, h, sObjectListAsString) {
         try {
-            //console.log('List Before Insert :::' + JSON.stringify(sObjectListAsString));
-            var sObjectName = c.get('v.seletedSobjectName');
-            var sObjectNameList = 'List<' + sObjectName + '>';
-            var pageLayoutName = c.get('v.pageLayoutName');
+            console.log('List Before Insert :::' + JSON.stringify(sObjectListAsString));
+            var sObjectName = c.get('v.sObjectName');
+            sObjectName = 'List<' + sObjectName + '>';
             var action = c.get("c.saveSobjectRecord_Apex");
             action.setParams({
                 sObjectListAsString : JSON.stringify(sObjectListAsString), //sObjectListAsString
-                typeOfList : sObjectNameList,
-                sObjectName : sObjectName,
-                pageLayoutName : sObjectName + '-' + sObjectName + ' Layout'
+                typeOfList : sObjectName
             });
             action.setCallback(this, function(response){
                 var state = response.getState();
                 if(state === 'SUCCESS'){
                     var resp = response.getReturnValue();
-                    //console.log('List After Insert :::' + JSON.stringify(resp));
+                    console.log('List After Insert :::' + JSON.stringify(resp));
                     if(!$A.util.isEmpty(resp) && resp != undefined) {
-                        c.set('v.getAllFieldsList', []);
-                        c.set('v.getAllFieldsList', resp);
-                        c.set('v.isComponentLoaded', true);
+                        c.set('v.isSpinnerRunning', false);
                         var toastEvent = $A.get("e.force:showToast");
                         toastEvent.setParams({
                             title : 'Success Message',
-                            message: 'Record '+ sObjectListAsString[0].Name + ' created!',
-                            messageTemplate: '',
+                            message: 'Mode is pester ,duration is 5sec and this is normal Message',
+                            messageTemplate: 'Record {0} created! See it {1}!',
                             duration:' 5000',
                             key: 'info_alt',
                             type: 'success',

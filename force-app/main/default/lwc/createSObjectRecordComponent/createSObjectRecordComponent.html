@@ -17,7 +17,151 @@
             </div>
         </span>-->
         <!-- Spinner End -->
-        <h2 class="slds-align_absolute-center">This is the Lightning Web Component...</h2>
+
+        <div class="slds-grid slds-gutters" style="width: 100%;">
+            <div class="slds-col">
+                &nbsp;
+            </div>
+            <div class="slds-col">
+                <lightning-combobox name="sobjectName" label="Select Any Object" value={seletedSobjectName} placeholder="Select Any Object" options={sObjectOptions} onchange={selectSobject} ></lightning-combobox>
+            </div>
+            <div class="slds-col">
+                &nbsp;
+            </div>
+        </div>
+        <!-- Button section -->
+        <div class="slds-grid slds-gutters" style="width: 100%;">
+            <div class="slds-col">
+                &nbsp;
+            </div>
+            <div class="slds-col">
+                <lightning-button label="Create Record" variant="brand" onclick={insertSobjectRecord}></lightning-button>
+            </div>
+            <div class="slds-col">
+                &nbsp;
+            </div>
+        </div>
+        <template for:each={getAllFieldsList} for:item='fields' for:index="index">
+            <!-- Only when the datatype of the field is String-->
+            <template if:true={fields.isString}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type="text" required={fields.isRequiredField} label={fields.fieldLabel} value={fields.fieldValue} onchange={changeValueFunction} ></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Fax-->
+            <template if:true={fields.isFax}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type="text" required={fields.isRequiredField} label={fields.fieldLabel} value={fields.fieldValue} onchange={changeValueFunction} ></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Phone-->
+            <template if:true={fields.isPhone}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type="text" required={fields.isRequiredField} label={fields.fieldLabel} value={fields.fieldValue} onchange={changeValueFunction} ></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Date-->
+            <template if:true={fields.isDate}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type="date" required={fields.isRequiredField} label={fields.fieldLabel} value={fields.fieldValue} onchange={changeValueFunction} ></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Date Time-->
+            <template if:true={fields.isDateTime}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type="datetime" required={fields.isRequiredField} label={fields.fieldLabel} value={fields.fieldValue} onchange={changeValueFunction} ></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Email-->
+            <template if:true={fields.isEmail}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type="text" required={fields.isRequiredField} label={fields.fieldLabel} value={fields.fieldValue} onchange={changeValueFunction} ></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Integer/Number-->
+            <template if:true={fields.isInteger}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type="number" required={fields.isRequiredField} label={fields.fieldLabel} value={fields.fieldValue} onchange={changeValueFunction} ></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Url-->
+            <template if:true={fields.isUrl}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type="url" required={fields.isRequiredField} label={fields.fieldLabel} value={fields.fieldValue} onchange={changeValueFunction} ></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Boolean-->
+            <template if:true={fields.isBoolean}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type=checkbox label={fields.fieldLabel}  required={fields.isRequiredField}  id={fields.fieldValue} onchange={setCheckBoxTrue} ></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is PickList-->
+            <template if:true={fields.isPickList}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-combobox name={fields.fieldLabel} label={fields.fieldLabel} required={fields.isRequiredField} value={fields.fieldValue} placeholder="Select Any Value" options={fields.fieldPickListData} onchange={changeValueFunction} ></lightning-combobox>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Currency-->
+            <template if:true={fields.isCurrency}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type="number" required={fields.isRequiredField} label={fields.fieldLabel} value={fields.fieldValue} formatter="currency" step="0.01" onchange={changeValueFunction} ></lightning-input>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Double-->
+            <!--<template if:true={fields.isDouble}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-input type="number" required={fields.isRequiredField} label={fields.fieldLabel} value={fields.fieldValue} onchange={changeValueFunction} ></lightning-input>
+                    </div>
+                </div>
+            </template>-->
+            <!-- Only when the datatype of the field is Text Area-->
+            <template if:true={fields.isTextArea}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        <lightning-textarea value={fields.fieldValue} required={fields.isRequiredField} label={fields.fieldLabel} onchange={changeValueFunction} ></lightning-textarea>
+                    </div>
+                </div>
+            </template>
+            <!-- Only when the datatype of the field is Lookup-->
+            <template if:true={fields.isReference}>
+                <div key={fields.fieldLabel} class="slds-grid slds-gutters slds-p-horizontal_x-small slds-p-vertical_xx-small " style="width: 100%;">
+                    <div class="slds-col">
+                        
+                        <c:customLookup iconname="standard:account" objectname={fields.lookupfieldType} searchfield="Name"></c:customLookup>
+                        <!--<c:lookupForBulkData objectapiname={fields.lookupfieldType} required={fields.isRequiredField} lookuprecordid="" lookuprecordname="" iconname="custom:custom50" value={fields.fieldValue} selectedrecord={fields.fieldValue} label={fields.fieldLabel} ></c:lookupForBulkData>-->
+                    </div>
+                </div>
+            </template>
+        </template>
+        
+        
+        
+        
+        <!--<h2 class="slds-align_absolute-center">This is the Lightning Web Component...</h2>
         <br />  
         <div class="slds-size_1-of-1">
             <template if:true={isSelectedAccountAvailable}>
@@ -28,7 +172,6 @@
                 </lightning-datatable>
             </div>
 
-            <!-- SLDS Modal Start To Show The Contacts That Is Related To The Selected Accounts -->
             <template if:true={showContactModal}>
                 <div class="demo-only" style="height: 640px;">
                     <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
@@ -56,6 +199,6 @@
                 </div>
             </template>
 
-        </div>
+        </div>-->
     </div>
 </template>

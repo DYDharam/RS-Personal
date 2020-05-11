@@ -4,8 +4,9 @@
 */
 @isTest
 public class Test_CreateSObjectDynamicallyCtrl {
-    
-    /*@testSetup
+    /*
+     * Other Way to cover. Example here. 
+    @testSetup
     static void test_Scenario1(){
         Test.startTest();
         Account accountObject = new Account();
@@ -15,6 +16,14 @@ public class Test_CreateSObjectDynamicallyCtrl {
     }
     
     static TestMethod void test_Scenario2(){
+        Test.startTest();
+        Account accountObject = [Select Id, Name From Account Where Name = 'Test Account - 02' Limit 1];
+        List<CreateSObjectDynamicallyCtrl.wrapperOfSObjectDetails> wrapperOfSObjectList = CreateSObjectDynamicallyCtrl.getAllFields_Apex('Account', accountObject.Id);
+        System.assertNotEquals(wrapperOfSObjectList.size(), 0);
+        Test.stopTest();
+    }*/
+    
+    /*static TestMethod void test_Scenario3(){
         Test.startTest();
         User usr = [Select Id From User Where Id = :UserInfo.getUserId()];
         System.runAs(usr){
@@ -72,6 +81,15 @@ public class Test_CreateSObjectDynamicallyCtrl {
         List<Account> accountList = createAccountRecord(true, 200);
         List<CreateSObjectDynamicallyCtrl.wrapperOfSObjectDetails> wrapperOfSObjectList = CreateSObjectDynamicallyCtrl.getAllFields_Apex_Copy('Account', accountList[0].Id, '');
         System.assertNotEquals(wrapperOfSObjectList.size(), 0);
+        List<CreateSObjectDynamicallyCtrl.wrapperOfSObjectDetails> wrapperOfSObjectList2 = CreateSObjectDynamicallyCtrl.getAllFields_Apex_Copy('Account', accountList[0].Id, 'Account-Account Layout');
+        System.assertNotEquals(wrapperOfSObjectList2.size(), 0);
+        test.stopTest();
+    }
+    @isTest static void Test_getAllFieldsLWC_Apex() {
+        test.startTest();
+        List<Account> accountList = createAccountRecord(true, 200);
+        List<CreateSObjectDynamicallyCtrl.wrapperOfSObjectLWCDetails> wrapperOfSObjectList = CreateSObjectDynamicallyCtrl.getAllFieldsLWC_Apex('Account', accountList[0].Id);
+        System.assertNotEquals(wrapperOfSObjectList.size(), 0);
         test.stopTest();
     }
     @isTest static void Test_saveSobjectRecord_Apex() {
@@ -80,6 +98,5 @@ public class Test_CreateSObjectDynamicallyCtrl {
         List<sObject> objectList = CreateSObjectDynamicallyCtrl.saveSobjectRecord_Apex('[{"Name":"Tstest"}]', 'List<Account>');
         System.assertEquals(objectList.size(), 1);
         test.stopTest();
-    }
-    
+    } 
 }

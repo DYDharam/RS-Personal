@@ -9,8 +9,8 @@
     <aura:attribute name="label" type="string" default=""/>
     <aura:attribute name="Message" type="String" default=""/>
     <aura:attribute name="value" type="String" default=""/>
-    <aura:attribute name="required" type="Boolean" default="false"/>
-    
+    <aura:attribute name="required" type="Boolean" default="false" access="global"/>
+     
     <aura:attribute name="lookupRecordId" type="String" default=""/>
     <aura:attribute name="lookupRecordName" type="String" default=""/>
     

@@ -2,9 +2,9 @@ public class LightningRecordEditFormController {
 
 	@AuraEnabled
 	public static List<LayoutSection> getPageLayoutFields(String ObjectNameLayout) {
-
+		List<CreateSObjectDynamicallyCtrl.wrapperOfSObjectDetails> wrapperDetailsList = new List<CreateSObjectDynamicallyCtrl.wrapperOfSObjectDetails>();
 		List<LayoutSection> lstSections = new List<LayoutSection>();
-
+		List<String> fieldsList = new List<String>();
 		try {
 			// Provide the page layout name here
 			// You can give multiple page layout names here as well
@@ -12,12 +12,11 @@ public class LightningRecordEditFormController {
 			// Retrieve page layout details
 			List<Metadata.Metadata> components = Metadata.Operations.retrieve(Metadata.MetadataType.Layout, componentNameList);
 			Metadata.Layout contLayout = (Metadata.Layout) components.get(0);
-			system.debug('contLayout :: ' + contLayout);
+			//system.debug('contLayout :: ' + contLayout);
 
 			// We are going to find the fields names and will keep them according to columns so
 			// we can show them as per page layout
 			for( Metadata.LayoutSection ls : contLayout.layoutSections ) {
-
 				LayoutSection section = new LayoutSection( ls.label, ls.layoutColumns.size() );
 
 				List<LayoutColumn> lstColumns = new List<LayoutColumn>();
@@ -32,13 +31,14 @@ public class LightningRecordEditFormController {
 							maxFieldsInColumn = lc.layoutItems.size();
 						}
 						for( Metadata.LayoutItem li : lc.layoutItems ) {
-
 							// Pass the LayoutItem object in the LayoutField consturctor
 							column.lstFields.add( new LayoutField( li ) );
 						}
 					}
 					// No need to add a column in the section if there is no field available
 					if( column.lstFields.size() > 0 ) {
+                        //System.debug('column.lstFields:::: ' + column.lstFields);
+
 						lstColumns.add( column );
 					}
 				}
@@ -50,8 +50,11 @@ public class LightningRecordEditFormController {
 						for( Integer j = 0; j < lstColumns.size(); j++ ){
 							if( lstColumns[j].lstFields.size() > i ) {
 								section.lstFields.add( lstColumns[j].lstFields[i] );
+                                //System.debug('column.lstFields:SSSS::: ' + lstColumns[j].lstFields[i]);
+                                fieldsList.add(lstColumns[j].lstFields[i].fieldName);
 							}
 							else {
+                                
 								section.lstFields.add( new LayoutField() );
 							}
 						}
@@ -65,9 +68,29 @@ public class LightningRecordEditFormController {
 		catch( Exception e ){
 			System.debug(e.getLineNumber() + ' : ' + e.getMessage() );
 		}
-		system.debug('lstSections Final :::: ' + lstSections);
+		//system.debug('lstSections Final :::: ' + lstSections);
+        //system.debug('lstSections fieldsList :::: ' + fieldsList.size());
+        for(String str : fieldsList) {
+            //system.debug('str::::::::: ' + str);
+        }
+        //system.debug('lstSections;::: ' + lstSections);
+        for(LayoutSection ls : lstSections) {
+            //System.debug('ls::: ' + ls);
+            List<LayoutField> layoutFieldList = ls.lstFields;
+            for(LayoutField lf : layoutFieldList) {
+                //System.debug('lf::: ' + lf);
+            }
+        }
 		return lstSections;
 	}
+    public class layoutFieldDetailsWrapper {
+        @AuraEnabled
+        public String fieldName {set; get;}
+        @AuraEnabled
+        public Boolean isReadOnly {set; get;}
+        @AuraEnabled
+        public Boolean isRequired {set; get;}
+    }
 
 	public class LayoutSection {
 		@AuraEnabled public String label;

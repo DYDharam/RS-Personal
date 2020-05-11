@@ -1,4 +1,162 @@
-import { LightningElement,api,wire,track } from 'lwc';
+import {LightningElement,api,wire,track} from 'lwc';
+import getSObjectPickList from '@salesforce/apex/CreateSObjectDynamicallyCtrl.getSobjectList_Apex';
+import getAllFieldsList from '@salesforce/apex/CreateSObjectDynamicallyCtrl.getAllFieldsLWC_Apex';
+import saveSobjectRecord from '@salesforce/apex/CreateSObjectDynamicallyCtrl.saveSobjectRecord_Apex';
+
+import { NavigationMixin } from 'lightning/navigation';
+// importing to show toast notifictions
+import {ShowToastEvent} from 'lightning/platformShowToastEvent';
+export default class MyLwcComponent extends NavigationMixin(LightningElement) {
+    @track showLoadingSpinner = true; //Used for the Lightning Spinner.
+    @track seletedSobjectName; //Selected sObject value in picklist.
+    @track sObjectOptions; // This contains list of sObject that is displayed on the picklist.
+    @track getAllFieldsList;
+    
+    @wire(getSObjectPickList)
+    imperativeWiring(result) {
+        getSObjectPickList()
+        .then(result => {
+            this.sObjectOptions = result;
+            this.showLoadingSpinner = false;
+        })
+        .catch(error => {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error!!',
+                message: JSON.stringify(error),
+                variant: 'error'
+            }),);
+            this.showLoadingSpinner = false;
+        })
+    }
+    // After selecting the sObject.
+    selectSobject(event) {
+        this.showLoadingSpinner = true;
+        let sObjectName = event.target.value;
+        this.seletedSobjectName = sObjectName;
+        // Get all fields and their value using the sObject Name.
+        getAllFieldsList({sObjectName : sObjectName, recordId : ''})
+        .then(result => {
+            //console.log('result:::: ' + JSON.stringify(result));
+            this.getAllFieldsList = result;
+            this.showLoadingSpinner = false;
+        })
+        .catch(error => {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error!!',
+                message: JSON.stringify(error),
+                variant: 'error'
+            }),);
+            this.showLoadingSpinner = false;
+        })
+    }
+    // For the checkbox value true/false
+    setCheckBoxTrue(event) {
+        let isCheckbox = event.target.checked;
+        let fieldLabel = event.target.label;
+        let getAllFieldsList = this.getAllFieldsList;
+        if(getAllFieldsList.length > 0 && getAllFieldsList) {
+            for(var i = 0; i < getAllFieldsList.length; i++) {
+                if(getAllFieldsList[i].fieldLabel == fieldLabel && isCheckbox == true) {
+                    getAllFieldsList[i].fieldValue = true;
+                } else if(getAllFieldsList[i].fieldLabel == fieldLabel && isCheckbox == false) {
+                    getAllFieldsList[i].fieldValue = false;
+                }
+            }
+        }
+    }
+    changeValueFunction(event) {
+        let getLabel = event.target.label;
+        let getValue = event.target.value;
+        let getAllFieldsList = this.getAllFieldsList;
+        if(getAllFieldsList.length > 0) {
+            for(var i = 0; i < getAllFieldsList.length; i++) {
+                if(getAllFieldsList[i].fieldLabel == getLabel) {
+                    getAllFieldsList[i].fieldValue = getValue;
+                }
+            }
+        }
+    }
+    // For creating the record here:
+    insertSobjectRecord() {
+        let isError = false;
+        let errorMessage = '';
+        var newListForInsert = [];
+        let getAllFieldsList = this.getAllFieldsList;
+        console.log('getAllFieldsList::::: ' + JSON.stringify(getAllFieldsList));
+        if(getAllFieldsList.length > 0) {
+            for(var i = 0; i < getAllFieldsList.length; i++) {
+                if(getAllFieldsList[i].isRequiredField == true && getAllFieldsList[i].fieldValue === '') {
+                    isError = true;
+                    console.log('Missing Required Fields::::');
+                    errorMessage = 'Required Field Missing : ' + getAllFieldsList[i].fieldLabel;
+                    //h.notification_message(c, e, h, 'Error Message', msg, 'error');
+                    break;
+                }
+            }
+            var strRecordOj = '{';
+            for(var i = 0; i < getAllFieldsList.length; i++) {
+                if(getAllFieldsList[i].fieldType == 'reference' && getAllFieldsList[i].fieldValue.length > 0) {
+                    getAllFieldsList[i].fieldValue = getAllFieldsList[i].fieldValue.Id;
+                }
+                if(getAllFieldsList[i].fieldValue) {
+                    strRecordOj += '"' + getAllFieldsList[i].fieldApiName + '":"' + getAllFieldsList[i].fieldValue + '",';
+                }
+                
+            }
+            if(strRecordOj[strRecordOj.length -1] == ',') {
+                strRecordOj = strRecordOj.slice(0, -1);
+            }
+            strRecordOj += '}';
+            newListForInsert.push(JSON.parse(strRecordOj));
+            
+            if(isError === true) {
+                this.dispatchEvent(new ShowToastEvent({
+                    title: 'Error!!',
+                    message: errorMessage,
+                    variant: 'error'
+                }),);
+            } else {
+                console.log('newListForInsert::::: ' + JSON.stringify(newListForInsert));
+                this.saveRecord_handler(newListForInsert);
+            }
+            
+        }
+    }
+    // For ssaving the record helper method.
+    saveRecord_handler(newListForInsert) {
+        let sObjectListAsString = 'List<' + this.seletedSobjectName + '>';
+        let message = 'Your ' + this.seletedSobjectName + ' record inserted successfully!!';
+        saveSobjectRecord({sObjectListAsString : JSON.stringify(newListForInsert), typeOfList : sObjectListAsString})
+        .then(result => {
+            console.log('result:Inserted::: ' + JSON.stringify(result));
+            this.showLoadingSpinner = false;
+            this.notification_message('Success Message', message, 'success');
+            this.selectSobject(event);
+        })
+        .catch(error => {
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error!! saveRecord_handler',
+                message: JSON.stringify(error),
+                variant: 'error'
+            }),);
+            this.showLoadingSpinner = false;
+        })
+    }
+    // Notification Message success/failure.
+    notification_message(msgHead, message, msgType) {
+        this.dispatchEvent(new ShowToastEvent({
+            title: msgHead,
+            message: message,
+            variant: msgType
+        }),);
+    }
+}
+
+
+
+
+
+/*import { LightningElement,api,wire,track } from 'lwc';
 import getAccountList from '@salesforce/apex/AccountDetailComponentController.getAccountList';
 import delSelectedAccount from '@salesforce/apex/AccountDetailComponentController.deleteContacts';
 import findAllContactsRelatedToAccounts from '@salesforce/apex/AccountDetailComponentController.findAllContactsRelatedToAccounts';
@@ -175,4 +333,4 @@ export default class MyLwcComponent extends NavigationMixin(LightningElement) {
             this.contacts = undefined;
         });
     }
-}
+}*/

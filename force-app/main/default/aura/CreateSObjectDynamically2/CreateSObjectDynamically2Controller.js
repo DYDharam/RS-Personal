@@ -15,17 +15,6 @@
     percentChange : function(c, e, h) {
         var getLabel = e.getSource().get('v.label');
         var getValue = e.getSource().get('v.value');
-        //console.log('getLabel::: ' + getLabel);
-        //console.log('getValue::: ' + getValue);
-        /*var getAllFieldsList = c.get('v.getAllFieldsList');
-        if(!$A.util.isEmpty(getAllFieldsList) && !$A.util.isUndefined(getAllFieldsList)) {
-            for(var i = 0; i < getAllFieldsList.length; i++) {
-                if(getAllFieldsList[i].fieldType == 'percent' && getAllFieldsList[i].fieldLabel == getLabel) {
-                    getAllFieldsList[i].fieldValue = getValue / 100;
-                }
-            }
-            c.set('v.getAllFieldsList', getAllFieldsList);
-        }*/
     },
     setCheckBoxTrue : function(c, e, h) {
         var isCheckBoxTrue = e.target.checked;
@@ -43,6 +32,7 @@
         //h.setCheckBoxTrue_helper(c, e, h);
     },
     saveRecordJS : function(c, e, h) {
+        //c.set('v.isSpinnerRunning', false);
         var getAllFieldsList = c.get('v.getAllFieldsList');
         if(!$A.util.isEmpty(getAllFieldsList) && !$A.util.isUndefined(getAllFieldsList)) {
             for(var i = 0; i < getAllFieldsList.length; i++) {

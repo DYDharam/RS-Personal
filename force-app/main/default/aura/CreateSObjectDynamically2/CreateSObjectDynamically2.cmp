@@ -3,9 +3,9 @@
  Purpose:		To create sObject record Dynamically.
  Blog:			https://auralightning.wordpress.com/
 -->
-<aura:component description="CreateSObjectDynamically" controller="CreateSObjectDynamicallyCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction">
+<aura:component description="CreateSObjectDynamically2" controller="CreateSObjectDynamicallyCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction">
     <aura:attribute name="sObjectName" type="String" default="" />
-    <aura:attribute name="pageLayoutName" type="String" default="Lightning Tutorials Layout" />
+    <aura:attribute name="pageLayoutName" type="String" default="" />
     <aura:attribute name="recordId" type="String" default="" />
     <aura:attribute name="getAllFieldsList" type="list" default="" />
     <aura:attribute name="getAllFieldsName" type="list" />
@@ -13,6 +13,7 @@
     <aura:attribute name="seletedSobjectName" type="String" default="" />
     <aura:attribute name="isSObjectNameLoaded" type="Boolean" default="false" />
     <aura:attribute name="isSpinnerRunning" type="Boolean" default="true" />
+    
     <aura:attribute name="sObjectOptions" type="List" default=""/>
     
     <aura:html tag="style">
@@ -33,12 +34,12 @@
         <aura:if isTrue="{!v.isSpinnerRunning}">
             <lightning:spinner alternativeText="Loading" size="large" />
         </aura:if>
-        <aura:if isTrue="{!v.isSObjectNameLoaded}">
+        <!--<aura:if isTrue="{!v.isSObjectNameLoaded}">
             <lightning:combobox name="progress" label="Object Name" value="{!v.seletedSobjectName}" placeholder="Select Object" options="{!v.sObjectOptions}" onchange="{!c.selectSobject}" />
             <aura:set attribute="else">
                 <lightning:spinner alternativeText="Loading" class="" style="position: static;" />
             </aura:set>
-        </aura:if>
+        </aura:if>-->
         <!--<aura:if  isTrue="{!and(v.isComponentLoaded, v.isSObjectNameLoaded)}" >-->
         <aura:if isTrue="{!v.isComponentLoaded}">
             <lightning:layout horizontalAlign="center" class="slds-m-top_large">
@@ -47,80 +48,84 @@
             <div class="slds-p-around_large">
                 <aura:iteration items="{!v.getAllFieldsList}" var="col" indexVar="indx">
                     <aura:if isTrue="{!col.fieldType == 'string'}" >
-                        <lightning:input class="" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}"/>
+                        <lightning:input class="" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}"/>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'fax'}" >
-                        <lightning:input class="" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}"/>
+                        <lightning:input class="" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}"/>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'phone'}">
-                        <lightning:input class="slds-p-top_x-small" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}"/>
+                        <lightning:input class="slds-p-top_x-small" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}"/>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'date'}">
                         <div style="width:100%;" id="DatefieldType">
-                            <lightning:input class="slds-p-top_x-small" required="{!col.isRequiredField}" type="date"
+                            <lightning:input class="slds-p-top_x-small" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" type="date"
                                              label="{!col.fieldLabel}" value="{!col.fieldValue}"/>
                         </div>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'datetime'}">
                         <div style="width:100%;" id="DatefieldType">
-                            <lightning:input type="datetime" name="input5" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" min="" max="" />
+                            <lightning:input type="datetime" name="input5" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" min="" max="" />
                         </div>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'email'}">
-                        <lightning:input class="slds-p-top_x-small" required="{!col.isRequiredField}" fieldType="email" name="email"
+                        <lightning:input class="slds-p-top_x-small" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" fieldType="email" name="email"
                                          value="{!col.fieldValue}" label="{!col.fieldLabel}"/>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'integer'}">
-                        <lightning:input class="slds-p-top_x-small" required="{!col.isRequiredField}" fieldType="number" value="{!col.fieldValue}"
+                        <lightning:input class="slds-p-top_x-small" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" fieldType="number" value="{!col.fieldValue}"
                                          label="{!col.fieldLabel}"/>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'location'}">
-                        <lightning:inputLocation latitude="{!col.fieldValue}" longitude="{!col.value}" required="{!col.isRequiredField}" fieldType="number" label="{!col.fieldLabel}" />
+                        <lightning:inputLocation disabled="{!col.isReadOnly}" latitude="{!col.fieldValue}" longitude="{!col.value}" required="{!col.isRequiredField}" fieldType="number" label="{!col.fieldLabel}" />
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'percent'}">
-                        <lightning:input type="number" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" formatter="percent" step="0.1" onblur="{!c.percentChange}"  />
+                        <lightning:input type="number" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" formatter="percent" step="0.1" onblur="{!c.percentChange}"  />
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'time'}">
-                        <lightning:input type="time" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" timeZone="{!$Locale.timezone}" />
+                        <lightning:input type="time" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" timeZone="{!$Locale.timezone}" />
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'encryptedstring'}">multipicklist
-                        <lightning:input type="password" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" />
+                        <lightning:input type="password" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" />
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'multipicklist'}">
-                    <lightning:dualListbox name="languages" label= "{!col.fieldLabel}" sourceLabel="Available" selectedLabel="Selected" fieldLevelHelp="Select your preferred languages"
+                    <lightning:dualListbox name="languages" disabled="{!col.isReadOnly}" label= "{!col.fieldLabel}" sourceLabel="Available" selectedLabel="Selected" fieldLevelHelp="Select your preferred languages"
                            options="{!col.dualPickListValues}" value="{!col.fieldValue}" />
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'url'}">
-                        <lightning:input type="url" class="slds-p-top_x-small" required="{!col.isRequiredField}" fieldType="number" value="{!col.fieldValue}"
+                        <lightning:input type="url" class="slds-p-top_x-small" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" fieldType="number" value="{!col.fieldValue}"
                                          label="{!col.fieldLabel}"/>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'boolean'}">
                         <div class="slds-p-top_x-small">
-                            <input type="checkbox" fieldType="checkbox" required="{!col.isRequiredField}" checked="" id="{!col.fieldLabel}" onchange="{!c.setCheckBoxTrue}"/>
+                            <input type="checkbox" fieldType="checkbox" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" checked="" id="{!col.fieldLabel}" onchange="{!c.setCheckBoxTrue}"/>
                             <label class="slds-checkbox__label slds-p-left_x-small" for="{!col.fieldLabel}">
                                 <span class="slds-form-element__label">{!col.fieldLabel}</span>
                             </label>
                         </div>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'picklist'}">
-                        <lightning:combobox class="slds-p-top_x-small" required="{!col.isRequiredField}" value="{!col.fieldValue}" label="{!col.fieldLabel}"
+                        <lightning:combobox class="slds-p-top_x-small" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" value="{!col.fieldValue}" label="{!col.fieldLabel}"
                                             placeholder="Select fieldType" options="{!col.fieldPickListData}"/>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'currency'}">
-                        <lightning:input type="number" name="input7" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" formatter="currency" step="0.01"/>
+                        <lightning:input type="number" name="input7" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" formatter="currency" step="0.01"/>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'double'}">
-                        <lightning:input type="number" name="input7" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" />
+                        <lightning:input type="number" name="input7" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" label="{!col.fieldLabel}" value="{!col.fieldValue}" />
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'textarea'}">
-                        <lightning:textarea class="slds-p-top_x-small" value="{!col.fieldValue}" required="{!col.isRequiredField}"
+                        <lightning:textarea class="slds-p-top_x-small" disabled="{!col.isReadOnly}" value="{!col.fieldValue}" required="{!col.isRequiredField}"
                                             label="{!col.fieldLabel}"/>
                     </aura:if>
                     <aura:if isTrue="{!col.fieldType == 'reference'}">
-                        <c:lookupForBulkData objectAPIName="{!col.lookupfieldType}" required="{!col.isRequiredField}" lookupRecordId="" lookupRecordName="" IconName="custom:custom50" value="{!col.fieldValue}" selectedRecord="{!col.fieldValue}" label="{!col.fieldLabel}"/>
+                        <!--<c:lookupForBulkData objectAPIName="{!col.lookupfieldType}" disabled="{!col.isReadOnly}" required="{!col.isRequiredField}" lookupRecordId="" lookupRecordName="" IconName="custom:custom50" value="{!col.fieldValue}" selectedRecord="{!col.fieldValue}" label="{!col.fieldLabel}"/>-->
                     </aura:if>
                 </aura:iteration>
             </div>
         </aura:if>
+        
+        
+        
+        
     </div>
 </aura:component>
