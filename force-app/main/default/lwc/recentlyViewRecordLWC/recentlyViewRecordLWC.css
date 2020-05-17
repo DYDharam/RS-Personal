@@ -1,0 +1,15 @@
+.cusWid100 {
+    width: 100%;
+    float: left;
+}
+.cusWhiteBgColor {
+    background-color: #ffffff;
+}
+.cusWid10 {
+    width: 10%;
+    float: left;
+}
+.cusWid90 {
+    width: 90%;
+    float: left;
+}

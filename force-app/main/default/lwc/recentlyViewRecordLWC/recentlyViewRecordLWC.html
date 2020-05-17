@@ -1,0 +1,25 @@
+<template>
+    <div class="cusWid100 cusWhiteBgColor">
+        <div class="exampleHolder">
+            <template if:true={isComponentLoaded}>
+                <lightning-spinner alternative-text="Loading" variant="brand" size="large"></lightning-spinner>
+            </template>
+            <template if:false={isComponentLoaded}>
+                <h1 class="slds-p-around_small"> Recently Viewed Records </h1>
+                <template for:each={recentViewRecords} for:item="recentObject">
+                    <div key={recentObject.key} class="cusWid100 slds-p-around_x-small slds-border_top slds-border_right slds-border_bottom slds-border_left">
+                        <div class="cusWid10 slds-p-top_xx-small">
+                            <lightning-icon icon-name={recentObject.iconName} alternative-text={recentObject.sObjectRecord.Type} title={recentObject.sObjectRecord.Type}></lightning-icon>
+                        </div>
+                        <div class="cusWid90">
+                            <div class="slds-p-left_x-small">
+                                <p>{recentObject.objectName}</p>
+                                <a href={recentObject.recordUrl} style="font-weight: bold;">{recentObject.sObjectRecord.Name}</a>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

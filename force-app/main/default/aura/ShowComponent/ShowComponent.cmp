@@ -45,6 +45,9 @@
     <aura:if isTrue="{!v.componentName == 'createSObjectRecordComponent'}">
         <c:createSObjectRecordComponent />
     </aura:if>
+    <aura:if isTrue="{!v.componentName == 'recentlyViewRecordLWC'}">
+        <c:recentlyViewRecordLWC />
+    </aura:if>
     
     
 </aura:component>
